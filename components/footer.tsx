@@ -27,8 +27,8 @@ export default function Footer() {
           </div>
 
           {/* Popular Services */}
-          <div className="space-y-4">
-            <h3 className="text-base font-medium capitalize text-center">Popular Services</h3>
+          <div className="space-y-4 my-[43px]">
+            <h3 className="text-base font-medium capitalize text-left">Popular Services</h3>
             <div className="text-sm font-medium capitalize space-y-1">
               <p>Land Transfer Service</p>
               <p>Apply for Birth Certificate</p>
@@ -40,8 +40,8 @@ export default function Footer() {
           </div>
 
           {/* Help & Support */}
-          <div className="space-y-4">
-            <h3 className="text-base font-medium capitalize text-center">Help & Support</h3>
+          <div className="space-y-4 my-[41px]">
+            <h3 className="text-base font-medium capitalize text-left">Help & Support</h3>
             <div className="text-sm font-medium capitalize space-y-1">
               <p>Frequently Asked Questions (FAQ)</p>
               <p>User Guides & Tutorials</p>

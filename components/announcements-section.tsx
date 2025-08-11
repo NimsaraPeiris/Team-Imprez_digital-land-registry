@@ -35,7 +35,7 @@ export default function AnnouncementsSection() {
           {announcements.map((announcement) => (
             <div
               key={announcement.id}
-              className="bg-white rounded-2xl border border-[#D3D1D1] shadow-lg p-5 h-40 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-blue-100 hover:border-[#00508E] group"
+              className="bg-white rounded-2xl border border-[#D3D1D1] shadow-lg p-5 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-blue-100 hover:border-[#00508E] group h-[186px]"
             >
               {/* Date with icon */}
               <div className="flex items-center gap-2 mb-4">
@@ -57,7 +57,7 @@ export default function AnnouncementsSection() {
 
               {/* Read more link */}
               <div className="mt-auto">
-                <span className="text-xs text-black cursor-pointer hover:text-[#00508E] transition-all duration-300 hover:font-medium hover:underline">
+                <span className="text-xs text-black cursor-pointer hover:text-[#00508E] transition-all duration-300 hover:font-medium hover:underline my-[27px] py-0">
                   Read more
                 </span>
               </div>
