@@ -16,33 +16,33 @@ export default function ServiceDashboard() {
       title: "Land Transfer",
       description:
         "Register the transfer of land ownership from the seller to the buyer with full legal documentation and verification.",
-      iconPath: "/land-transfer-icon.png",
+      iconPath: "/Frame 98.png",
     },
     {
       id: 2,
       title: "Application for a certified copy of a land",
       description:
         "Request an officially certified copy of land records for legal, administrative, or personal reference purposes.",
-      iconPath: "/certified-copy-icon.png",
+      iconPath: "/Frame 98.png",
     },
     {
       id: 3,
       title: "Application for search of land registers",
       description:
         "Conduct a search in the official land registry to verify ownership details, boundaries, and encumbrances.",
-      iconPath: "/search-registers-icon.png",
+      iconPath: "/Frame 98.png",
     },
     {
       id: 4,
       title: "Application for search of land registers",
       description: "Locate and review registered land records to confirm property history and registration details.",
-      iconPath: "/search-registers-icon.png",
+      iconPath: "/Frame 98.png",
     },
     {
       id: 5,
       title: "Application for search duplicate of deeds",
       description: "Request a duplicate copy of a registered deed when the original document has been lost or damaged.",
-      iconPath: "/duplicate-deeds-icon.png",
+      iconPath: "/Frame 98.png",
     },
   ]
 
@@ -95,8 +95,8 @@ export default function ServiceDashboard() {
                   <div className="absolute left-[32px] top-[47px] w-[555px] h-[199px]">
                     {/* Icon */}
                     <div className="w-[34px] h-[34px] bg-white rounded-[4px] border-[0.5px] border-[#4090CE] flex items-center justify-center">
-                      <div className="w-[22px] h-[21px] bg-[#4490CC] rounded flex items-center justify-center">
-                        <img src={service.iconPath || "/placeholder.svg"} alt={service.title} className="w-4 h-4" />
+                      <div className="rounded flex items-center justify-center">
+                        <img src={service.iconPath || "/continue.png"} alt={service.title} className="w-4 h-4" />
                       </div>
                     </div>
 
@@ -134,7 +134,7 @@ export default function ServiceDashboard() {
                   <div className="absolute left-[32px] top-[47px] w-[555px] h-[199px]">
                     {/* Icon */}
                     <div className="w-[34px] h-[34px] bg-white rounded-[4px] border-[0.5px] border-[#4090CE] flex items-center justify-center">
-                      <div className="w-[22px] h-[21px] bg-[#4490CC] rounded flex items-center justify-center">
+                      <div className="rounded flex items-center justify-center">
                         <img src={service.iconPath || "/placeholder.svg"} alt={service.title} className="w-4 h-4" />
                       </div>
                     </div>
@@ -173,7 +173,7 @@ export default function ServiceDashboard() {
                   <div className="absolute left-[32px] top-[47px] w-[555px] h-[199px]">
                     {/* Icon */}
                     <div className="w-[34px] h-[34px] bg-white rounded-[4px] border-[0.5px] border-[#4090CE] flex items-center justify-center">
-                      <div className="w-[22px] h-[21px] bg-[#4490CC] rounded flex items-center justify-center">
+                      <div className="rounded flex items-center justify-center">
                         <img src={service.iconPath || "/placeholder.svg"} alt={service.title} className="w-4 h-4" />
                       </div>
                     </div>

@@ -407,7 +407,7 @@ export default function RegisterPage() {
                     >
                       {isLoading ? "Sending OTP..." : "Continue"}
                       <div className="w-6 h-6 rounded-full flex items-center justify-center">
-                        <img src="/right-arrow-icon.png" alt="Continue arrow" className="w-3 h-3" />
+                        <img src="/continue.png" alt="Continue arrow" className="w-3 h-3" />
                       </div>
                     </button>
                   </div>
