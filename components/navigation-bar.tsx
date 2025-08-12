@@ -12,6 +12,8 @@ export default function NavigationBar() {
   const navItems = ["Home", "Services", "About us", "Contact Us", "News & Events", "FAQ"]
 
   const handleNavigation = (item: string) => {
+    console.log(`Navigation clicked: ${item}, Authenticated: ${isAuthenticated}`) // Added debugging
+
     if (item === "Home") {
       window.scrollTo({ top: 0, behavior: "smooth" })
       return
@@ -21,6 +23,8 @@ export default function NavigationBar() {
       const contactSection = document.querySelector('[data-section="contact"]')
       if (contactSection) {
         contactSection.scrollIntoView({ behavior: "smooth" })
+      } else {
+        console.warn("Contact section not found") // Added error handling
       }
       return
     }
@@ -29,6 +33,8 @@ export default function NavigationBar() {
       const announcementSection = document.querySelector('[data-section="announcements"]')
       if (announcementSection) {
         announcementSection.scrollIntoView({ behavior: "smooth" })
+      } else {
+        console.warn("Announcements section not found") // Added error handling
       }
       return
     }
@@ -37,16 +43,20 @@ export default function NavigationBar() {
       const faqSection = document.querySelector('[data-section="faq"]')
       if (faqSection) {
         faqSection.scrollIntoView({ behavior: "smooth" })
+      } else {
+        console.warn("FAQ section not found") // Added error handling
       }
       return
     }
 
-    // For other navigation items, require authentication
+    // For Services and About us, require authentication
     if (!isAuthenticated) {
+      console.log("User not authenticated, showing login modal") // Added debugging
       setIsLoginModalOpen(true)
       return
     }
 
+    console.log("Navigating to dashboard") // Added debugging
     router.push("/dashboard")
   }
 
@@ -66,7 +76,7 @@ export default function NavigationBar() {
         </div>
       </nav>
 
-      <LoginOverlay isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
+      {isLoginModalOpen && <LoginOverlay isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />}
     </>
   )
 }
