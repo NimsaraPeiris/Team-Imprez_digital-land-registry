@@ -184,7 +184,7 @@ class Services(Base):
     applications = relationship("Application", back_populates="service")
 
     def __repr__(self) -> str:
-        return f"<Service {self.service_code}>")
+        return f"<Service {self.service_code}>"
 
 
 class ApplicationStatus(Base):
