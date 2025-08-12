@@ -3,11 +3,13 @@
 import Image from "next/image"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { useAuth } from "@/contexts/auth-context"
 import LoginOverlay from "./login-overlay"
 
 export default function HeroSection() {
   const [isOverlayOpen, setIsOverlayOpen] = useState(false)
   const router = useRouter()
+  const { isAuthenticated, user } = useAuth()
 
   const handleNewUserClick = () => {
     router.push("/register")
@@ -40,20 +42,28 @@ export default function HeroSection() {
               protect property rights with accuracy and integrity.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button
-                onClick={handleNewUserClick}
-                className="bg-[#4490CC] text-white px-6 py-3 rounded-md font-medium text-lg hover:bg-[#3a7bb8] transition-colors border border-[#4490CC]"
-              >
-                New User
-              </button>
-              <button
-                onClick={() => setIsOverlayOpen(true)}
-                className="bg-transparent text-white px-6 py-3 rounded-md font-medium text-lg hover:bg-white/10 transition-colors border border-white"
-              >
-                Current User
-              </button>
-            </div>
+            {!isAuthenticated && (
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button
+                  onClick={handleNewUserClick}
+                  className="bg-[#4490CC] text-white px-6 py-3 rounded-md font-medium text-lg hover:bg-[#3a7bb8] transition-colors border border-[#4490CC]"
+                >
+                  New User
+                </button>
+                <button
+                  onClick={() => setIsOverlayOpen(true)}
+                  className="bg-transparent text-white px-6 py-3 rounded-md font-medium text-lg hover:bg-white/10 transition-colors border border-white"
+                >
+                  Current User
+                </button>
+              </div>
+            )}
+
+            {isAuthenticated && user && (
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                <p className="text-white text-lg font-medium">Welcome back! You are logged in with ID: {user.id}</p>
+              </div>
+            )}
           </div>
         </div>
       </div>

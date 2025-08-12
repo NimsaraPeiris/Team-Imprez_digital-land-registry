@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { useAuth } from "@/contexts/auth-context"
 import { X, User, Phone, Shield, AlertCircle } from "lucide-react"
 
 interface LoginOverlayProps {
@@ -13,6 +14,7 @@ interface LoginOverlayProps {
 
 export default function LoginOverlay({ isOpen, onClose }: LoginOverlayProps) {
   const router = useRouter()
+  const { login } = useAuth()
   const [otpSent, setOtpSent] = useState(false)
   const [idNumber, setIdNumber] = useState("")
   const [phoneNumber, setPhoneNumber] = useState("")
@@ -168,9 +170,10 @@ export default function LoginOverlay({ isOpen, onClose }: LoginOverlayProps) {
     // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1000))
     setIsLoading(false)
-    // Handle successful login here
-    alert("Login successful!")
-    onClose()
+
+    login({ id: idNumber, phone: phoneNumber })
+    handleClose()
+    router.push("/")
   }
 
   const handleClose = () => {

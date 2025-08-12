@@ -14,7 +14,7 @@ export default function NavigationBar() {
         contactSection.scrollIntoView({ behavior: "smooth" })
       }
     } else {
-      // Navigate to home for other items
+      // Navigate to home page for other items
       router.push("/")
     }
   }
