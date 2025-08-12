@@ -10,9 +10,8 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "v0 App",
-  description: "Created with v0",
-  generator: "v0.dev",
+  title: "Department of Land Registration",
+  description: "Official website for the Department of Land Registration",
 }
 
 export default function RootLayout({
@@ -22,14 +21,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <style>{`
-html {
-  font-family: ${inter.style.fontFamily};
-  --font-sans: ${inter.variable};
-}
-        `}</style>
-      </head>
       <body className={inter.className}>{children}</body>
     </html>
   )

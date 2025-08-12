@@ -35,7 +35,7 @@ export default function FAQSection() {
 
   return (
     <section className="bg-gray-100 py-16">
-      <div className="container mx-auto px-4">
+      <div className="w-full max-w-[1370px] mx-auto px-4 sm:px-6 lg:px-2">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Left side - Header */}
           <div className="space-y-4">
@@ -56,7 +56,7 @@ export default function FAQSection() {
                 className={`relative py-5 ${index !== faqs.length - 1 ? "border-b border-gray-300" : ""}`}
               >
                 <div
-                  className="flex items-center gap-6 cursor-pointer transition-all duration-300 hover:bg-white hover:shadow-sm hover:-mx-4 hover:px-4 hover:py-2 hover:rounded-lg"
+                  className="flex items-center gap-6 cursor-pointer transition-all duration-300"
                   onClick={() => handleClick(index)}
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseLeave={() => setHoveredIndex(null)}

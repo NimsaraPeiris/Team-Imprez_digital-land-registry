@@ -1,109 +1,108 @@
-import { FileText, Home, Building, Copy } from "lucide-react"
+import Image from "next/image"
 
 const services = [
   {
     id: 1,
     title: "Land Transfer",
     description: "Submit new title registration, attach surveys, and pay required fees.",
-    icon: FileText,
+    iconUrl: "/image 12.png",
   },
   {
     id: 2,
     title: "Application for Copy of Land Registers",
     description: "Submit new title registration, attach surveys, and pay required fees.",
-    icon: Copy,
+    iconUrl: "/image 12.png",
   },
   {
     id: 3,
     title: "Register Property",
     description: "Submit new title registration, attach surveys, and pay required fees.",
-    icon: Building,
+    iconUrl:"/image 12.png",
   },
   {
     id: 4,
     title: "Register Property",
     description: "Submit new title registration, attach surveys, and pay required fees.",
-    icon: Home,
+    iconUrl: "/image 12.png",
+  },
+  {
+    id: 5,
+    title: "Register Property",
+    description: "Submit new title registration, attach surveys, and pay required fees.",
+    iconUrl: "/image 12.png",
   },
 ]
 
 export default function ServicesSection() {
   return (
     <section className="bg-white py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-[1370px] mx-auto px-4 sm:px-6 lg:px-2">
         {/* Header */}
-        <div className="mb-12">
-          <div className="flex justify-between items-start">
-            <div className="max-w-lg">
-              <h2 className="text-2xl font-semibold text-black mb-3">Services</h2>
-              <p className="text-xl text-[#00508E] leading-6">
-                Explore our most-requested services and get started online.
-              </p>
-            </div>
-            <div className="text-xl text-black hover:text-[#00508E] transition-colors duration-300 cursor-pointer">
-              View all Services
-            </div>
+        <div className="flex justify-between items-start mb-[75px]">
+          <div className="max-w-[542px]">
+            <h2 className="text-[26px] font-semibold text-black mb-3 leading-[31.2px]">Services</h2>
+            <p className="text-[20px] text-[#00508E] leading-6 font-normal">
+              Explore our most-requested services and get started online.
+            </p>
+          </div>
+          <div className="text-[20px] text-black hover:text-[#00508E] transition-colors duration-300 cursor-pointer leading-6 font-normal">
+            View all Services
           </div>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-[22px]">
           {/* Top row - 3 cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.slice(0, 3).map((service) => {
-              const IconComponent = service.icon
-              return (
-                <div
-                  key={service.id}
-                  className="bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-lg hover:shadow-blue-100 hover:border-[#00508E] hover:scale-105 transition-all duration-300 ease-in-out p-6 h-38 cursor-pointer group"
-                >
-                  <div className="flex flex-col h-full">
-                    {/* Icon */}
-                    <div className="w-9 h-9 bg-[#002E51] group-hover:bg-[#00508E] rounded flex items-center justify-center mb-4 transition-colors duration-300">
-                      <IconComponent className="w-5 h-5 text-white" />
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="text-xl font-normal text-black group-hover:text-[#00508E] mb-2 leading-6 transition-colors duration-300">
-                      {service.title}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="text-sm text-black leading-4 flex-grow">{service.description}</p>
-                  </div>
-                </div>
-              )
-            })}
+          <div className="flex gap-[22px]">
+            {services.slice(0, 3).map((service) => (
+              <div
+                key={service.id}
+                className="w-[442px] h-[152px] bg-white rounded-[11px] border border-[#E2E2E2] shadow-[0px_1px_6px_rgba(0,0,0,0.12)] hover:shadow-lg hover:shadow-blue-100 hover:border-[#ffffff] hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer group relative overflow-hidden"
+              >
+                <div className="absolute left-[21px] top-[17px] w-[35px] h-[44px] bg-[#ffffff] group-hover:bg-[#ffffff] transition-colors duration-300" />
+                <Image
+                  src={service.iconUrl}
+                  alt={service.title}
+                  width={35}
+                  height={35}
+                  className="absolute left-[17px] top-[20px]"
+                />
+                <h3 className="absolute left-6 top-[67px] text-[20px] font-normal text-black group-hover:text-[#00508E] leading-6 transition-colors duration-300">
+                  {service.title}
+                </h3>
+                <p className="absolute left-6 top-[100px] text-[13px] text-black leading-[15.6px] font-normal w-[390px]">
+                  {service.description}
+                </p>
+              </div>
+            ))}
           </div>
 
-          {/* Bottom row - 1 card */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.slice(3, 4).map((service) => {
-              const IconComponent = service.icon
-              return (
-                <div
-                  key={service.id}
-                  className="bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-lg hover:shadow-blue-100 hover:border-[#00508E] hover:scale-105 transition-all duration-300 ease-in-out p-6 h-38 cursor-pointer group"
-                >
-                  <div className="flex flex-col h-full">
-                    {/* Icon */}
-                    <div className="w-9 h-9 bg-[#002E51] group-hover:bg-[#00508E] rounded flex items-center justify-center mb-4 transition-colors duration-300">
-                      <IconComponent className="w-5 h-5 text-white" />
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="text-xl font-normal text-black group-hover:text-[#00508E] mb-2 leading-6 transition-colors duration-300">
-                      {service.title}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="text-sm text-black leading-4 flex-grow">{service.description}</p>
-                  </div>
-                </div>
-              )
-            })}
+          {/* Bottom row - 2 cards */}
+          <div className="flex gap-[22px]">
+            {services.slice(3, 5).map((service) => (
+              <div
+                key={service.id}
+                className="w-[442px] h-[152px] bg-white rounded-[11px] border border-[#E2E2E2] shadow-[0px_1px_6px_rgba(0,0,0,0.12)] hover:shadow-lg hover:shadow-blue-100 hover:border-[#ffffff] hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer group relative overflow-hidden"
+              >
+                <div className="absolute left-[21px] top-[17px] w-[35px] h-[44px] bg-[#ffffff] group-hover:bg-[#ffffff] transition-colors duration-300" />
+                <Image
+                  src={service.iconUrl}
+                  alt={service.title}
+                  width={35}
+                  height={35}
+                  className="absolute left-[17px] top-[20px]"
+                />
+                <h3 className="absolute left-6 top-[67px] text-[20px] font-normal text-black group-hover:text-[#00508E] leading-6 transition-colors duration-300">
+                  {service.title}
+                </h3>
+                <p className="absolute left-6 top-[100px] text-[13px] text-black leading-[15.6px] font-normal w-[390px]">
+                  {service.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
     </section>
   )
 }
+

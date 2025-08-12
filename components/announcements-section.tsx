@@ -18,7 +18,7 @@ export default function AnnouncementsSection() {
 
   return (
     <section className="py-16 px-4 bg-white">
-      <div className="max-w-6xl mx-auto">
+      <div className="w-full max-w-[1370px] mx-auto px-4 sm:px-6 lg:px-2">
         {/* Header */}
         <div className="flex justify-between items-start mb-12">
           <div>
@@ -26,7 +26,7 @@ export default function AnnouncementsSection() {
             <p className="text-xl text-[#00508E]">Latest updates and notices from the Department.</p>
           </div>
           <div className="text-xl text-black hover:text-[#00508E] cursor-pointer transition-all duration-300 hover:scale-105">
-            View all Announcement
+            <span>View all Announcement</span>
           </div>
         </div>
 
