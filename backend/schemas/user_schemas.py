@@ -1,45 +1,39 @@
-from datetime import datetime
+# backend/schemas/user_schemas.py
+from pydantic import BaseModel, EmailStr, constr
 from typing import Optional, List
-from pydantic import BaseModel, EmailStr, constr, Field
-from enum import Enum
+from datetime import datetime
+from .common import VerificationStatusEnum, PaymentStatusEnum
 
-# --- ENUMS ---
-class VerificationStatusEnum(str, Enum):
-    pending = "Pending"
-    verified = "Verified"
-    rejected = "Rejected"
+# ---- Auth ----
+class UserRegisterRequest(BaseModel):
+    full_name: constr(min_length=2)
+    nic_number: constr(min_length=6)
+    email: EmailStr
+    phone_number: Optional[constr(min_length=7)] = None
+    password: constr(min_length=8)
+    address: Optional[str] = None
 
-class PaymentStatusEnum(str, Enum):
-    pending = "Pending"
-    completed = "Completed"
-    failed = "Failed"
-
-# --- AUTH ---
 class UserLoginRequest(BaseModel):
     email: EmailStr
     password: constr(min_length=8)
 
-class UserRegisterRequest(BaseModel):
-    full_name: constr(strip_whitespace=True, min_length=2)
-    nic_number: constr(min_length=10, max_length=12)
-    email: EmailStr
-    phone_number: constr(min_length=10, max_length=15)
-    password: constr(min_length=8)
-    address: Optional[str]
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
 
 class UserResponse(BaseModel):
     user_id: int
     full_name: str
-    email: EmailStr
     nic_number: str
-    phone_number: str
+    email: EmailStr
+    phone_number: Optional[str]
     address: Optional[str]
     created_at: datetime
 
     class Config:
         orm_mode = True
 
-# --- SERVICES ---
+# ---- Services ----
 class ServiceResponse(BaseModel):
     service_id: int
     service_name: str
@@ -49,30 +43,35 @@ class ServiceResponse(BaseModel):
     class Config:
         orm_mode = True
 
-# --- APPLICATIONS ---
+# ---- Applications ----
 class ApplicationCreateRequest(BaseModel):
     service_id: int
-    reference_number: Optional[str]
+    reference_number: Optional[str] = None
+    # application-specific detail objects are created separately (e.g., land transfer)
 
 class ApplicationResponse(BaseModel):
     application_id: int
+    user_id: int
     service_id: int
-    status_id: int
     application_date: datetime
+    status_id: int
+    assigned_officer_id: Optional[int]
     reference_number: Optional[str]
     last_updated_at: datetime
 
     class Config:
         orm_mode = True
 
-# --- DOCUMENTS ---
-class DocumentUploadRequest(BaseModel):
+# ---- Documents ----
+class DocumentCreateRequest(BaseModel):
+    application_id: int
     document_type: str
     file_name: str
-    file_path: str
+    file_path: str  # secure path / signed URL / storage key
 
 class DocumentResponse(BaseModel):
     document_id: int
+    application_id: int
     document_type: str
     file_name: str
     file_path: str
@@ -82,14 +81,16 @@ class DocumentResponse(BaseModel):
     class Config:
         orm_mode = True
 
-# --- PAYMENTS ---
+# ---- Payments ----
 class PaymentCreateRequest(BaseModel):
+    application_id: int
     amount: float
     payment_method: str
-    transaction_reference: Optional[str]
+    transaction_reference: Optional[str] = None
 
 class PaymentResponse(BaseModel):
     payment_id: int
+    application_id: int
     amount: float
     payment_date: datetime
     payment_method: str
