@@ -6,7 +6,6 @@ Production-ready starting point for Land Registry Office backend models + async 
 - FastAPI dependency for AsyncSession
 - Minimal security utilities (password hashing)
 
-Save as: `lro_backend_models.py` inside your backend package (e.g., app/db/models.py)
 """
 from __future__ import annotations
 from datetime import datetime
