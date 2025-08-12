@@ -145,8 +145,8 @@ export default function RegisterPage() {
                   className="px-5 py-3 bg-[#002E51] text-white rounded-lg text-base font-medium hover:bg-[#001a2e] transition-colors flex items-center gap-3"
                 >
                   Continue
-                  <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
-                    <img src="/right-arrow-icon.png" alt="Continue arrow" className="w-3 h-3" />
+                  <div className="w-6 h-6 rounded-full flex items-center justify-center">
+                    <img src="/continue.png" alt="Continue arrow" className="w-3 h-3" />
                   </div>
                 </button>
               </div>
