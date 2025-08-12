@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { useAuth } from "@/contexts/auth-context"
 import GovernmentHeader from "@/components/government-header"
 import NavigationBar from "@/components/navigation-bar"
 import ContactSection from "@/components/contact-section"
@@ -10,6 +11,7 @@ import { ChevronDown, AlertCircle } from "lucide-react"
 
 export default function RegisterPage() {
   const router = useRouter()
+  const { login } = useAuth()
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -230,9 +232,15 @@ export default function RegisterPage() {
     // Simulate OTP verification
     setTimeout(() => {
       setIsLoading(false)
-      // Navigate to success page or next step
-      console.log("Registration completed successfully")
-      alert("Registration completed successfully!")
+      login({
+        id: formData.id,
+        phone: formData.phone,
+        name: formData.fullName,
+        email: formData.email,
+        requesterType: formData.requesterType,
+        registrationOffice: formData.registrationOffice,
+      })
+      router.push("/dashboard")
     }, 2000)
   }
 
@@ -261,6 +269,7 @@ export default function RegisterPage() {
                 </div>
 
                 <form className="space-y-6">
+                  {/* ... existing form fields ... */}
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-14">
                     <div className="space-y-2">
                       <label className="block text-black text-sm font-semibold">Full Name</label>
@@ -398,7 +407,7 @@ export default function RegisterPage() {
                     >
                       {isLoading ? "Sending OTP..." : "Continue"}
                       <div className="w-6 h-6 rounded-full flex items-center justify-center">
-                        <img src="/continue.png" alt="Continue arrow" className="w-3 h-3" />
+                        <img src="/right-arrow-icon.png" alt="Continue arrow" className="w-3 h-3" />
                       </div>
                     </button>
                   </div>
@@ -408,7 +417,9 @@ export default function RegisterPage() {
               <>
                 <div className="mb-8">
                   <h1 className="text-xl font-extrabold text-black leading-6 text-center">Verify Your Phone Number</h1>
-                  <p className="text-gray-600 mt-2 text-center">We've sent a 6-digit verification code to {formData.phone}</p>
+                  <p className="text-gray-600 mt-2 text-center">
+                    We've sent a 6-digit verification code to {formData.phone}
+                  </p>
                 </div>
 
                 <div className="max-w-md mx-auto">

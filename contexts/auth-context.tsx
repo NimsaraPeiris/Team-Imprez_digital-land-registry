@@ -2,10 +2,19 @@
 
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
 
+interface User {
+  id: string
+  phone: string
+  name?: string
+  email?: string
+  requesterType?: string
+  registrationOffice?: string
+}
+
 interface AuthContextType {
   isAuthenticated: boolean
-  user: { id: string; phone: string } | null
-  login: (userData: { id: string; phone: string }) => void
+  user: User | null
+  login: (userData: User) => void
   logout: () => void
 }
 
@@ -13,7 +22,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [user, setUser] = useState<{ id: string; phone: string } | null>(null)
+  const [user, setUser] = useState<User | null>(null)
 
   // Check for existing authentication on mount
   useEffect(() => {
@@ -25,7 +34,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
-  const login = (userData: { id: string; phone: string }) => {
+  const login = (userData: User) => {
     setIsAuthenticated(true)
     setUser(userData)
     // Persist authentication state

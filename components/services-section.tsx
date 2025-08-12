@@ -1,4 +1,10 @@
+"use client"
+
 import Image from "next/image"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { useAuth } from "../contexts/auth-context"
+import LoginOverlay from "./login-overlay"
 
 const services = [
   {
@@ -6,34 +12,53 @@ const services = [
     title: "Land Transfer",
     description: "Submit new title registration, attach surveys, and pay required fees.",
     iconUrl: "/image 12.png",
+    slug: "land-transfer",
   },
   {
     id: 2,
     title: "Application for Copy of Land Registers",
     description: "Submit new title registration, attach surveys, and pay required fees.",
     iconUrl: "/image 12.png",
+    slug: "copy-land-registers",
   },
   {
     id: 3,
     title: "Register Property",
     description: "Submit new title registration, attach surveys, and pay required fees.",
-    iconUrl:"/image 12.png",
+    iconUrl: "/image 12.png",
+    slug: "register-property",
   },
   {
     id: 4,
     title: "Register Property",
     description: "Submit new title registration, attach surveys, and pay required fees.",
     iconUrl: "/image 12.png",
+    slug: "register-property-2",
   },
   {
     id: 5,
     title: "Register Property",
     description: "Submit new title registration, attach surveys, and pay required fees.",
     iconUrl: "/image 12.png",
+    slug: "register-property-3",
   },
 ]
 
 export default function ServicesSection() {
+  const [isLoginOpen, setIsLoginOpen] = useState(false)
+  const { isAuthenticated } = useAuth()
+  const router = useRouter()
+
+  const handleServiceClick = (service: (typeof services)[0]) => {
+    if (isAuthenticated) {
+      // Navigate to individual service page if authenticated
+      router.push(`/services/${service.slug}`)
+    } else {
+      // Show login overlay if not authenticated
+      setIsLoginOpen(true)
+    }
+  }
+
   return (
     <section className="bg-white py-16">
       <div className="w-full max-w-[1370px] mx-auto px-4 sm:px-6 lg:px-2">
@@ -56,11 +81,12 @@ export default function ServicesSection() {
             {services.slice(0, 3).map((service) => (
               <div
                 key={service.id}
+                onClick={() => handleServiceClick(service)}
                 className="w-[442px] h-[152px] bg-white rounded-[11px] border border-[#E2E2E2] shadow-[0px_1px_6px_rgba(0,0,0,0.12)] hover:shadow-lg hover:shadow-blue-100 hover:border-[#ffffff] hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer group relative overflow-hidden"
               >
                 <div className="absolute left-[21px] top-[17px] w-[35px] h-[44px] bg-[#ffffff] group-hover:bg-[#ffffff] transition-colors duration-300" />
                 <Image
-                  src={service.iconUrl}
+                  src={service.iconUrl || "/placeholder.svg"}
                   alt={service.title}
                   width={35}
                   height={35}
@@ -81,11 +107,12 @@ export default function ServicesSection() {
             {services.slice(3, 5).map((service) => (
               <div
                 key={service.id}
+                onClick={() => handleServiceClick(service)}
                 className="w-[442px] h-[152px] bg-white rounded-[11px] border border-[#E2E2E2] shadow-[0px_1px_6px_rgba(0,0,0,0.12)] hover:shadow-lg hover:shadow-blue-100 hover:border-[#ffffff] hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer group relative overflow-hidden"
               >
                 <div className="absolute left-[21px] top-[17px] w-[35px] h-[44px] bg-[#ffffff] group-hover:bg-[#ffffff] transition-colors duration-300" />
                 <Image
-                  src={service.iconUrl}
+                  src={service.iconUrl || "/placeholder.svg"}
                   alt={service.title}
                   width={35}
                   height={35}
@@ -101,6 +128,8 @@ export default function ServicesSection() {
             ))}
           </div>
         </div>
+
+        <LoginOverlay isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
       </div>
     </section>
   )

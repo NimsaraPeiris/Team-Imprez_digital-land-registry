@@ -17,9 +17,9 @@ export default function AnnouncementsSection() {
   ]
 
   return (
-    <section className="py-16 px-4 bg-white">
+    <section className="py-16 px-4 bg-white" data-section="announcements">
+      {/* Header */}
       <div className="w-full max-w-[1370px] mx-auto px-4 sm:px-6 lg:px-2">
-        {/* Header */}
         <div className="flex justify-between items-start mb-12">
           <div>
             <h2 className="text-2xl font-semibold text-black mb-3">Announcements</h2>

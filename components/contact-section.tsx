@@ -2,7 +2,7 @@ import { Phone, Mail, Calendar, MapPin } from "lucide-react"
 
 export default function ContactSection() {
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 bg-white" data-section="contact">
       <div className="w-full max-w-[1370px] mx-auto px-4 sm:px-6 lg:px-2">
         <div className="flex flex-col lg:flex-row gap-8 items-center">
           {/* Left side - Contact Information */}

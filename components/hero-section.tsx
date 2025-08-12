@@ -9,10 +9,14 @@ import LoginOverlay from "./login-overlay"
 export default function HeroSection() {
   const [isOverlayOpen, setIsOverlayOpen] = useState(false)
   const router = useRouter()
-  const { isAuthenticated, user } = useAuth()
+  const { isAuthenticated, user, logout } = useAuth()
 
   const handleNewUserClick = () => {
     router.push("/register")
+  }
+
+  const handleSignOut = () => {
+    logout()
   }
 
   return (
@@ -61,7 +65,15 @@ export default function HeroSection() {
 
             {isAuthenticated && user && (
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                <p className="text-white text-lg font-medium">Welcome back! You are logged in with ID: {user.id}</p>
+                <div className="flex items-center justify-between">
+                  <p className="text-white text-lg font-medium">Welcome back! You are logged in with ID: {user.id}</p>
+                  <button
+                    onClick={handleSignOut}
+                    className="bg-red-600 text-white px-4 py-2 rounded-md font-medium text-sm hover:bg-red-700 transition-colors"
+                  >
+                    Sign Out
+                  </button>
+                </div>
               </div>
             )}
           </div>

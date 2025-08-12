@@ -34,7 +34,7 @@ export default function FAQSection() {
   }
 
   return (
-    <section className="bg-gray-100 py-16">
+    <section className="bg-gray-100 py-16" data-section="faq">
       <div className="w-full max-w-[1370px] mx-auto px-4 sm:px-6 lg:px-2">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Left side - Header */}
