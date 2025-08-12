@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { X, User, Phone, Shield, AlertCircle } from "lucide-react"
 
 interface LoginOverlayProps {
@@ -11,6 +12,7 @@ interface LoginOverlayProps {
 }
 
 export default function LoginOverlay({ isOpen, onClose }: LoginOverlayProps) {
+  const router = useRouter()
   const [otpSent, setOtpSent] = useState(false)
   const [idNumber, setIdNumber] = useState("")
   const [phoneNumber, setPhoneNumber] = useState("")
@@ -182,6 +184,11 @@ export default function LoginOverlay({ isOpen, onClose }: LoginOverlayProps) {
     onClose()
   }
 
+  const handleNewUser = () => {
+    onClose() // Close the overlay first
+    router.push("/register") // Navigate to registration page
+  }
+
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-lg p-6 w-full max-w-md relative max-h-[90vh] overflow-y-auto">
@@ -259,6 +266,7 @@ export default function LoginOverlay({ isOpen, onClose }: LoginOverlayProps) {
               </button>
               <button
                 type="button"
+                onClick={handleNewUser}
                 className="flex-1 bg-gray-100 text-gray-700 py-3 rounded-md font-medium hover:bg-gray-200 transition-colors"
               >
                 New User
