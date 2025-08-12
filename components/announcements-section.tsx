@@ -35,7 +35,7 @@ export default function AnnouncementsSection() {
           {announcements.map((announcement) => (
             <div
               key={announcement.id}
-              className="bg-white rounded-2xl border border-[#D3D1D1] shadow-lg p-5 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-blue-100 hover:border-[#00508E] group h-[186px]"
+              className="bg-white rounded-2xl border border-[#D3D1D1] shadow-lg p-5 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-blue-100 hover:border-[#ffffff] group h-[186px]"
             >
               {/* Date with icon */}
               <div className="flex items-center gap-2 mb-4">
