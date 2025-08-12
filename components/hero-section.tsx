@@ -2,10 +2,16 @@
 
 import Image from "next/image"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import LoginOverlay from "./login-overlay"
 
 export default function HeroSection() {
   const [isOverlayOpen, setIsOverlayOpen] = useState(false)
+  const router = useRouter()
+
+  const handleNewUserClick = () => {
+    router.push("/register")
+  }
 
   return (
     <section className="relative bg-[#003761] overflow-hidden">
@@ -35,7 +41,10 @@ export default function HeroSection() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-[#4490CC] text-white px-6 py-3 rounded-md font-medium text-lg hover:bg-[#3a7bb8] transition-colors border border-[#4490CC]">
+              <button
+                onClick={handleNewUserClick}
+                className="bg-[#4490CC] text-white px-6 py-3 rounded-md font-medium text-lg hover:bg-[#3a7bb8] transition-colors border border-[#4490CC]"
+              >
                 New User
               </button>
               <button
