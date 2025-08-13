@@ -1,4 +1,4 @@
-import type React from "react"
+import React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { AuthProvider } from "@/contexts/auth-context"
@@ -14,7 +14,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Department of Land Registration",
   description: "Official website for the Department of Land Registration",
-    generator: 'v0.app'
+  generator: 'v0.app'
 }
 
 export default function RootLayout({
@@ -26,7 +26,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <TranslationProvider>
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
         </TranslationProvider>
       </body>
     </html>
