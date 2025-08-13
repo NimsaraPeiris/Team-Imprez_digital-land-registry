@@ -29,7 +29,7 @@ export default function ProcessSection() {
   ]
 
   return (
-    <section className="bg-[#F4FAFF] py-16">
+    <section className="bg-[#F4FAFF] py-16" data-section="about">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-[32px] font-bold text-black leading-[38.4px] mb-4">How it works</h2>

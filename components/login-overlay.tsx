@@ -173,7 +173,7 @@ export default function LoginOverlay({ isOpen, onClose }: LoginOverlayProps) {
 
     login({ id: idNumber, phone: phoneNumber })
     handleClose()
-    router.push("/")
+    router.push("/dashboard")
   }
 
   const handleClose = () => {

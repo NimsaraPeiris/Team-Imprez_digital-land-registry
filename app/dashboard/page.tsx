@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/contexts/auth-context"
 import GovernmentHeader from "@/components/government-header"
-import NavigationBar from "@/components/navigation-bar"
+import DashboardNavigationBar from "@/components/dashboard-navigation-bar"
 import ContactSection from "@/components/contact-section"
 import Footer from "@/components/footer"
 import { Plus } from "lucide-react"
@@ -57,12 +57,12 @@ export default function ServiceDashboard() {
       {/* Sticky header and navigation */}
       <div className="sticky top-0 z-50">
         <GovernmentHeader />
-        <NavigationBar />
+        <DashboardNavigationBar />
       </div>
 
       {/* Dashboard content */}
       <main className="py-16 px-[75px]">
-        <div className="w-[1291px] h-[212px] bg-[#102A3D] rounded-[9px] mb-[111px] relative">
+        <div className="w-[1291px] h-[212px] bg-[#102A3D] rounded-[9px] mb-[111px] relative" data-section="home">
           <div className="absolute left-[23px] top-[43px] text-white text-[35px] font-bold leading-[42px]">
             Welcome, {user?.name || "User"}
           </div>
@@ -79,7 +79,7 @@ export default function ServiceDashboard() {
           </div>
         </div>
 
-        <div className="mb-[21px]">
+        <div className="mb-[21px]" data-section="services">
           <h2 className="text-black text-[23px] font-medium leading-[27.6px]">Available Services</h2>
         </div>
 

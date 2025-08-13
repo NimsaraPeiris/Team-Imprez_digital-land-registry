@@ -1,5 +1,5 @@
 import GovernmentHeader from "@/components/government-header"
-import NavigationBar from "@/components/navigation-bar"
+import HomeNavigationBar from "@/components/home-navigation-bar"
 import HeroSection from "@/components/hero-section"
 import ServicesSection from "@/components/services-section"
 import ProcessSection from "@/components/process-section"
@@ -14,7 +14,7 @@ const Page = () => {
     <div>
       <div className="sticky top-0 z-50">
         <GovernmentHeader />
-        <NavigationBar />
+        <HomeNavigationBar />
       </div>
       <div className="relative">
         <HeroSection />

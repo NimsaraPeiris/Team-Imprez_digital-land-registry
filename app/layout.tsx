@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { AuthProvider } from "@/contexts/auth-context"
+import { TranslationProvider } from "@/contexts/translation-context"
 import "./globals.css"
 
 const inter = Inter({
@@ -24,7 +25,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProvider>{children}</AuthProvider>
+        <TranslationProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </TranslationProvider>
       </body>
     </html>
   )

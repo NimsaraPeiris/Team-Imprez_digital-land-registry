@@ -60,7 +60,7 @@ export default function ServicesSection() {
   }
 
   return (
-    <section className="bg-white py-16">
+    <section className="bg-white py-16" data-section="services">
       <div className="w-full max-w-[1370px] mx-auto px-4 sm:px-6 lg:px-2">
         {/* Header */}
         <div className="flex justify-between items-start mb-[75px]">
