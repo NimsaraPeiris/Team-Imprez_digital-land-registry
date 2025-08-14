@@ -14,6 +14,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Department of Land Registration",
   description: "Official website for the Department of Land Registration",
+    generator: 'v0.app'
 }
 
 export default function RootLayout({
