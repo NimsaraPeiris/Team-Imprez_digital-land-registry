@@ -6,12 +6,8 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from routers.user import auth as user_auth
-from routers.user import applications as user_apps
-from routers.user import payments as user_payments
-from routers.user import documents as user_documents
-from routers.admin import applications as admin_apps
-from routers.admin import documents as admin_documents
+# Import endpoint modules (each exposes `router` object)
+from api.v1.endpoints import user_auth, user_applications, user_payments, user_documents, admin_applications, admin_documents
 
 # Make sure PYTHONPATH includes backend; or run from project root so imports resolve.
 app = FastAPI(
@@ -28,20 +24,25 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# include routers
-app.include_router(user_auth.router, prefix="/api")
-app.include_router(user_apps.router, prefix="/api")
-app.include_router(user_payments.router, prefix="/api")
-app.include_router(user_documents.router, prefix="/api")
+# include routers (each name here is an APIRouter exported by api.v1.endpoints)
+app.include_router(user_auth, prefix="/api")
+app.include_router(user_applications, prefix="/api")
+app.include_router(user_payments, prefix="/api")
+app.include_router(user_documents, prefix="/api")
 
-app.include_router(admin_apps.router, prefix="/api")
-app.include_router(admin_documents.router, prefix="/api")
+app.include_router(admin_applications, prefix="/api")
+app.include_router(admin_documents, prefix="/api")
 
 # Optional startup event
-# @app.on_event("startup")
-# async def startup():
-#     from db.lro_backend_models import engine
-#     # Optionally test DB connection here
+@app.on_event("startup")
+async def startup():
+    # Optionally test DB connection here
+    from database.session import engine
+    try:
+        async with engine.connect() as conn:
+            await conn.execute("SELECT 1")
+    except Exception:
+        pass
 
 if __name__ == "__main__":
     uvicorn.run(

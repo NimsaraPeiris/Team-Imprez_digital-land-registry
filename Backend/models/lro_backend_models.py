@@ -1,18 +1,7 @@
+# Moved and adapted from db/lro_backend_models.py
 from __future__ import annotations
 
-"""
-Production-ready starting point for Land Registry Office backend models + async DB setup.
-- SQLAlchemy 2.0-style ORM with asyncio
-- PostgreSQL-native enums
-- Relationships, constraints, indexes
-- FastAPI dependency for AsyncSession
-- Minimal security utilities (password hashing)
-
-"""
 import os
-import dotenv
-dotenv.load_dotenv()
-
 from datetime import datetime
 from enum import Enum
 from typing import Optional, List
@@ -30,54 +19,20 @@ from sqlalchemy import (
     func,
     Index,
     UniqueConstraint,
+    CheckConstraint,
+    text as sa_text,
 )
 from sqlalchemy.orm import (
     declarative_base,
     relationship,
 )
-from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine, AsyncSession
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy import String, CheckConstraint
+from sqlalchemy.ext.asyncio import AsyncSession
 
-
-# Security
 from passlib.context import CryptContext
 
-# -----------------------------
-# Configuration (edit per env)
-# -----------------------------
-DATABASE_URL_ASYNC = os.getenv("DATABASE_URL_ASYNC", "postgresql+asyncpg://user:password@localhost:5432/lro_db")
+from database.session import engine
 
-# -----------------------------
-# SQLAlchemy / Async Session
-# -----------------------------
-engine: AsyncEngine = create_async_engine(
-    DATABASE_URL_ASYNC,
-    future=True,
-    echo=False,  # set True for debugging
-)
-
-AsyncSessionLocal = sessionmaker(
-    bind=engine,
-    class_=AsyncSession,
-    expire_on_commit=False,
-    autoflush=False,
-    future=True,
-)
-
-Base = declarative_base()
-
-# -----------------------------
-# Utility: FastAPI dependency
-# -----------------------------
-async def get_db() -> AsyncSession:
-    """Dependency to provide an AsyncSession to FastAPI routes."""
-    async with AsyncSessionLocal() as session:
-        yield session
-
-# -----------------------------
-# Security utilities (password hashing)
-# -----------------------------
+# Security utilities
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def hash_password(plain: str) -> str:
@@ -86,9 +41,7 @@ def hash_password(plain: str) -> str:
 def verify_password(plain: str, hashed: str) -> bool:
     return pwd_context.verify(plain, hashed)
 
-# -----------------------------
-# Enums (Postgres native)
-# -----------------------------
+# Enums
 class UserTypeEnum(str, Enum):
     CITIZEN = "citizen"
     LRO_OFFICER = "officer"
@@ -105,9 +58,9 @@ class PaymentStatusEnum(str, Enum):
     FAILED = "Failed"
     REFUNDED = "Refunded"
 
-# -----------------------------
-# Models
-# -----------------------------
+Base = declarative_base()
+
+# Models (full content)
 class User(Base):
     __tablename__ = "users"
     __table_args__ = (
@@ -129,7 +82,6 @@ class User(Base):
     is_active = Column("is_active", Boolean, nullable=False, server_default="true")
     failed_login_attempts = Column("failed_login_attempts", Integer, nullable=False, server_default="0")
 
-    # relationships
     applications = relationship("Application", back_populates="user", cascade="all, delete-orphan")
     officer_profile = relationship("LROOfficer", back_populates="user", uselist=False)
 
@@ -168,7 +120,6 @@ class LROOfficer(Base):
     assigned_office_id = Column("assigned_office_id", Integer, ForeignKey("offices.office_id", ondelete="SET NULL"), nullable=True)
     role = Column("role", String(128), nullable=True)
 
-    # relationships
     user = relationship("User", back_populates="officer_profile")
     office = relationship("Offices", back_populates="officers")
     applications_assigned = relationship("Application", back_populates="assigned_officer")
@@ -218,7 +169,6 @@ class Application(Base):
     reference_number = Column("reference_number", String(128), nullable=False)
     last_updated_at = Column("last_updated_at", DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)
 
-    # relationships
     user = relationship("User", back_populates="applications")
     service = relationship("Services", back_populates="applications")
     status = relationship("ApplicationStatus", back_populates="applications")
@@ -228,7 +178,6 @@ class Application(Base):
     uploaded_documents = relationship("UploadedDocuments", back_populates="application", cascade="all, delete-orphan")
     logs = relationship("ApplicationLog", back_populates="application", cascade="all, delete-orphan")
 
-    # polymorphic one-to-one details
     land_transfer = relationship("AppLandTransfer", back_populates="application", uselist=False, cascade="all, delete-orphan")
     search_duplicate = relationship("AppSearchDuplicateDeeds", back_populates="application", uselist=False, cascade="all, delete-orphan")
     copy_register = relationship("AppCopyOfLandRegisters", back_populates="application", uselist=False, cascade="all, delete-orphan")
@@ -352,28 +301,15 @@ class AppCopyOfDocument(Base):
     application = relationship("Application", back_populates="copy_document")
 
 
-# -----------------------------
 # Helper: Create all tables (for small dev/test use only)
-# In production use Alembic for migrations
-# -----------------------------     
-# async def create_all_tables():
-#     async with engine.begin() as conn:
-#         # Explicitly create enums before tables
-#         await conn.run_sync(Base.metadata.create_all, {'checkfirst': True, 'tables': [UserTypeEnum.__table__]})
-#         await conn.run_sync(Base.metadata.create_all)
-#     from .seed_data import seed_initial_data
-#     from sqlalchemy.ext.asyncio import AsyncSession
-#     async with AsyncSession(engine) as session:
-#         await seed_initial_data(session)
-
 from sqlalchemy import text
 
 async def create_all_tables():
     async with engine.begin() as conn:
         # Drop enums if they already exist (safe for tests/dev only)
-        await conn.execute(text("DROP TYPE IF EXISTS user_type_enum CASCADE;"))
-        await conn.execute(text("DROP TYPE IF EXISTS verification_status_enum CASCADE;"))
-        await conn.execute(text("DROP TYPE IF EXISTS payment_status_enum CASCADE;"))
+        await conn.execute(sa_text("DROP TYPE IF EXISTS user_type_enum CASCADE;"))
+        await conn.execute(sa_text("DROP TYPE IF EXISTS verification_status_enum CASCADE;"))
+        await conn.execute(sa_text("DROP TYPE IF EXISTS payment_status_enum CASCADE;"))
 
         # Create enums with exact names and values used by models
         await conn.execute(text("CREATE TYPE user_type_enum AS ENUM ('citizen', 'officer', 'admin');"))
@@ -382,18 +318,12 @@ async def create_all_tables():
 
         # Now create tables
         await conn.run_sync(Base.metadata.create_all)
-    from .seed_data import seed_initial_data
+    try:
+        # Prefer new seed_data location under models
+        from .seed_data import seed_initial_data
+    except Exception:
+        seed_initial_data = None
     from sqlalchemy.ext.asyncio import AsyncSession
-    async with AsyncSession(engine) as session:
-        await seed_initial_data(session)
-
-
-# -----------------------------
-# Notes for integration
-# -----------------------------
-# - Use Alembic with SQLAlchemy 2.0 async support. Configure env.py to use async engine for migrations.
-# - Store DATABASE_URL in environment variables; do not commit credentials.
-# - File storage: do not store documents on database. Save to secure object store and keep only safe path/metadata here.
-# - Encrypt highly sensitive fields (NIC) at application level if required by policy.
-# - Consider Row Level Security (RLS) for cross-office access control.
-
+    if seed_initial_data:
+        async with AsyncSession(engine) as session:
+            await seed_initial_data(session)

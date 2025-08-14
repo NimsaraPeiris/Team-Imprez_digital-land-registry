@@ -1,6 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from .lro_backend_models import ApplicationStatus, Services
+from models.lro_backend_models import ApplicationStatus, Services
 
 async def seed_initial_data(session: AsyncSession):
     # Check if data already exists before inserting
