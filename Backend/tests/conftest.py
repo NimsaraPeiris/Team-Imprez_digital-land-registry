@@ -1,6 +1,6 @@
 import pytest
 import asyncio
-from app.db.session import async_engine, Base
+from db.session import async_engine, Base
 
 @pytest.fixture(scope="session", autouse=True)
 def setup_test_db():
