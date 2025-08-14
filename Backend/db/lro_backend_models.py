@@ -7,6 +7,10 @@ Production-ready starting point for Land Registry Office backend models + async 
 - Minimal security utilities (password hashing)
 
 """
+import os
+import dotenv
+dotenv.load_dotenv()
+
 from __future__ import annotations
 from datetime import datetime
 from enum import Enum
@@ -39,9 +43,7 @@ from passlib.context import CryptContext
 # -----------------------------
 # Configuration (edit per env)
 # -----------------------------
-DATABASE_URL_ASYNC = (
-    "postgresql+asyncpg://user:password@localhost:5432/lro_db"  # change in production
-)
+DATABASE_URL_ASYNC = os.getenv("DATABASE_URL_ASYNC", "postgresql+asyncpg://user:password@localhost:5432/lro_db")
 
 # -----------------------------
 # SQLAlchemy / Async Session
