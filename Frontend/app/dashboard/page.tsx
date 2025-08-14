@@ -57,6 +57,14 @@ export default function ServiceDashboard() {
   const handleServiceClick = (serviceId: number) => {
     if (serviceId === 1) {
       router.push("/land-transfer")
+    } else if (serviceId === 3) {
+      router.push("/search-land")
+    } else if (serviceId === 4) {
+      router.push("/search-duplicate-deeds")
+    } else if (serviceId === 5) {
+      router.push("/copy")
+    } else if (serviceId === 2) {
+      router.push("/copy-of-land")
     }
     // Add more service navigation logic here for other services
   }
