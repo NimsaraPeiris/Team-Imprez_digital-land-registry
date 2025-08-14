@@ -4,6 +4,14 @@ from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime
 
+# -----------------------------
+# Enums (Postgres native)
+# -----------------------------
+class UserTypeEnum(str, Enum):
+    citizen = "citizen"
+    officer = "officer"
+    admin = "admin"
+
 class VerificationStatusEnum(str, Enum):
     Pending = "Pending"
     Verified = "Verified"
@@ -14,8 +22,3 @@ class PaymentStatusEnum(str, Enum):
     Completed = "Completed"
     Failed = "Failed"
     Refunded = "Refunded"
-
-class UserTypeEnum(str, Enum):
-    citizen = "citizen"
-    officer = "officer"
-    admin = "admin"

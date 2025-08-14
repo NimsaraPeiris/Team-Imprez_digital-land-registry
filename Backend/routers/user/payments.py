@@ -20,12 +20,13 @@ async def create_payment(payload: PaymentCreateRequest, db: AsyncSession = Depen
     if not app:
         raise HTTPException(status_code=404, detail="Application not found or not owned by user")
 
+    from db.lro_backend_models import PaymentStatusEnum
     p = Payments(
         application_id=payload.application_id,
         amount=payload.amount,
         payment_method=payload.payment_method,
         transaction_reference=payload.transaction_reference,
-        payment_status="Completed"  # would normally be set by payment gateway callback
+        payment_status=PaymentStatusEnum.Completed.value  # use enum value
     )
     db.add(p)
     await db.commit()

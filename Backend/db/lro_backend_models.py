@@ -89,20 +89,20 @@ def verify_password(plain: str, hashed: str) -> bool:
 # Enums (Postgres native)
 # -----------------------------
 class UserTypeEnum(str, Enum):
-    CITIZEN = "citizen"
-    LRO_OFFICER = "officer"
-    ADMIN = "admin"
+    citizen = "citizen"
+    officer = "officer"
+    admin = "admin"
 
 class VerificationStatusEnum(str, Enum):
-    PENDING = "Pending"
-    VERIFIED = "Verified"
-    REJECTED = "Rejected"
+    Pending = "Pending"
+    Verified = "Verified"
+    Rejected = "Rejected"
 
 class PaymentStatusEnum(str, Enum):
-    PENDING = "Pending"
-    COMPLETED = "Completed"
-    FAILED = "Failed"
-    REFUNDED = "Refunded"
+    Pending = "Pending"
+    Completed = "Completed"
+    Failed = "Failed"
+    Refunded = "Refunded"
 
 # -----------------------------
 # Models
@@ -122,7 +122,7 @@ class User(Base):
     phone_number = Column("phone_number", String(32), nullable=True)
     password_hash = Column("password_hash", String(255), nullable=False)
     address = Column("address", Text, nullable=True)
-    user_type = Column("user_type", SAEnum(UserTypeEnum, name="user_type_enum", native_enum=True), nullable=False, server_default=UserTypeEnum.CITIZEN.value)
+    user_type = Column("user_type", SAEnum(UserTypeEnum, name="user_type_enum", native_enum=True), nullable=False, server_default=UserTypeEnum.citizen.value)
     created_at = Column("created_at", DateTime(timezone=True), server_default=func.now(), nullable=False)
     last_login = Column("last_login", DateTime(timezone=True), nullable=True)
     is_active = Column("is_active", Boolean, nullable=False, server_default="true")
@@ -246,7 +246,7 @@ class Payments(Base):
     payment_date = Column("payment_date", DateTime(timezone=True), server_default=func.now(), nullable=False)
     payment_method = Column("payment_method", String(64), nullable=True)
     transaction_reference = Column("transaction_reference", String(255), nullable=True)
-    payment_status = Column("payment_status", SAEnum(PaymentStatusEnum, name="payment_status_enum", native_enum=True), nullable=False, server_default=PaymentStatusEnum.PENDING.value)
+    payment_status = Column("payment_status", SAEnum(PaymentStatusEnum, name="payment_status_enum", native_enum=True), nullable=False, server_default=PaymentStatusEnum.Pending.value)
 
     application = relationship("Application", back_populates="payments")
 
@@ -261,7 +261,7 @@ class UploadedDocuments(Base):
     document_type = Column("document_type", String(128), nullable=False)
     file_name = Column("file_name", String(512), nullable=False)
     file_path = Column("file_path", String(1024), nullable=False)
-    verification_status = Column("verification_status", SAEnum(VerificationStatusEnum, name="verification_status_enum", native_enum=True), nullable=False, server_default=VerificationStatusEnum.PENDING.value)
+    verification_status = Column("verification_status", SAEnum(VerificationStatusEnum, name="verification_status_enum", native_enum=True), nullable=False, server_default=VerificationStatusEnum.Pending.value)
     uploaded_at = Column("uploaded_at", DateTime(timezone=True), server_default=func.now(), nullable=False)
 
     application = relationship("Application", back_populates="uploaded_documents")

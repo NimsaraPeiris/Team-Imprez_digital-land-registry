@@ -1,10 +1,12 @@
 import pytest
 from httpx import AsyncClient
 from main import app
+from httpx import ASGITransport
 
 @pytest.mark.asyncio
 async def test_register_user():
-    async with AsyncClient(app=app, base_url="http://test") as ac:
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
         payload = {
             "full_name": "Test User",
             "nic_number": "123456789V",
@@ -18,7 +20,8 @@ async def test_register_user():
 
 @pytest.mark.asyncio
 async def test_login_user():
-    async with AsyncClient(app=app, base_url="http://test") as ac:
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
         payload = {
             "email": "testuser@example.com",
             "password": "strongpassword"
