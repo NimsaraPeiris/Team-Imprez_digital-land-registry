@@ -1,4 +1,6 @@
 # backend/main.py
+import dotenv
+dotenv.load_dotenv()
 import os
 import uvicorn
 from fastapi import FastAPI
