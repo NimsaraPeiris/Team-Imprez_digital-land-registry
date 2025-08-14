@@ -65,7 +65,7 @@ export default function CopyOfLandPage() {
         </div>
 
         {/* Required Documents Section */}
-        <div className="w-[1284px] rounded-[36px] border border-[#DAD7D7] mb-[20px] relative overflow-hidden">
+        <div className="w-[1284px] mb-[20px] relative overflow-hidden">
           <div className="p-[36px]">
 
             {/* Action Buttons */}
