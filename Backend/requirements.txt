@@ -10,3 +10,6 @@ python-multipart
 email-validator
 python-dotenv
 jwt
+pytest
+pytest-asyncio
+httpx
