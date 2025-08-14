@@ -6,9 +6,11 @@ import DashboardNavigationBar from "@/components/dashboard-navigation-bar"
 import ContactSection from "@/components/contact-section"
 import Footer from "@/components/footer"
 import { Plus } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 export default function ServiceDashboard() {
   const { user } = useAuth()
+  const router = useRouter()
 
   const services = [
     {
@@ -16,33 +18,33 @@ export default function ServiceDashboard() {
       title: "Land Transfer",
       description:
         "Register the transfer of land ownership from the seller to the buyer with full legal documentation and verification.",
-      iconPath: "/Frame 98.png",
+      iconPath: "/service.png",
     },
     {
       id: 2,
-      title: "Application for a certified copy of a land",
+      title: "Application for Copy of Land",
       description:
         "Request an officially certified copy of land records for legal, administrative, or personal reference purposes.",
-      iconPath: "/Frame 98.png",
+      iconPath: "/service.png",
     },
     {
       id: 3,
-      title: "Application for search of land registers",
+      title: "Application for Search of Land",
       description:
         "Conduct a search in the official land registry to verify ownership details, boundaries, and encumbrances.",
-      iconPath: "/Frame 98.png",
+      iconPath: "/service.png",
     },
     {
       id: 4,
-      title: "Application for search of land registers",
+      title: "Application for search Duplicate of Deeds",
       description: "Locate and review registered land records to confirm property history and registration details.",
-      iconPath: "/Frame 98.png",
+      iconPath: "/service.png",
     },
     {
       id: 5,
-      title: "Application for search duplicate of deeds",
+      title: "Application for copy",
       description: "Request a duplicate copy of a registered deed when the original document has been lost or damaged.",
-      iconPath: "/Frame 98.png",
+      iconPath: "/service.png",
     },
   ]
 
@@ -51,6 +53,13 @@ export default function ServiceDashboard() {
     month: "2-digit",
     year: "numeric",
   })
+
+  const handleServiceClick = (serviceId: number) => {
+    if (serviceId === 1) {
+      router.push("/land-transfer")
+    }
+    // Add more service navigation logic here for other services
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -61,149 +70,59 @@ export default function ServiceDashboard() {
       </div>
 
       {/* Dashboard content */}
-      <main className="py-16 px-[75px]">
-        <div className="w-[1291px] h-[212px] bg-[#102A3D] rounded-[9px] mb-[111px] relative" data-section="home">
-          <div className="absolute left-[23px] top-[43px] text-white text-[35px] font-bold leading-[42px]">
-            Welcome, {user?.name || "User"}
+      <main className="py-8 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
+        <div
+          className="bg-[#102A3D] rounded-lg mb-12 p-6 sm:p-8 md:p-10 flex flex-col sm:flex-row justify-between items-start sm:items-center"
+          data-section="home"
+        >
+          <div>
+            <h1 className="text-white text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">
+              Welcome, {user?.name || "User"}
+            </h1>
+            <div className="mt-4 text-white text-sm sm:text-base">
+              <p className="font-bold">{user?.requesterType || "Individual"}</p>
+              <p>
+                {user?.registrationOffice || "Registration Office"} | {user?.email || "No email provided"}
+              </p>
+            </div>
           </div>
-          <div className="absolute left-[32px] top-[118px] text-white text-[16px] font-bold leading-[19.2px]">
-            {user?.requesterType || "Individual"}
-          </div>
-          <div className="absolute left-[32px] top-[144px] text-white text-[16px] font-normal leading-[19.2px]">
-            {user?.registrationOffice || "Registration Office"} | {user?.email || "No email provided"}
-          </div>
-          <div className="absolute right-[32px] top-[126px] text-white text-[16px] leading-[24px]">
+          <div className="mt-6 sm:mt-0 text-white text-sm sm:text-base text-left sm:text-right">
             <span className="font-extrabold">Today</span>
             <br />
             <span className="font-normal">{currentDate}</span>
           </div>
         </div>
 
-        <div className="mb-[21px]" data-section="services">
-          <h2 className="text-black text-[23px] font-medium leading-[27.6px]">Available Services</h2>
+        <div className="mb-8" data-section="services">
+          <h2 className="text-black text-xl sm:text-2xl font-medium leading-tight">Available Services</h2>
         </div>
 
-        <div className="flex flex-col gap-[21px]">
-          {/* Top row - 2 cards */}
-          <div className="flex gap-[41px]">
-            {services.slice(0, 2).map((service, index) => {
-              return (
-                <div
-                  key={service.id}
-                  className="w-[625px] h-[302px] bg-white rounded-[4px] border-[0.4px] border-[#807E7E] shadow-[0px_0px_11.5px_rgba(0,0,0,0.05)] relative"
-                >
-                  <div className="absolute left-[32px] top-[47px] w-[555px] h-[199px]">
-                    {/* Icon */}
-                    <div className="w-[34px] h-[34px] bg-white rounded-[4px] border-[0.5px] border-[#4090CE] flex items-center justify-center">
-                      <div className="rounded flex items-center justify-center">
-                        <img src={service.iconPath || "/continue.png"} alt={service.title} className="w-4 h-4" />
-                      </div>
-                    </div>
-
-                    {/* Title */}
-                    <div className="absolute top-[55px] text-black text-[20px] font-medium leading-[24px] w-[555px]">
-                      {service.title}
-                    </div>
-
-                    {/* Description */}
-                    <div className="absolute top-[100px] text-[#797979] text-[15px] font-medium leading-[18px] w-[555px]">
-                      {service.description}
-                    </div>
-
-                    {/* Button */}
-                    <div className="absolute top-[157px] w-[555px] h-[42px] bg-[#102A3D] rounded-[9px] flex items-center justify-between px-[23px] cursor-pointer hover:bg-[#0d1f2a] transition-colors">
-                      <span className="text-white text-[20px] font-medium leading-[24px]">Request Application</span>
-                      <div className="w-[28px] h-[17px] bg-white rounded flex items-center justify-center">
-                        <img src="/dashboard-arrow-icon.png" alt="Arrow" className="w-3 h-3" />
-                      </div>
-                    </div>
-                  </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+          {services.map((service) => (
+            <div
+              key={service.id}
+              className="bg-white rounded-lg border border-[#807E7E] shadow-md p-6 flex flex-col h-full"
+            >
+              <div className="flex items-center mb-4">
+                <div className="w-10 h-10 bg-white rounded-md border border-[#4090CE] flex items-center justify-center mr-4 flex-shrink-0">
+                  <img src={service.iconPath || "/continue.png"} alt={service.title} className="w-6 h-6" />
                 </div>
-              )
-            })}
-          </div>
-
-          {/* Second row - 2 cards */}
-          <div className="flex gap-[41px]">
-            {services.slice(2, 4).map((service, index) => {
-              return (
-                <div
-                  key={service.id}
-                  className="w-[625px] h-[302px] bg-white rounded-[4px] border-[0.4px] border-[#807E7E] shadow-[0px_0px_11.5px_rgba(0,0,0,0.05)] relative"
-                >
-                  <div className="absolute left-[32px] top-[47px] w-[555px] h-[199px]">
-                    {/* Icon */}
-                    <div className="w-[34px] h-[34px] bg-white rounded-[4px] border-[0.5px] border-[#4090CE] flex items-center justify-center">
-                      <div className="rounded flex items-center justify-center">
-                        <img src={service.iconPath || "/placeholder.svg"} alt={service.title} className="w-4 h-4" />
-                      </div>
-                    </div>
-
-                    {/* Title */}
-                    <div className="absolute top-[55px] text-black text-[20px] font-medium leading-[24px] w-[555px]">
-                      {service.title}
-                    </div>
-
-                    {/* Description */}
-                    <div className="absolute top-[100px] text-[#797979] text-[15px] font-medium leading-[18px] w-[555px]">
-                      {service.description}
-                    </div>
-
-                    {/* Button */}
-                    <div className="absolute top-[157px] w-[555px] h-[42px] bg-[#102A3D] rounded-[9px] flex items-center justify-between px-[23px] cursor-pointer hover:bg-[#0d1f2a] transition-colors">
-                      <span className="text-white text-[20px] font-medium leading-[24px]">Request Application</span>
-                      <div className="w-[28px] h-[17px] bg-white rounded flex items-center justify-center">
-                        <img src="/dashboard-arrow-icon.png" alt="Arrow" className="w-3 h-3" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-
-          {/* Third row - 1 card */}
-          <div className="flex">
-            {services.slice(4, 5).map((service, index) => {
-              return (
-                <div
-                  key={service.id}
-                  className="w-[625px] h-[302px] bg-white rounded-[4px] border-[0.4px] border-[#807E7E] shadow-[0px_0px_11.5px_rgba(0,0,0,0.05)] relative"
-                >
-                  <div className="absolute left-[32px] top-[47px] w-[555px] h-[199px]">
-                    {/* Icon */}
-                    <div className="w-[34px] h-[34px] bg-white rounded-[4px] border-[0.5px] border-[#4090CE] flex items-center justify-center">
-                      <div className="rounded flex items-center justify-center">
-                        <img src={service.iconPath || "/placeholder.svg"} alt={service.title} className="w-4 h-4" />
-                      </div>
-                    </div>
-
-                    {/* Title */}
-                    <div className="absolute top-[55px] text-black text-[20px] font-medium leading-[24px] w-[555px]">
-                      {service.title}
-                    </div>
-
-                    {/* Description */}
-                    <div className="absolute top-[100px] text-[#797979] text-[15px] font-medium leading-[18px] w-[555px]">
-                      {service.description}
-                    </div>
-
-                    {/* Button */}
-                    <div className="absolute top-[157px] w-[555px] h-[42px] bg-[#102A3D] rounded-[9px] flex items-center justify-between px-[23px] cursor-pointer hover:bg-[#0d1f2a] transition-colors">
-                      <span className="text-white text-[20px] font-medium leading-[24px]">Request Application</span>
-                      <div className="w-[28px] h-[17px] bg-white rounded flex items-center justify-center">
-                        <img src="/dashboard-arrow-icon.png" alt="Arrow" className="w-3 h-3" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
+                <h3 className="text-lg font-medium text-black leading-tight">{service.title}</h3>
+              </div>
+              <p className="text-[#797979] text-sm font-medium leading-relaxed mb-6 flex-grow">{service.description}</p>
+              <div
+                onClick={() => handleServiceClick(service.id)}
+                className="bg-[#102A3D] rounded-lg flex items-center justify-between px-6 py-3 cursor-pointer hover:bg-[#0b3d5c] transition-colors mt-auto"
+              >
+                <span className="text-white text-base font-medium">Request Application</span>
+                <img src="/continue.png" alt="Arrow" className="w-5 h-5" />
+              </div>
+            </div>
+          ))}
         </div>
 
-        <div className="fixed bottom-[50px] right-[50px] w-[52px] h-[52px] bg-[#4490CC] rounded-full shadow-[0px_4px_33.1px_rgba(20.49,78.20,14.08,0.25)] flex items-center justify-center cursor-pointer hover:bg-[#3a7bb8] transition-colors">
-          <Plus size={28} className="text-white" />
+        <div className="fixed bottom-8 right-8 w-14 h-14 bg-[#4490CC] rounded-full shadow-lg flex items-center justify-center cursor-pointer hover:bg-[#3a7bb8] transition-colors">
+          <Plus size={32} className="text-white" />
         </div>
       </main>
 

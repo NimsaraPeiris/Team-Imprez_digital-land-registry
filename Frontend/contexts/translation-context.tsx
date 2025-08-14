@@ -235,7 +235,7 @@ const translations = {
     "services.copyLandRegisters": "ඉඩම් ලේඛනවල පිටපත් සඳහා අයදුම්පත",
     "services.copyLandRegisters.desc": "නව හිමිකම් ලියාපදිංචිකරණය ඉදිරිපත් කරන්න, සමීක්ෂණ අමුණන්න සහ අවශ්‍ය ගාස්තු ගෙවන්න.",
     "services.registerProperty": "දේපල ලියාපදිංචි කරන්න",
-    "services.registerProperty.desc": "නව හිමිකම් ලියාපදිංචිකරණය ඉදිරිපත් කරන්න, සමීක්ෂණ අමුණන්න සහ අවශ්‍ය ගාස්තු ගෙවන්න.",
+    "services.registerProperty.desc": "නව හිමිකම් ලියාපදිංචිකරණය ඉදි���ිපත් කරන්න, සමීක්ෂණ අමුණන්න සහ අවශ්‍ය ගාස්තු ගෙවන්න.",
     
     // Dashboard Services (cont'd)
     "dashboard.services.landTransfer": "ඉඩම් පැවරීම",
@@ -296,7 +296,7 @@ const translations = {
     "footer.passportApplication": "ගමන් බලපත්‍ර අයදුම්පත සහ අලුත් කිරීම",
     "footer.viewAllServices": "සියලුම සේවා බලන්න",
     "footer.helpSupport": "උදව් සහ ආධාර",
-    "footer.faqFull": "නිතර අසන ප්‍රශ්න (FAQ)",
+    "footer.faqFull": "නිතර අස��� ප්‍රශ්න (FAQ)",
     "footer.userGuides": "පරිශීලක මාර්ගෝපදේශ සහ නිබන්ධන",
     "footer.trackStatus": "අයදුම්පත් තත්ත්වය ලුහුබඳින්න",
     "footer.reportIssue": "තාක්ෂණික ගැටළුවක් වාර්තා කරන්න",
