@@ -100,19 +100,19 @@ The database models are defined using SQLAlchemy in `backend/db/lro_backend_mode
 | :--- | :--- | :--- |
 | **users** | Stores user registration and authentication information. | `user_id`, `email`, `nic_number`, `password_hash` |
 | **offices** | Manages the different land registry offices. | `office_id`, `office_name` |
-| **lro\_officers** | Stores information for Land Registry Officer accounts. | `officer_id`, `user_id`, `employee_id` |
+| **lro_officers** | Stores information for Land Registry Officer accounts. | `officer_id`, `user_id`, `employee_id` |
 | **services** | Defines the types of land registry services available. | `service_id`, `service_name`, `service_code` |
-| **application\_status** | A lookup table for application statuses. | `status_id`, `status_name` |
+| **application_status** | A lookup table for application statuses. | `status_id`, `status_name` |
 | **applications** | Core table for all user applications. | `application_id`, `user_id`, `service_id`, `status_id` |
 | **payments** | Records payment details for applications. | `payment_id`, `application_id`, `amount` |
-| **uploaded\_documents** | Stores metadata for documents attached to applications. | `document_id`, `application_id`, `file_name`, `verification_status` |
-| **application\_log** | Logs actions and remarks for each application. | `log_id`, `application_id`, `action_taken` |
-| **app\_land\_transfer** | Details specific to a Land Transfer application. | `land_transfer_id`, `application_id` |
-| **app\_search\_duplicate\_deeds** | Details for a search for duplicate deeds application. | `search_duplicate_id`, `application_id` |
-| **app\_copy\_of\_land\_registers** | Details for a copy of land registers application. | `copy_register_id`, `application_id` |
-| **app\_search\_land\_registers** | Details for a search of land registers application. | `search_register_id`, `application_id` |
-| **search\_register\_folios** | Stores folio details for search register applications. | `folio_request_id`, `search_register_id` |
-| **app\_copy\_of\_document** | Details for a copy of a document application. | `copy_doc_id`, `application_id` |
+| **uploaded_documents** | Stores metadata for documents attached to applications. | `document_id`, `application_id`, `file_name`, `verification_status` |
+| **application_log** | Logs actions and remarks for each application. | `log_id`, `application_id`, `action_taken` |
+| **app_land_transfer** | Details specific to a Land Transfer application. | `land_transfer_id`, `application_id` |
+| **app_search_duplicate_deeds** | Details for a search for duplicate deeds application. | `search_duplicate_id`, `application_id` |
+| **app_copy_of_land_registers** | Details for a copy of land registers application. | `copy_register_id`, `application_id` |
+| **app_search_land_registers** | Details for a search of land registers application. | `search_register_id`, `application_id` |
+| **search_register_folios** | Stores folio details for search register applications. | `folio_request_id`, `search_register_id` |
+| **app_copy_of_document** | Details for a copy of a document application. | `copy_doc_id`, `application_id` |
 
 -----
 
@@ -207,7 +207,7 @@ Once both the backend and frontend are configured, you can start them separately
 From the `backend` directory, run the following command:
 
 ```sh
-uvicorn main:app --reload
+Uvicorn main:app --reload
 ```
 
 The backend API will be available at `http://127.0.0.1:8000`.
@@ -219,5 +219,3 @@ From the `Frontend` directory, run the following command:
 ```sh
 pnpm dev
 ```
-
-The frontend application will be available at `http://localhost:3000`.
