@@ -354,22 +354,31 @@ class AppCopyOfDocument(Base):
 # -----------------------------
 # Helper: Create all tables (for small dev/test use only)
 # In production use Alembic for migrations
-# -----------------------------
+# -----------------------------     
+# async def create_all_tables():
+#     async with engine.begin() as conn:
+#         # Explicitly create enums before tables
+#         await conn.run_sync(Base.metadata.create_all, {'checkfirst': True, 'tables': [UserTypeEnum.__table__]})
+#         await conn.run_sync(Base.metadata.create_all)
+#     from .seed_data import seed_initial_data
+#     from sqlalchemy.ext.asyncio import AsyncSession
+#     async with AsyncSession(engine) as session:
+#         await seed_initial_data(session)
+
+from sqlalchemy import text
+
 async def create_all_tables():
     async with engine.begin() as conn:
-        # Create Postgres enums (handled automatically by SQLAlchemy native_enum)
+        # Create enums with correct names
+        await conn.execute(text("CREATE TYPE user_type_enum AS ENUM ('citizen', 'officer', 'admin');"))
+        await conn.execute(text("CREATE TYPE verification_status_enum AS ENUM ('Pending', 'Verified', 'Rejected');"))
+        await conn.execute(text("CREATE TYPE payment_status_enum AS ENUM ('Pending', 'Completed', 'Failed', 'Refunded');"))
+        # Now create tables
         await conn.run_sync(Base.metadata.create_all)
-        
     from .seed_data import seed_initial_data
     from sqlalchemy.ext.asyncio import AsyncSession
-    # Seed data
     async with AsyncSession(engine) as session:
         await seed_initial_data(session)
-        
-        
-
-
-
 
 
 # -----------------------------
