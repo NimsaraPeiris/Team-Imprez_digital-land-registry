@@ -37,6 +37,7 @@ from sqlalchemy.orm import (
 )
 from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import String, CheckConstraint
 
 
 # Security
@@ -122,7 +123,7 @@ class User(Base):
     phone_number = Column("phone_number", String(32), nullable=True)
     password_hash = Column("password_hash", String(255), nullable=False)
     address = Column("address", Text, nullable=True)
-    user_type = Column("user_type", SAEnum(UserTypeEnum, name="user_type_enum", native_enum=True), nullable=False, server_default=UserTypeEnum.CITIZEN.value)
+    user_type = Column("user_type",String(20),CheckConstraint("user_type IN ('citizen', 'officer', 'admin')", name="check_user_type"),nullable=False,server_default="citizen")
     created_at = Column("created_at", DateTime(timezone=True), server_default=func.now(), nullable=False)
     last_login = Column("last_login", DateTime(timezone=True), nullable=True)
     is_active = Column("is_active", Boolean, nullable=False, server_default="true")

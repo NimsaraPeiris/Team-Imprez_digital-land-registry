@@ -11,7 +11,7 @@ from sqlalchemy.future import select
 from db.lro_backend_models import User  # models file you already have
 from db.lro_backend_models import get_db  # dependency included previously
 from schemas.user_schemas import UserRegisterRequest, UserLoginRequest, TokenResponse, UserResponse
-from db.lro_backend_models import hash_password, verify_password  # helpers in models file
+from db.lro_backend_models import hash_password, verify_password , UserTypeEnum # helpers in models file
 
 import jwt
 
@@ -43,7 +43,9 @@ async def register(payload: UserRegisterRequest, db: AsyncSession = Depends(get_
         email=payload.email,
         phone_number=payload.phone_number,
         address=payload.address,
+        user_type="citizen"
     )
+    print(f"Setting user_type to: {user.user_type}") 
     user.set_password(payload.password)
     db.add(user)
     await db.commit()

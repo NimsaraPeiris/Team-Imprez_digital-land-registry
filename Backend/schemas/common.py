@@ -8,9 +8,9 @@ from datetime import datetime
 # Enums (Postgres native)
 # -----------------------------
 class UserTypeEnum(str, Enum):
-    citizen = "citizen"
-    officer = "officer"
-    admin = "admin"
+    CITIZEN = "citizen"
+    LRO_OFFICER = "officer"
+    ADMIN = "admin"
 
 class VerificationStatusEnum(str, Enum):
     Pending = "Pending"
