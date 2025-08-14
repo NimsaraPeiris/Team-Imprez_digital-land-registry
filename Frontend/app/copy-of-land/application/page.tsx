@@ -471,7 +471,7 @@ export default function LandTransferApplicationPage() {
       <main className="py-8 px-[75px]">
         {/* Page Title */}
         <div className="mb-10">
-          <h1 className="text-black text-[32px] font-bold leading-[48px] text-left">Land Transfer</h1>
+          <h1 className="text-black text-[32px] font-bold leading-[48px] text-left">Application for Copy of Land Regs</h1>
         </div>
 
         {/* Form Container */}

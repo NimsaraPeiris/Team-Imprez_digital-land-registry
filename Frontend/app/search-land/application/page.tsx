@@ -16,11 +16,17 @@ interface FormData {
     phone: string
     nic: string
   }
-  buyer: {
-    fullName: string
-    email: string
-    phone: string
-    nic: string
+  property: {
+    village: string
+    nameOfLand: string
+    extent: string
+    korale: string
+    pattu: string
+    gnDivision: string
+    dsDivision: string
+    division: string
+    volumeNo: string
+    folioNo: string
   }
 }
 
@@ -31,11 +37,17 @@ interface FormErrors {
     phone: string
     nic: string
   }
-  buyer: {
-    fullName: string
-    email: string
-    phone: string
-    nic: string
+  property: {
+    village: string
+    nameOfLand: string
+    extent: string
+    korale: string
+    pattu: string
+    gnDivision: string
+    dsDivision: string
+    division: string
+    volumeNo: string
+    folioNo: string
   }
 }
 
@@ -51,11 +63,17 @@ export default function LandTransferApplicationPage() {
       phone: "",
       nic: "",
     },
-    buyer: {
-      fullName: "",
-      email: "",
-      phone: "",
-      nic: "",
+    property: {
+      village: "",
+      nameOfLand: "",
+      extent: "",
+      korale: "",
+      pattu: "",
+      gnDivision: "",
+      dsDivision: "",
+      division: "",
+      volumeNo: "",
+      folioNo: "",
     },
   })
 
@@ -66,11 +84,17 @@ export default function LandTransferApplicationPage() {
       phone: "",
       nic: "",
     },
-    buyer: {
-      fullName: "",
-      email: "",
-      phone: "",
-      nic: "",
+    property: {
+      village: "",
+      nameOfLand: "",
+      extent: "",
+      korale: "",
+      pattu: "",
+      gnDivision: "",
+      dsDivision: "",
+      division: "",
+      volumeNo: "",
+      folioNo: "",
     },
   })
 
@@ -340,7 +364,7 @@ export default function LandTransferApplicationPage() {
     return ""
   }
 
-  const handleInputChange = (section: "seller" | "buyer", field: string, value: string) => {
+  const handleInputChange = (section: "seller" | "property", field: string, value: string) => {
     setFormData((prev) => ({
       ...prev,
       [section]: {
@@ -350,38 +374,42 @@ export default function LandTransferApplicationPage() {
     }))
 
     // Clear error when user starts typing
-    if (errors[section][field as keyof typeof errors.seller]) {
-      setErrors((prev) => ({
-        ...prev,
-        [section]: {
-          ...prev[section],
-          [field]: "",
-        },
-      }))
-    }
-  }
-
-  const validateSection = (section: "seller" | "buyer"): boolean => {
-    const sectionData = formData[section]
-    const newErrors = {
-      fullName: validateFullName(sectionData.fullName),
-      email: validateEmail(sectionData.email),
-      phone: validatePhoneNumber(sectionData.phone),
-      nic: validateNIC(sectionData.nic),
-    }
-
     setErrors((prev) => ({
       ...prev,
-      [section]: newErrors,
+      [section]: {
+        ...prev[section],
+        [field]: "",
+      },
     }))
+  }
 
-    return !Object.values(newErrors).some((error) => error !== "")
+  const validateSection = (section: "seller" | "property"): boolean => {
+    if (section === "seller") {
+      const sectionData = formData.seller;
+      const newErrors = {
+        fullName: validateFullName(sectionData.fullName),
+        email: validateEmail(sectionData.email),
+        phone: validatePhoneNumber(sectionData.phone),
+        nic: validateNIC(sectionData.nic),
+      };
+
+      setErrors((prev) => ({
+        ...prev,
+        seller: newErrors,
+      }));
+
+      return !Object.values(newErrors).some((error) => error !== "");
+    } else {
+      // For property section, we don't have specific validation yet
+      // We could add validation for specific fields if needed
+      return true;
+    }
   }
 
   const handleContinue = () => {
     if (currentStep === 1) {
-      // Validate seller and buyer details before proceeding
-      const isValid = validateSection("seller") && validateSection("buyer")
+      // Validate seller and property details before proceeding
+      const isValid = validateSection("seller") && validateSection("property")
       if (isValid) {
         setCurrentStep(2)
       }
@@ -534,7 +562,7 @@ export default function LandTransferApplicationPage() {
                 <h3 className="text-black text-[20px] font-extrabold leading-[24px] mb-4">Applicant Details</h3>
 
                 <div className="grid grid-cols-2 gap-14 mb-6">
-                  {/* Seller Full Name */}
+                  {/* Full Name */}
                   <div className="flex flex-col gap-2">
                     <label className="text-black text-[13px] font-semibold leading-[22px]">Full Name</label>
                     <div className="relative">
@@ -542,7 +570,7 @@ export default function LandTransferApplicationPage() {
                         type="text"
                         value={formData.seller.fullName}
                         onChange={(e) => handleInputChange("seller", "fullName", e.target.value)}
-                        placeholder="Enter seller's full name"
+                        placeholder="Enter applicant's full name"
                         className={`w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
                           errors.seller.fullName ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
                         }`}
@@ -559,15 +587,15 @@ export default function LandTransferApplicationPage() {
                     )}
                   </div>
 
-                  {/* Seller Email */}
+                  {/* Address */}
                   <div className="flex flex-col gap-2">
-                    <label className="text-black text-[13px] font-semibold leading-[22px]">E-mail</label>
+                    <label className="text-black text-[13px] font-semibold leading-[22px]">Address</label>
                     <div className="relative">
                       <input
-                        type="email"
+                        type="text"
                         value={formData.seller.email}
                         onChange={(e) => handleInputChange("seller", "email", e.target.value)}
-                        placeholder="Enter seller's email"
+                        placeholder="Enter Applicants Address"
                         className={`w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
                           errors.seller.email ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
                         }`}
@@ -585,41 +613,16 @@ export default function LandTransferApplicationPage() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-14">
-                  {/* Seller Phone */}
+                <div className="grid grid-cols-2 gap-14 mb-6">
+                  {/* National Identity Card Number */}
                   <div className="flex flex-col gap-2">
-                    <label className="text-black text-[13px] font-semibold leading-[22px]">Phone</label>
-                    <div className="relative">
-                      <input
-                        type="tel"
-                        value={formData.seller.phone}
-                        onChange={(e) => handleInputChange("seller", "phone", e.target.value)}
-                        placeholder="Enter seller's phone number"
-                        className={`w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
-                          errors.seller.phone ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
-                        }`}
-                      />
-                      {errors.seller.phone && (
-                        <AlertCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-red-500" />
-                      )}
-                    </div>
-                    {errors.seller.phone && (
-                      <p className="text-red-500 text-xs flex items-center gap-1">
-                        <AlertCircle className="w-3 h-3" />
-                        {errors.seller.phone}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Seller NIC */}
-                  <div className="flex flex-col gap-2">
-                    <label className="text-black text-[13px] font-semibold leading-[22px]">NIC</label>
+                    <label className="text-black text-[13px] font-semibold leading-[22px]">National Identity Card Number</label>
                     <div className="relative">
                       <input
                         type="text"
                         value={formData.seller.nic}
                         onChange={(e) => handleInputChange("seller", "nic", e.target.value)}
-                        placeholder="Enter seller's NIC"
+                        placeholder="Enter applicant's National Identity Card Number"
                         className={`w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
                           errors.seller.nic ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
                         }`}
@@ -635,123 +638,227 @@ export default function LandTransferApplicationPage() {
                       </p>
                     )}
                   </div>
+
+                  {/* Date */}
+                  <div className="flex flex-col gap-2">
+                    <label className="text-black text-[13px] font-semibold leading-[22px]">Date</label>
+                    <div className="relative">
+                      <input
+                        type="date"
+                        value={formData.seller.phone}
+                        onChange={(e) => handleInputChange("seller", "phone", e.target.value)}
+                        placeholder="Enter Date"
+                        className={`w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
+                          errors.seller.phone ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
+                        }`}
+                      />
+                      {errors.seller.phone && (
+                        <AlertCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-red-500" />
+                      )}
+                    </div>
+                    {errors.seller.phone && (
+                      <p className="text-red-500 text-xs flex items-center gap-1">
+                        <AlertCircle className="w-3 h-3" />
+                        {errors.seller.phone}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Signature */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-black text-[13px] font-semibold leading-[22px]">Signature</label>
+                  <div className="h-24 bg-[#E9E9E9] border-2 border-dashed border-[#D1D5DB] rounded-[6px] flex items-center justify-center cursor-pointer hover:bg-gray-100 transition-colors">
+                    <span className="text-[#636363] text-[12px]">Click to add signature</span>
+                  </div>
                 </div>
               </div>
 
               {/* Divider */}
               <div className="w-full h-[1px] bg-[#00508E] mx-8" style={{ width: "calc(100% - 64px)" }} />
 
-              {/* Buyer Details Section */}
+              {/* Property Details Section */}
               <div className="px-8 py-8">
-                <h3 className="text-black text-[20px] font-extrabold leading-[24px] mb-4">Buyer Details</h3>
+                <h3 className="text-black text-[20px] font-extrabold leading-[24px] mb-4">Property Details</h3>
 
                 <div className="grid grid-cols-2 gap-14 mb-6">
-                  {/* Buyer Full Name */}
+                  {/* Village */}
                   <div className="flex flex-col gap-2">
-                    <label className="text-black text-[13px] font-semibold leading-[22px]">Full Name</label>
+                    <label className="text-black text-[13px] font-semibold leading-[22px]">Village</label>
                     <div className="relative">
                       <input
                         type="text"
-                        value={formData.buyer.fullName}
-                        onChange={(e) => handleInputChange("buyer", "fullName", e.target.value)}
-                        placeholder="Enter buyer's full name"
+                        value={formData.property.village}
+                        onChange={(e) => handleInputChange("property", "village", e.target.value)}
+                        placeholder="Enter village name"
                         className={`w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
-                          errors.buyer.fullName ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
+                          errors.property.village ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
                         }`}
                       />
-                      {errors.buyer.fullName && (
-                        <AlertCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-red-500" />
-                      )}
                     </div>
-                    {errors.buyer.fullName && (
-                      <p className="text-red-500 text-xs flex items-center gap-1">
-                        <AlertCircle className="w-3 h-3" />
-                        {errors.buyer.fullName}
-                      </p>
-                    )}
                   </div>
 
-                  {/* Buyer Email */}
+                  {/* Name of Land */}
                   <div className="flex flex-col gap-2">
-                    <label className="text-black text-[13px] font-semibold leading-[22px]">E-mail</label>
+                    <label className="text-black text-[13px] font-semibold leading-[22px]">Name of Land</label>
                     <div className="relative">
                       <input
-                        type="email"
-                        value={formData.buyer.email}
-                        onChange={(e) => handleInputChange("buyer", "email", e.target.value)}
-                        placeholder="Enter buyer's email"
+                        type="text"
+                        value={formData.property.nameOfLand}
+                        onChange={(e) => handleInputChange("property", "nameOfLand", e.target.value)}
+                        placeholder="Enter name of land"
                         className={`w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
-                          errors.buyer.email ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
+                          errors.property.nameOfLand ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
                         }`}
                       />
-                      {errors.buyer.email && (
-                        <AlertCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-red-500" />
-                      )}
                     </div>
-                    {errors.buyer.email && (
-                      <p className="text-red-500 text-xs flex items-center gap-1">
-                        <AlertCircle className="w-3 h-3" />
-                        {errors.buyer.email}
-                      </p>
-                    )}
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-14">
-                  {/* Buyer Phone */}
+                <div className="grid grid-cols-2 gap-14 mb-6">
+                  {/* Extent of Land */}
                   <div className="flex flex-col gap-2">
-                    <label className="text-black text-[13px] font-semibold leading-[22px]">Phone</label>
-                    <div className="relative">
-                      <input
-                        type="tel"
-                        value={formData.buyer.phone}
-                        onChange={(e) => handleInputChange("buyer", "phone", e.target.value)}
-                        placeholder="Enter buyer's phone number"
-                        className={`w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
-                          errors.buyer.phone ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
-                        }`}
-                      />
-                      {errors.buyer.phone && (
-                        <AlertCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-red-500" />
-                      )}
-                    </div>
-                    {errors.buyer.phone && (
-                      <p className="text-red-500 text-xs flex items-center gap-1">
-                        <AlertCircle className="w-3 h-3" />
-                        {errors.buyer.phone}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Buyer NIC */}
-                  <div className="flex flex-col gap-2">
-                    <label className="text-black text-[13px] font-semibold leading-[22px]">NIC</label>
+                    <label className="text-black text-[13px] font-semibold leading-[22px]">Extent of Land</label>
                     <div className="relative">
                       <input
                         type="text"
-                        value={formData.buyer.nic}
-                        onChange={(e) => handleInputChange("buyer", "nic", e.target.value)}
-                        placeholder="Enter buyer's NIC"
+                        value={formData.property.extent}
+                        onChange={(e) => handleInputChange("property", "extent", e.target.value)}
+                        placeholder="Enter extent of land"
                         className={`w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
-                          errors.buyer.nic ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
+                          errors.property.extent ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
                         }`}
                       />
-                      {errors.buyer.nic && (
-                        <AlertCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-red-500" />
-                      )}
                     </div>
-                    {errors.buyer.nic && (
-                      <p className="text-red-500 text-xs flex items-center gap-1">
-                        <AlertCircle className="w-3 h-3" />
-                        {errors.buyer.nic}
-                      </p>
-                    )}
+                  </div>
+
+                  {/* Korale */}
+                  <div className="flex flex-col gap-2">
+                    <label className="text-black text-[13px] font-semibold leading-[22px]">Korale</label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={formData.property.korale}
+                        onChange={(e) => handleInputChange("property", "korale", e.target.value)}
+                        placeholder="Enter korale"
+                        className={`w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
+                          errors.property.korale ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
+                        }`}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-14 mb-6">
+                  {/* Pattu */}
+                  <div className="flex flex-col gap-2">
+                    <label className="text-black text-[13px] font-semibold leading-[22px]">Pattu</label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={formData.property.pattu}
+                        onChange={(e) => handleInputChange("property", "pattu", e.target.value)}
+                        placeholder="Enter pattu"
+                        className={`w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
+                          errors.property.pattu ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
+                        }`}
+                      />
+                    </div>
+                  </div>
+
+                  {/* GN Division */}
+                  <div className="flex flex-col gap-2">
+                    <label className="text-black text-[13px] font-semibold leading-[22px]">GN Division</label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={formData.property.gnDivision}
+                        onChange={(e) => handleInputChange("property", "gnDivision", e.target.value)}
+                        placeholder="Enter GN division"
+                        className={`w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
+                          errors.property.gnDivision ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
+                        }`}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-14 mb-6">
+                  {/* DS Division */}
+                  <div className="flex flex-col gap-2">
+                    <label className="text-black text-[13px] font-semibold leading-[22px]">DS Division</label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={formData.property.dsDivision}
+                        onChange={(e) => handleInputChange("property", "dsDivision", e.target.value)}
+                        placeholder="Enter DS division"
+                        className={`w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
+                          errors.property.dsDivision ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
+                        }`}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Divider */}
+                <div className="w-full h-[1px] bg-[#00508E] mx-8" style={{ width: "calc(100% - 64px)" }} />
+
+                {/* Registers Required for Search */}
+                <h3 className="text-black text-[20px] font-extrabold leading-[24px] mb-4 mt-8">Registers Required for Search</h3>
+
+                <div className="grid grid-cols-2 gap-14 mb-6">
+                  {/* Division */}
+                  <div className="flex flex-col gap-2">
+                    <label className="text-black text-[13px] font-semibold leading-[22px]">Division</label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={formData.property.division}
+                        onChange={(e) => handleInputChange("property", "division", e.target.value)}
+                        placeholder="Enter division"
+                        className={`w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
+                          errors.property.division ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
+                        }`}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Volume No */}
+                  <div className="flex flex-col gap-2">
+                    <label className="text-black text-[13px] font-semibold leading-[22px]">Volume No</label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={formData.property.volumeNo}
+                        onChange={(e) => handleInputChange("property", "volumeNo", e.target.value)}
+                        placeholder="Enter volume number"
+                        className={`w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
+                          errors.property.volumeNo ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
+                        }`}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-14 mb-6">
+                  {/* Folio No */}
+                  <div className="flex flex-col gap-2">
+                    <label className="text-black text-[13px] font-semibold leading-[22px]">Folio No</label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={formData.property.folioNo}
+                        onChange={(e) => handleInputChange("property", "folioNo", e.target.value)}
+                        placeholder="Enter folio number"
+                        className={`w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
+                          errors.property.folioNo ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
+                        }`}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-
-              {/* Divider */}
-              <div className="w-full h-[1px] bg-[#00508E] mx-8" style={{ width: "calc(100% - 64px)" }} />
             </>
           ) : currentStep === 2 ? (
             // Document Upload Sections (existing code)
