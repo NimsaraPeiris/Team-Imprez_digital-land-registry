@@ -36,6 +36,8 @@ from sqlalchemy.orm import (
 )
 from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
+from .seed_data import seed_initial_data
+
 
 # Security
 from passlib.context import CryptContext
@@ -357,6 +359,9 @@ async def create_all_tables():
     async with engine.begin() as conn:
         # Create Postgres enums (handled automatically by SQLAlchemy native_enum)
         await conn.run_sync(Base.metadata.create_all)
+    # Seed data
+    async with AsyncSession(engine) as session:
+        await seed_initial_data(session)
 
 
 # -----------------------------
