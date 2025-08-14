@@ -64,10 +64,9 @@ export default function SearchLandPage() {
         {/* Header Section */}
         <div className="w-[1291px] h-[151px] bg-[#102A3D] rounded-[9px] mb-[20px] relative">
           <div className="absolute left-[23px] top-[43px] flex flex-col gap-[5px]">
-            <h1 className="text-white text-[35px] font-bold leading-[42px] font-inter">Application for Search of Land</h1>
+            <h1 className="text-white text-[35px] font-bold leading-[42px] font-inter">Application for Search of Land Registers</h1>
             <p className="text-white text-[16px] font-light leading-[19.2px] font-inter">
-              Request a search of land records
-            </p>
+              Form to request permission to search land registers and their indexes for a specific property            </p>
           </div>
         </div>
 
@@ -115,9 +114,8 @@ export default function SearchLandPage() {
                     <div
                       key={document.id}
                       onClick={() => toggleDocumentSelection(document.id)}
-                      className={`h-[147px] rounded-[9px] border cursor-pointer transition-all duration-200 relative overflow-hidden ${
-                        isSelected ? "border-[#4490CC] bg-blue-50" : "border-[#DAD7D7] hover:border-[#4490CC]/50"
-                      }`}
+                      className={`h-[147px] rounded-[9px] border cursor-pointer transition-all duration-200 relative overflow-hidden ${isSelected ? "border-[#4490CC] bg-blue-50" : "border-[#DAD7D7] hover:border-[#4490CC]/50"
+                        }`}
                     >
                       <div className="absolute left-[22px] top-[32px] w-[360px] flex flex-col gap-[10px]">
                         <h3 className="text-black text-[24px] font-bold leading-[28.8px] font-inter">
@@ -138,11 +136,10 @@ export default function SearchLandPage() {
 
                       <div className="absolute right-[22px] top-[50px]">
                         <button
-                          className={`w-[100px] h-[40px] rounded-[8px] border-2 transition-all duration-200 flex items-center justify-center gap-2 ${
-                            isSelected
+                          className={`w-[100px] h-[40px] rounded-[8px] border-2 transition-all duration-200 flex items-center justify-center gap-2 ${isSelected
                               ? "bg-[#4490CC] border-[#4490CC] text-white"
                               : "bg-white border-[#DAD7D7] text-gray-600 hover:border-[#4490CC] hover:text-[#4490CC]"
-                          }`}
+                            }`}
                         >
                           {isSelected ? (
                             <>
@@ -165,16 +162,14 @@ export default function SearchLandPage() {
               <button
                 onClick={handleStartApplication}
                 disabled={!allDocumentsSelected}
-                className={`w-[350px] h-[62px] rounded-[10px] flex items-center justify-center transition-all duration-200 ${
-                  allDocumentsSelected
+                className={`w-[350px] h-[62px] rounded-[10px] flex items-center justify-center transition-all duration-200 ${allDocumentsSelected
                     ? "bg-[#4490CC] hover:bg-[#3a7bb8] cursor-pointer"
                     : "bg-gray-300 cursor-not-allowed"
-                }`}
+                  }`}
               >
                 <span
-                  className={`text-[24px] font-semibold leading-[28.8px] font-inter ${
-                    allDocumentsSelected ? "text-white" : "text-gray-500"
-                  }`}
+                  className={`text-[24px] font-semibold leading-[28.8px] font-inter ${allDocumentsSelected ? "text-white" : "text-gray-500"
+                    }`}
                 >
                   Start Application {allDocumentsSelected ? "" : `(${selectedDocuments.size}/${documents.length})`}
                 </span>

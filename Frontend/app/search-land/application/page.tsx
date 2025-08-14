@@ -123,7 +123,7 @@ export default function LandTransferApplicationPage() {
     multiple: false,
     accept: {
       "application/pdf": [".pdf"],
-      "image/jpeg": [".jpg", ".jpeg"],
+      // "image/jpeg": [".jpg", ".jpeg"],
     },
   })
   const {
@@ -135,7 +135,7 @@ export default function LandTransferApplicationPage() {
     multiple: false,
     accept: {
       "application/pdf": [".pdf"],
-      "image/jpeg": [".jpg", ".jpeg"],
+      // "image/jpeg": [".jpg", ".jpeg"],
     },
   })
   const {
@@ -147,7 +147,7 @@ export default function LandTransferApplicationPage() {
     multiple: false,
     accept: {
       "application/pdf": [".pdf"],
-      "image/jpeg": [".jpg", ".jpeg"],
+      // "image/jpeg": [".jpg", ".jpeg"],
     },
   })
   const {
@@ -159,7 +159,7 @@ export default function LandTransferApplicationPage() {
     multiple: false,
     accept: {
       "application/pdf": [".pdf"],
-      "image/jpeg": [".jpg", ".jpeg"],
+      // "image/jpeg": [".jpg", ".jpeg"],
     },
   })
   const {
@@ -171,7 +171,7 @@ export default function LandTransferApplicationPage() {
     multiple: false,
     accept: {
       "application/pdf": [".pdf"],
-      "image/jpeg": [".jpg", ".jpeg"],
+      // "image/jpeg": [".jpg", ".jpeg"],
     },
   })
   const {
@@ -183,7 +183,7 @@ export default function LandTransferApplicationPage() {
     multiple: false,
     accept: {
       "application/pdf": [".pdf"],
-      "image/jpeg": [".jpg", ".jpeg"],
+      // "image/jpeg": [".jpg", ".jpeg"],
     },
   })
 
@@ -471,7 +471,7 @@ export default function LandTransferApplicationPage() {
       <main className="py-8 px-[75px]">
         {/* Page Title */}
         <div className="mb-10">
-          <h1 className="text-black text-[32px] font-bold leading-[48px] text-left">Land Transfer</h1>
+          <h1 className="text-black text-[32px] font-bold leading-[48px] text-left">Application for Search of Land Registers</h1>
         </div>
 
         {/* Form Container */}
@@ -481,7 +481,7 @@ export default function LandTransferApplicationPage() {
             <div className="mb-2">
               <h2 className="text-black text-[20px] font-extrabold leading-[24px]">
                 {currentStep === 1
-                  ? "Seller & Buyer details"
+                  ? "Applicant Information"
                   : currentStep === 2
                     ? "Upload Required Documentation"
                     : "AI Verify"}
@@ -531,7 +531,7 @@ export default function LandTransferApplicationPage() {
             <>
               {/* Seller Details Section */}
               <div className="px-8 mb-8">
-                <h3 className="text-black text-[20px] font-extrabold leading-[24px] mb-4">Seller Details</h3>
+                <h3 className="text-black text-[20px] font-extrabold leading-[24px] mb-4">Applicant Details</h3>
 
                 <div className="grid grid-cols-2 gap-14 mb-6">
                   {/* Seller Full Name */}
@@ -799,7 +799,7 @@ export default function LandTransferApplicationPage() {
                           <p className="text-gray-700 text-[14px] font-semibold mb-1">
                             {isDragActiveOriginalDeed ? "Drop file here" : "Drag & drop or click to upload"}
                           </p>
-                          <p className="text-gray-500 text-[12px]">PDF/JPG files only • Max 10MB</p>
+                          <p className="text-gray-500 text-[12px]">PDF files only • Max 10MB</p>
                         </div>
                         <button
                           type="button"
@@ -816,7 +816,7 @@ export default function LandTransferApplicationPage() {
               {/* Purchaser NIC */}
               <div className="flex flex-col gap-[22px]">
                 <h3 className="text-black text-[17px] font-semibold leading-[20.4px]">
-                  Upload Purchaser NIC (Front & Back) – JPG/PDF (Required)
+                  Upload Purchaser NIC (Front & Back) – PDF (Required)
                 </h3>
                 <div
                   {...getRootPropsPurchaserNIC()}
@@ -856,7 +856,7 @@ export default function LandTransferApplicationPage() {
                           <p className="text-gray-700 text-[14px] font-semibold mb-1">
                             {isDragActivePurchaserNIC ? "Drop file here" : "Drag & drop or click to upload"}
                           </p>
-                          <p className="text-gray-500 text-[12px]">PDF/JPG files only • Max 10MB</p>
+                          <p className="text-gray-500 text-[12px]">PDF files only • Max 10MB</p>
                         </div>
                         <button
                           type="button"
@@ -873,7 +873,7 @@ export default function LandTransferApplicationPage() {
               {/* Purchaser Photograph */}
               <div className="flex flex-col gap-[22px]">
                 <h3 className="text-black text-[17px] font-semibold leading-[20.4px]">
-                  Upload Purchaser Photograph – Passport Size JPG/PDF (Required)
+                  Upload Purchaser Photograph – Passport Size PDF (Required)
                 </h3>
                 <div
                   {...getRootPropsPurchaserPhoto()}
@@ -913,7 +913,7 @@ export default function LandTransferApplicationPage() {
                           <p className="text-gray-700 text-[14px] font-semibold mb-1">
                             {isDragActivePurchaserPhoto ? "Drop file here" : "Drag & drop or click to upload"}
                           </p>
-                          <p className="text-gray-500 text-[12px]">PDF/JPG files only • Max 10MB</p>
+                          <p className="text-gray-500 text-[12px]">PDF files only • Max 10MB</p>
                         </div>
                         <button
                           type="button"
@@ -930,7 +930,7 @@ export default function LandTransferApplicationPage() {
               {/* Vendor Photograph */}
               <div className="flex flex-col gap-[22px]">
                 <h3 className="text-black text-[17px] font-semibold leading-[20.4px]">
-                  Upload Vendor Photograph – Passport Size JPG/PDF (Required)
+                  Upload Vendor Photograph – Passport Size PDF (Required)
                 </h3>
                 <div
                   {...getRootPropsVendorPhoto()}
@@ -970,7 +970,7 @@ export default function LandTransferApplicationPage() {
                           <p className="text-gray-700 text-[14px] font-semibold mb-1">
                             {isDragActiveVendorPhoto ? "Drop file here" : "Drag & drop or click to upload"}
                           </p>
-                          <p className="text-gray-500 text-[12px]">PDF/JPG files only • Max 10MB</p>
+                          <p className="text-gray-500 text-[12px]">PDF files only • Max 10MB</p>
                         </div>
                         <button
                           type="button"
@@ -987,7 +987,7 @@ export default function LandTransferApplicationPage() {
               {/* Guarantor 1 NIC */}
               <div className="flex flex-col gap-[22px]">
                 <h3 className="text-black text-[17px] font-semibold leading-[20.4px]">
-                  Upload Guarantor 1 NIC Number (Front & Back) – JPG/PDF (Required)
+                  Upload Guarantor 1 NIC Number (Front & Back) – PDF (Required)
                 </h3>
                 <div
                   {...getRootPropsGuarantor1NIC()}
@@ -1027,7 +1027,7 @@ export default function LandTransferApplicationPage() {
                           <p className="text-gray-700 text-[14px] font-semibold mb-1">
                             {isDragActiveGuarantor1NIC ? "Drop file here" : "Drag & drop or click to upload"}
                           </p>
-                          <p className="text-gray-500 text-[12px]">PDF/JPG files only • Max 10MB</p>
+                          <p className="text-gray-500 text-[12px]">PDF files only • Max 10MB</p>
                         </div>
                         <button
                           type="button"
@@ -1044,7 +1044,7 @@ export default function LandTransferApplicationPage() {
               {/* Guarantor 2 NIC */}
               <div className="flex flex-col gap-[22px]">
                 <h3 className="text-black text-[17px] font-semibold leading-[20.4px]">
-                  Upload Guarantor 2 NIC Number (Front & Back) – JPG/PDF (Required)
+                  Upload Guarantor 2 NIC Number (Front & Back) – PDF (Required)
                 </h3>
                 <div
                   {...getRootPropsGuarantor2NIC()}
@@ -1084,7 +1084,7 @@ export default function LandTransferApplicationPage() {
                           <p className="text-gray-700 text-[14px] font-semibold mb-1">
                             {isDragActiveGuarantor2NIC ? "Drop file here" : "Drag & drop or click to upload"}
                           </p>
-                          <p className="text-gray-500 text-[12px]">PDF/JPG files only • Max 10MB</p>
+                          <p className="text-gray-500 text-[12px]">PDF files only • Max 10MB</p>
                         </div>
                         <button
                           type="button"
