@@ -20,21 +20,21 @@ if engine_url == "" or (username == 'user' and password in (None, 'password')) o
 from fastapi.testclient import TestClient
 from main import app
 
-client = TestClient(app)
 
 def test_register_and_login_smoke():
-    # Basic smoke: register and login return status codes (DB must be reachable)
-    payload = {
-        "full_name": "Test User",
-        "nic_number": "123456789V",
-        "email": "testuser@example.com",
-        "phone_number": "0712345678",
-        "address": "Test Address",
-        "password": "password123"
-    }
-    r = client.post("/api/user/auth/register", json=payload)
-    assert r.status_code in (201, 400)
+    # Use TestClient as context manager so app startup/shutdown run in same thread/loop
+    with TestClient(app) as client:
+        payload = {
+            "full_name": "Test User",
+            "nic_number": "123456789V",
+            "email": "testuser@example.com",
+            "phone_number": "0712345678",
+            "address": "Test Address",
+            "password": "password123"
+        }
+        r = client.post("/api/user/auth/register", json=payload)
+        assert r.status_code in (201, 400)
 
-    login_payload = {"email": payload["email"], "password": payload["password"]}
-    r2 = client.post("/api/user/auth/login", json=login_payload)
-    assert r2.status_code in (200, 401)
+        login_payload = {"email": payload["email"], "password": payload["password"]}
+        r2 = client.post("/api/user/auth/login", json=login_payload)
+        assert r2.status_code in (200, 401)

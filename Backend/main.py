@@ -36,11 +36,19 @@ app.include_router(admin_documents, prefix="/api")
 # Optional startup event
 @app.on_event("startup")
 async def startup():
-    # Optionally test DB connection here
-    from database.session import engine
+    # Initialize DB engine/sessionmaker on the running event loop to avoid cross-loop asyncpg errors
+    from database.session import init_engine
     try:
-        async with engine.connect() as conn:
-            await conn.execute("SELECT 1")
+        init_engine()
+    except Exception:
+        pass
+
+@app.on_event("shutdown")
+async def shutdown():
+    # Dispose engine cleanly
+    from database.session import dispose_engine
+    try:
+        await dispose_engine()
     except Exception:
         pass
 

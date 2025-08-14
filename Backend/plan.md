@@ -99,3 +99,31 @@ If you want me to proceed now I will:
 - Run the static search and remove or convert any remaining legacy references.
 - Create minimal tests (TestClient-based) for auth register/login, creating an application, adding a document, and admin document verification.
 - When tests are in place and passing, remove the legacy `db/` and `routers/` folders.
+
+## New task: Reconfigure .env and wire configuration across the codebase
+
+Goal
+- Create a single canonical `.env` with all runtime configuration keys the project needs.
+- Update code to read configuration values from environment variables (using python-dotenv) consistently.
+- Keep secure defaults out of source control; use placeholder values in `.env` that developers replace locally or CI secrets.
+
+Scope
+- Update `.env` with: SECRET_KEY, ACCESS_TOKEN_EXPIRE_MINUTES, JWT_SECRET, JWT_ALGORITHM, DATABASE_URL_ASYNC, DATABASE_ECHO, ENVIRONMENT, LOG_LEVEL, SENTRY_DSN (optional), and MAIL/SMTP placeholders.
+- Update `database/session.py` to read `DATABASE_URL_ASYNC` and `DATABASE_ECHO` from environment.
+- Update `api/v1/endpoints/user_auth.py` to read token expiration from environment and avoid hard-coded defaults.
+- Verify `admin_*` endpoints already read `JWT_SECRET`/`JWT_ALGORITHM` from env; keep them.
+- Update tests to respect env-driven behavior (they already detect engine.url).
+
+Plan (steps)
+1. Update `plan.md` (this section) and ask for confirmation (done).
+2. Write a complete `.env` with placeholders and sensible dev defaults (non-secret values only).
+3. Update `database/session.py` to use `DATABASE_URL_ASYNC` and `DATABASE_ECHO`.
+4. Update `api/v1/endpoints/user_auth.py` to use environment-driven token expiry and ensure variable names match `.env`.
+5. Run test suite; fix any issues caused by config changes.
+6. Commit the changes and report back.
+
+Safety notes
+- Keep secrets in environment or secret manager for production; do not commit real secrets.
+- Defaults in `.env` are for local development only (use a separate `.env.example` if you prefer to commit an example file instead of real `.env`).
+
+I'll now implement the `.env` update and code changes (steps 2-4), run the test suite, and fix issues if any.

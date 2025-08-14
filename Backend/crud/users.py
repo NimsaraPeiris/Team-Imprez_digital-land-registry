@@ -1,6 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from models.lro_backend_models import User
+from models.lro_backend_models import User, UserTypeEnum
 from typing import Optional
 
 async def get_user_by_email(db: AsyncSession, email: str) -> Optional[User]:
@@ -14,13 +14,19 @@ async def get_user_by_id(db: AsyncSession, user_id: int) -> Optional[User]:
     return r.scalars().first()
 
 async def create_user(db: AsyncSession, full_name: str, nic_number: str, email: str, password: str, phone_number: str | None = None, address: str | None = None, user_type: str = "citizen") -> User:
+    # Normalize to Enum member so SAEnum(values_callable=...) can bind properly
+    try:
+        user_type_enum = UserTypeEnum(user_type) if not isinstance(user_type, UserTypeEnum) else user_type
+    except Exception:
+        user_type_enum = UserTypeEnum.CITIZEN
+
     user = User(
         full_name=full_name,
         nic_number=nic_number,
         email=email,
         phone_number=phone_number,
         address=address,
-        user_type=user_type,
+        user_type=user_type_enum,
     )
     user.set_password(password)
     db.add(user)
