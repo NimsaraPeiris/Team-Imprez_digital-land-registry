@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """
 Production-ready starting point for Land Registry Office backend models + async DB setup.
 - SQLAlchemy 2.0-style ORM with asyncio
@@ -11,7 +13,6 @@ import os
 import dotenv
 dotenv.load_dotenv()
 
-from __future__ import annotations
 from datetime import datetime
 from enum import Enum
 from typing import Optional, List
@@ -36,7 +37,6 @@ from sqlalchemy.orm import (
 )
 from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
-from .seed_data import seed_initial_data
 
 
 # Security
@@ -359,9 +359,17 @@ async def create_all_tables():
     async with engine.begin() as conn:
         # Create Postgres enums (handled automatically by SQLAlchemy native_enum)
         await conn.run_sync(Base.metadata.create_all)
+        
+    from .seed_data import seed_initial_data
+    from sqlalchemy.ext.asyncio import AsyncSession
     # Seed data
     async with AsyncSession(engine) as session:
         await seed_initial_data(session)
+        
+        
+
+
+
 
 
 # -----------------------------

@@ -1,4 +1,5 @@
-# backend/init_db.py
+from __future__ import annotations
+
 import asyncio
 from sqlalchemy import text
 from db.lro_backend_models import create_all_tables, engine
