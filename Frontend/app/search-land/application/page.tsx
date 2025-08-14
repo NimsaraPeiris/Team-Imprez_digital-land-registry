@@ -471,7 +471,7 @@ export default function LandTransferApplicationPage() {
       <main className="py-8 px-[75px]">
         {/* Page Title */}
         <div className="mb-10">
-          <h1 className="text-black text-[32px] font-bold leading-[48px] text-left">Land Transfer</h1>
+          <h1 className="text-black text-[32px] font-bold leading-[48px] text-left">Application for Search of Land Registers</h1>
         </div>
 
         {/* Form Container */}
@@ -481,7 +481,7 @@ export default function LandTransferApplicationPage() {
             <div className="mb-2">
               <h2 className="text-black text-[20px] font-extrabold leading-[24px]">
                 {currentStep === 1
-                  ? "Seller & Buyer details"
+                  ? "Applicant Information"
                   : currentStep === 2
                     ? "Upload Required Documentation"
                     : "AI Verify"}
@@ -531,7 +531,7 @@ export default function LandTransferApplicationPage() {
             <>
               {/* Seller Details Section */}
               <div className="px-8 mb-8">
-                <h3 className="text-black text-[20px] font-extrabold leading-[24px] mb-4">Seller Details</h3>
+                <h3 className="text-black text-[20px] font-extrabold leading-[24px] mb-4">Applicant Details</h3>
 
                 <div className="grid grid-cols-2 gap-14 mb-6">
                   {/* Seller Full Name */}

@@ -22,14 +22,14 @@ export default function ServiceDashboard() {
     },
     {
       id: 2,
-      title: "Application for Copy of Land",
+      title: "Application for Copy of Land Regs",
       description:
         "Request an officially certified copy of land records for legal, administrative, or personal reference purposes.",
       iconPath: "/service.png",
     },
     {
       id: 3,
-      title: "Application for Search of Land",
+      title: "Application for Search of Land Registers",
       description:
         "Conduct a search in the official land registry to verify ownership details, boundaries, and encumbrances.",
       iconPath: "/service.png",
@@ -57,6 +57,14 @@ export default function ServiceDashboard() {
   const handleServiceClick = (serviceId: number) => {
     if (serviceId === 1) {
       router.push("/land-transfer")
+    } else if (serviceId === 3) {
+      router.push("/search-land")
+    } else if (serviceId === 4) {
+      router.push("/search-duplicate-deeds")
+    } else if (serviceId === 5) {
+      router.push("/copy")
+    } else if (serviceId === 2) {
+      router.push("/copy-of-land")
     }
     // Add more service navigation logic here for other services
   }
