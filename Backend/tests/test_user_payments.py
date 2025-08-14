@@ -24,6 +24,12 @@ async def test_create_payment():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
         headers = await auth_header(ac)
+        # create an application to pay against
+        app_payload = {"service_id": 1, "reference_number": "REF-PAY-1"}
+        app_res = await ac.post("/api/user/applications/", json=app_payload, headers=headers)
+        assert app_res.status_code == 201
+        payload["application_id"] = app_res.json().get("application_id")
+        headers = await auth_header(ac)
         response = await ac.post("/api/user/payments/", json=payload, headers=headers)
     assert response.status_code == 201
     assert response.json()["amount"] == 1000
