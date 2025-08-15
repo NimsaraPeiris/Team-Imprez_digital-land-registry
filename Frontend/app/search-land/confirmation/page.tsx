@@ -12,7 +12,7 @@ export default function LandTransferConfirmationPage() {
   const router = useRouter()
 
   const handleBack = () => {
-    router.push("/land-transfer/payment")
+    router.push("/search-land/payment")
   }
 
   const handleGoToHome = () => {
@@ -33,7 +33,7 @@ export default function LandTransferConfirmationPage() {
       <main className="py-8 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-[75px]">
         {/* Page Title */}
         <div className="mb-10">
-          <h1 className="text-black text-[32px] font-bold leading-[48px] text-left">Land Transfer</h1>
+          <h1 className="text-black text-[32px] font-bold leading-[48px] text-left">Application for Search of Land Registers</h1>
         </div>
 
         {/* Form Container */}
@@ -45,32 +45,29 @@ export default function LandTransferConfirmationPage() {
             </div>
             <div className="mb-8">
               <p className="text-black text-[15px] font-normal leading-[18px]">
-                Your land transfer application has been successfully submitted
+                Your search of land registers application has been successfully submitted
               </p>
             </div>
 
             {/* Progress Indicator */}
             <div className="flex items-center justify-between mb-16 w-full max-w-[551px]">
-              {steps.map((step, index) => (
+              {[1, 2, 3].map((step, index) => (
                 <React.Fragment key={step}>
                   <div
-                    className={`w-[31px] h-[31px] rounded-full border flex items-center justify-center relative overflow-hidden ${
-                      step <= currentStep ? "bg-[#36BF29] border-[#36BF29]" : "bg-[#F4F4F4] border-[#737373]"
-                    }`}
+                    className={`w-[31px] h-[31px] rounded-full border flex items-center justify-center relative overflow-hidden ${step <= 3 ? "bg-[#36BF29] border-[#36BF29]" : "bg-[#F4F4F4] border-[#737373]"
+                      }`}
                   >
                     <span
-                      className={`text-[15px] font-normal leading-[18px] ${
-                        step <= currentStep ? "text-white" : "text-[#807E7E]"
-                      }`}
+                      className={`text-[15px] font-normal leading-[18px] ${step <= 3 ? "text-white" : "text-[#807E7E]"
+                        }`}
                     >
                       {step}
                     </span>
                   </div>
-                  {index < steps.length - 1 && (
+                  {index < 2 && (
                     <div
-                      className={`w-[51px] h-0 border-t ${
-                        step < currentStep ? "border-[#36BF29]" : "border-[#807E7E]"
-                      }`}
+                      className={`w-[184px] h-0 border-t ${step < 3 ? "border-[#36BF29]" : "border-[#807E7E]"
+                        }`}
                     />
                   )}
                 </React.Fragment>

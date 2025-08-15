@@ -192,7 +192,7 @@ export default function LandTransferApplicationPage() {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1)
     } else {
-      router.push("/land-transfer")
+      router.push("/search-duplicate-deeds")
     }
   }
 

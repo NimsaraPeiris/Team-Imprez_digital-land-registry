@@ -25,7 +25,7 @@ export default function QRConfirmationPage() {
   }, [])
 
   const handleBack = () => {
-    router.push("/land-transfer/payment")
+    router.push("/search-land/payment")
   }
 
   const handleGoToHome = () => {
@@ -100,7 +100,7 @@ export default function QRConfirmationPage() {
             <div>
               <h3 className="text-green-800 text-[18px] font-bold">Payment Successful!</h3>
               <p className="text-green-700 text-[14px]">
-                Your land transfer application has been submitted successfully.
+                Your search of land application has been submitted successfully.
               </p>
             </div>
           </div>
@@ -116,7 +116,7 @@ export default function QRConfirmationPage() {
         <div className="w-full max-w-[1300px] mx-auto bg-white border border-[#E0E0E0] rounded-[12px] shadow-lg overflow-hidden">
           {/* Header Section */}
           <div className="bg-[#102A3D] px-8 py-6">
-            <h2 className="text-white text-[24px] font-bold">Land Transfer Confirmation</h2>
+            <h2 className="text-white text-[24px] font-bold">Search of Land Registers Confirmation</h2>
             <p className="text-blue-100 text-[14px] mt-1">Reference: {confirmationData.reference}</p>
           </div>
 

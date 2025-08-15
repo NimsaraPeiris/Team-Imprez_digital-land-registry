@@ -32,7 +32,7 @@ export default function CopyOfLandPage() {
         <div className="w-[1291px] h-[151px] bg-[#102A3D] rounded-[9px] mb-[20px] relative">
           <div className="absolute left-[23px] top-[43px] flex flex-col gap-[5px]">
             <h1 className="text-white text-[35px] font-bold leading-[42px] font-inter">
-              Application for Copy
+              Application for Search Duplicate of Deeds
             </h1>
             <p className="text-white text-[16px] font-light leading-[19.2px] font-inter">
               Request a duplicate copy of a registered deed
@@ -54,9 +54,9 @@ export default function CopyOfLandPage() {
           </div>
           <div className="absolute left-[731px] top-[140px]">
             <h2 className="text-black text-[23px] font-semibold leading-[27.6px] font-inter mb-[77px]">
-              How to
+              How to Request a
               <br />
-              Request a Copy of Land
+              duplicate copy of a registered deed application
             </h2>
             <p className="text-[#626262] text-[16px] font-normal leading-[19.2px] font-inter">
               Watch this tutorial to understand the complete process (8:45)
@@ -83,7 +83,7 @@ export default function CopyOfLandPage() {
                 className="w-[350px] h-[62px] bg-white border border-[#00508E] rounded-[10px] flex items-center justify-center hover:bg-blue-50 transition-colors"
               >
                 <span className="text-[#00508E] text-[24px] font-normal leading-[28.8px] font-inter">
-                  Back to Service
+                  Back to Services
                 </span>
               </button>
             </div>

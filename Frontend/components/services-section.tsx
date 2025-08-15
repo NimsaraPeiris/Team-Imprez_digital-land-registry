@@ -2,41 +2,42 @@
 
 import Image from "next/image"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import LoginOverlay from "./login-overlay"
 
 const services = [
   {
     id: 1,
     title: "Land Transfer",
-    description: "Submit new title registration, attach surveys, and pay required fees.",
+    description: "Register the transfer of land ownership from the seller to the buyer with full legal documentation and verification.",
     iconUrl: "/image 12.png",
     slug: "land-transfer",
   },
   {
     id: 2,
     title: "Application for Copy of Land Registers",
-    description: "Submit new title registration, attach surveys, and pay required fees.",
+    description: "Request an officially certified copy of land records for legal, administrative, or personal reference purposes.",
     iconUrl: "/image 12.png",
     slug: "copy-land-registers",
   },
   {
     id: 3,
-    title: "Register Property",
-    description: "Submit new title registration, attach surveys, and pay required fees.",
+    title: "Application for Search of Land Registers",
+    description: "Conduct a search in the official land registry to verify ownership details, boundaries, and encumbrances.",
     iconUrl: "/image 12.png",
     slug: "register-property",
   },
   {
     id: 4,
-    title: "Register Property",
-    description: "Submit new title registration, attach surveys, and pay required fees.",
+    title: "Application for search Duplicate of Deeds",
+    description: "Locate and review registered land records to confirm property history and registration details.",
     iconUrl: "/image 12.png",
     slug: "register-property-2",
   },
   {
     id: 5,
-    title: "Register Property",
-    description: "Submit new title registration, attach surveys, and pay required fees.",
+    title: "Application for copy",
+    description: "Request a duplicate copy of a registered deed when the original document has been lost or damaged.",
     iconUrl: "/image 12.png",
     slug: "register-property-3",
   },
@@ -44,6 +45,7 @@ const services = [
 
 export default function ServicesSection() {
   const [isLoginOpen, setIsLoginOpen] = useState(false)
+  const router = useRouter()
 
   return (
     <section className="bg-white py-16" data-section="services">
@@ -56,7 +58,10 @@ export default function ServicesSection() {
               Explore our most-requested services and get started online.
             </p>
           </div>
-          <div className="text-[20px] text-black hover:text-[#00508E] transition-colors duration-300 cursor-pointer leading-6 font-normal">
+          <div
+            className="text-[20px] text-black hover:text-[#00508E] transition-colors duration-300 cursor-pointer leading-6 font-normal"
+            onClick={() => router.push('/dashboard')} // Navigate to dashboard
+          >
             View all Services
           </div>
         </div>

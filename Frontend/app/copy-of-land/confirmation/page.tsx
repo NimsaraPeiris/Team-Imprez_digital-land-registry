@@ -45,25 +45,33 @@ export default function LandTransferConfirmationPage() {
             </div>
             <div className="mb-8">
               <p className="text-black text-[15px] font-normal leading-[18px]">
-                Your land transfer application has been successfully submitted
+                Your Copy of Land Registers application has been successfully submitted
               </p>
             </div>
 
             {/* Progress Indicator - Now inside the form container after the header text */}
-            <div className="mb-8">
-              <div className="w-[281px] flex items-center justify-between">
-                <div className="w-[31px] h-[31px] bg-[#36BF29] border border-[#36BF29] rounded-full flex items-center justify-center">
-                  <span className="text-white text-[15px] font-normal leading-[18px] font-inter">1</span>
-                </div>
-                <div className="w-[51px] h-0 border-t border-[#36BF29]"></div>
-                <div className="w-[31px] h-[31px] bg-[#36BF29] border border-[#36BF29] rounded-full flex items-center justify-center">
-                  <span className="text-white text-[15px] font-normal leading-[18px] font-inter">2</span>
-                </div>
-                <div className="w-[51px] h-0 border-t border-[#36BF29]"></div>
-                <div className="w-[31px] h-[31px] bg-[#36BF29] border border-[#36BF29] rounded-full flex items-center justify-center">
-                  <span className="text-white text-[15px] font-normal leading-[18px] font-inter">3</span>
-                </div>
-              </div>
+            <div className="flex items-center justify-between mb-16 w-full max-w-[551px]">
+              {[1, 2, 3].map((step, index) => (
+                <React.Fragment key={step}>
+                  <div
+                    className={`w-[31px] h-[31px] rounded-full border flex items-center justify-center relative overflow-hidden ${step <= 3 ? "bg-[#36BF29] border-[#36BF29]" : "bg-[#F4F4F4] border-[#737373]"
+                      }`}
+                  >
+                    <span
+                      className={`text-[15px] font-normal leading-[18px] ${step <= 3 ? "text-white" : "text-[#807E7E]"
+                        }`}
+                    >
+                      {step}
+                    </span>
+                  </div>
+                  {index < 2 && (
+                    <div
+                      className={`w-[184px] h-0 border-t ${step < 3 ? "border-[#36BF29]" : "border-[#807E7E]"
+                        }`}
+                    />
+                  )}
+                </React.Fragment>
+              ))}
             </div>
 
             {/* Confirmation Details */}

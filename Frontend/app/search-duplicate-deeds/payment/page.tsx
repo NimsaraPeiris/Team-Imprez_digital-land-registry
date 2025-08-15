@@ -41,22 +41,25 @@ export default function LandTransferPaymentPage() {
   }
 
   const handleBack = () => {
-    router.push("/land-transfer/application")
+    router.push("/search-duplicate-deeds/application")
+  }
+
+  // Check if all required fields are filled
+  const isFormValid = () => {
+    const cardHolderName = `${formData.firstName} ${formData.lastName}`.trim()
+    return (
+      cardHolderName.length > 0 &&
+      formData.cardNumber.trim().length > 0 &&
+      formData.expiryDate.trim().length > 0 &&
+      formData.cvv.trim().length > 0
+    )
   }
 
   const handlePayNow = () => {
+    const cardHolderName = `${formData.firstName} ${formData.lastName}`.trim()
+    
     // Validate all required fields
-    const requiredFields = [
-      formData.firstName,
-      formData.lastName,
-      formData.cardNumber,
-      formData.expiryDate,
-      formData.cvv,
-    ]
-
-    const hasEmptyFields = requiredFields.some((field) => !field.trim())
-
-    if (hasEmptyFields) {
+    if (!cardHolderName || !formData.cardNumber.trim() || !formData.expiryDate.trim() || !formData.cvv.trim()) {
       alert("Please fill in all required payment details before continuing.")
       return
     }
@@ -83,11 +86,11 @@ export default function LandTransferPaymentPage() {
     // Handle payment processing
     console.log("Processing payment...", formData)
     // Navigate to confirmation page
-    router.push("/land-transfer/confirmation")
+    router.push("/search-duplicate-deeds/confirmation")
   }
 
-  const steps = [1, 2, 3, 4, 5]
-  const currentStep = 4
+  const steps = [1, 2, 3]
+  const currentStep = 2
 
   return (
     <div className="min-h-screen bg-white">
@@ -100,7 +103,7 @@ export default function LandTransferPaymentPage() {
       <main className="py-8 px-[75px]">
         {/* Page Title */}
         <div className="mb-10">
-          <h1 className="text-black text-[32px] font-bold leading-[48px] text-left">Land Transfer</h1>
+          <h1 className="text-black text-[32px] font-bold leading-[48px] text-left">Application for search Duplicate of Deeds</h1>
         </div>
 
         {/* Form Container */}
@@ -112,36 +115,25 @@ export default function LandTransferPaymentPage() {
             </div>
             <div className="mb-8">
               <p className="text-black text-[15px] font-normal leading-[18px]">
-                Complete your payment to finalize the land transfer application
+                Complete your payment to finalize the search duplicate of deeds application
               </p>
             </div>
 
-            {/* Progress Indicator */}
-            <div className="flex items-center justify-between mb-16 w-[551px]">
-              {steps.map((step, index) => (
-                <React.Fragment key={step}>
-                  <div
-                    className={`w-[31px] h-[31px] rounded-full border flex items-center justify-center relative overflow-hidden ${
-                      step <= currentStep ? "bg-[#36BF29] border-[#36BF29]" : "bg-[#F4F4F4] border-[#737373]"
-                    }`}
-                  >
-                    <span
-                      className={`text-[15px] font-normal leading-[18px] ${
-                        step <= currentStep ? "text-white" : "text-[#807E7E]"
-                      }`}
-                    >
-                      {step}
-                    </span>
-                  </div>
-                  {index < steps.length - 1 && (
-                    <div
-                      className={`w-[51px] h-0 border-t ${
-                        step < currentStep ? "border-[#36BF29]" : "border-[#737373]"
-                      }`}
-                    />
-                  )}
-                </React.Fragment>
-              ))}
+            {/* Progress Indicator - Now inside the form container after the header text */}
+            <div className="mb-8">
+              <div className="w-[281px] flex items-center justify-between">
+                <div className="w-[31px] h-[31px] bg-[#36BF29] border border-[#36BF29] rounded-full flex items-center justify-center">
+                  <span className="text-white text-[15px] font-normal leading-[18px] font-inter">1</span>
+                </div>
+                <div className="w-[51px] h-0 border-t border-[#36BF29]"></div>
+                <div className="w-[31px] h-[31px] bg-[#36BF29] border border-[#36BF29] rounded-full flex items-center justify-center">
+                  <span className="text-white text-[15px] font-normal leading-[18px] font-inter">2</span>
+                </div>
+                <div className="w-[51px] h-0 border-t border-[#36BF29]"></div>
+                <div className="w-[31px] h-[31px] bg-[#F4F4F4] border border-[#737373] rounded-full flex items-center justify-center">
+                  <span className="text-[#807E7E] text-[15px] font-normal leading-[18px] font-inter">3</span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -205,7 +197,7 @@ export default function LandTransferPaymentPage() {
                       <div className="w-full h-[46px] bg-[#FAFAFA] border border-[#CECECE] rounded-[9px] relative">
                         <input
                           type="text"
-                          value={`${formData.firstName} ${formData.lastName}`}
+                          value={`${formData.firstName} ${formData.lastName}`.trim()}
                           onChange={(e) => {
                             const names = e.target.value.split(" ")
                             handleInputChange("firstName", names[0] || "")
@@ -269,7 +261,7 @@ export default function LandTransferPaymentPage() {
                       <div className="bg-[#F8F9FA] p-4 rounded-[8px]">
                         <div className="flex justify-between items-center mb-2">
                           <span className="text-[#666666] text-[14px]">Service Type:</span>
-                          <span className="text-black text-[14px] font-medium">Land Transfer</span>
+                          <span className="text-black text-[14px] font-medium">Copy of Land Registers</span>
                         </div>
                         <div className="flex justify-between items-center mb-2">
                           <span className="text-[#666666] text-[14px]">Application ID:</span>
@@ -350,39 +342,21 @@ export default function LandTransferPaymentPage() {
 
             <button
               onClick={handlePayNow}
-              disabled={
-                !formData.firstName ||
-                !formData.lastName ||
-                !formData.cardNumber ||
-                !formData.expiryDate ||
-                !formData.cvv
-              }
+              disabled={!isFormValid()}
               className={`px-[18px] py-[7px] rounded-[8px] flex items-center gap-3 transition-colors ${
-                !formData.firstName ||
-                !formData.lastName ||
-                !formData.cardNumber ||
-                !formData.expiryDate ||
-                !formData.cvv
+                !isFormValid()
                   ? "bg-gray-400 cursor-not-allowed"
                   : "bg-[#002E51] hover:bg-[#001a2e]"
               }`}
             >
               <span
                 className={`text-[16px] font-medium leading-[19.2px] ${
-                  !formData.firstName ||
-                  !formData.lastName ||
-                  !formData.cardNumber ||
-                  !formData.expiryDate ||
-                  !formData.cvv
+                  !isFormValid()
                     ? "text-gray-600"
                     : "text-white"
                 }`}
               >
-                {!formData.firstName ||
-                !formData.lastName ||
-                !formData.cardNumber ||
-                !formData.expiryDate ||
-                !formData.cvv
+                {!isFormValid()
                   ? "Complete Payment Details"
                   : "Pay Now and Continue"}
               </span>

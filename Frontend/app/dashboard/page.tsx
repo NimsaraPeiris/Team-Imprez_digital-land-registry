@@ -22,7 +22,7 @@ export default function ServiceDashboard() {
     },
     {
       id: 2,
-      title: "Application for Copy of Land Regs",
+      title: "Application for Copy of Land Registers",
       description:
         "Request an officially certified copy of land records for legal, administrative, or personal reference purposes.",
       iconPath: "/service.png",

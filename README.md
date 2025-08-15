@@ -39,57 +39,153 @@ A full-stack web application for a Digital Land Registry Hub, with a Next.js fro
 ```
 Team-Imprez_digital-land-registry/
 ├── backend/
-│   ├── db/
-│   │   ├── lro_backend_models.py     # SQLAlchemy models, DB session, and password hashing utilities
-│   ├── routers/
-│   │   ├── admin/
-│   │   │   ├── applications.py       # Admin routes for application management
-│   │   │   └── documents.py          # Admin routes for document management
-│   │   └── user/
-│   │       ├── applications.py       # User routes for application management
-│   │       ├── auth.py               # User authentication routes (register, login)
-│   │       ├── documents.py          # User routes for document management
-│   │       └── payments.py           # User routes for payments
+│   ├── api/
+│   │   └── v1/
+│   │       └── endpoints/
+│   │           ├── __init__.py
+│   │           ├── admin_applications.py       # Admin routes for application management
+│   │           ├── admin_documents.py          # Admin routes for document management
+│   │           ├── user_applications.py        # User routes for their own applications
+│   │           ├── user_auth.py                # User authentication routes (register, login)
+│   │           ├── user_documents.py           # User routes for their own documents
+│   │           └── user_payments.py            # User routes for payments
+│   ├── crud/
+│   │   ├── __init__.py
+│   │   ├── admin_applications.py       # CRUD functions for admin application management
+│   │   ├── applications.py             # General CRUD functions for applications
+│   │   ├── documents.py                # CRUD functions for documents
+│   │   ├── payments.py                 # CRUD functions for payments
+│   │   └── users.py                    # CRUD functions for users
+│   ├── database/
+│   │   ├── __init__.py
+│   │   └── session.py                  # Database session management
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── applications.py             # SQLAlchemy models for applications
+│   │   ├── base.py                     # Base model for SQLAlchemy
+│   │   ├── documents.py                # SQLAlchemy models for documents
+│   │   ├── enums.py                    # Enum definitions for database models
+│   │   ├── lro_backend_models.py       # Main file for all SQLAlchemy models
+│   │   ├── officers.py                 # SQLAlchemy models for officers
+│   │   ├── offices.py                  # SQLAlchemy models for offices
+│   │   ├── payments.py                 # SQLAlchemy models for payments
+│   │   ├── security.py                 # Security-related models and utilities
+│   │   ├── seed_data.py                # Script for seeding the database with initial data
+│   │   └── services.py                 # SQLAlchemy models for services
 │   ├── schemas/
-│   │   ├── admin_schemas.py          # Pydantic models for admin endpoints
-│   │   ├── common.py                 # Common enums shared across schemas
-│   │   └── user_schemas.py           # Pydantic models for user endpoints
-│   ├── main.py                       # Main FastAPI application entry point
-│   └── requirements.txt              # Python dependencies
+│   │   ├── __init__.py
+│   │   ├── admin_schemas.py            # Pydantic models for admin endpoints
+│   │   ├── common.py                   # Common enums and schemas
+│   │   └── user_schemas.py             # Pydantic models for user endpoints
+│   ├── scripts/
+│   │   └── setup_test_db.py            # Script to set up a test database
+│   ├── tests/
+│   │   ├── __init__.py
+│   │   ├── conftest.py                 # Pytest configuration and fixtures
+│   │   ├── test_crud_smoke.py          # Smoke tests for CRUD operations
+│   │   ├── test_enums.py               # Tests for enums
+│   │   ├── test_models_registration.py # Tests for model registration
+│   │   └── test_routes.py              # Tests for API routes
+│   ├── tools/
+│   │   └── check_db_enums.py           # Tool to check database enums
+│   ├── .gitignore                      # Git ignore file for the backend
+│   ├── init_db.py                      # Script to initialize the database
+│   ├── main.py                         # Main FastAPI application entry point
+│   ├── plan.md                         # Project planning document
+│   └── requirements.txt                # Python dependencies
 └── Frontend/
     ├── app/
+    │   ├── copy/
+    │   │   ├── application/
+    │   │   │   └── page.tsx              # Application page for 'copy' service
+    │   │   ├── confirmation/
+    │   │   │   └── page.tsx              # Confirmation page for 'copy' service
+    │   │   ├── payment/
+    │   │   │   └── page.tsx              # Payment page for 'copy' service
+    │   │   └── qr-confirmation/
+    │   │       └── page.tsx              # QR confirmation page for 'copy' service
+    │   ├── copy-of-land/
+    │   │   ├── application/
+    │   │   │   └── page.tsx              # Application page for 'copy-of-land' service
+    │   │   ├── confirmation/
+    │   │   │   └── page.tsx              # Confirmation page for 'copy-of-land' service
+    │   │   ├── payment/
+    │   │   │   └── page.tsx              # Payment page for 'copy-of-land' service
+    │   │   └── qr-confirmation/
+    │   │       └── page.tsx              # QR confirmation page for 'copy-of-land' service
     │   ├── dashboard/
-    │   │   └── page.tsx              # User dashboard page
+    │   │   ├── layout.tsx                # Layout for the dashboard
+    │   │   └── page.tsx                  # User dashboard page
+    │   ├── land-transfer/
+    │   │   ├── application/
+    │   │   │   └── page.tsx              # Application page for 'land-transfer' service
+    │   │   ├── confirmation/
+    │   │   │   └── page.tsx              # Confirmation page for 'land-transfer' service
+    │   │   ├── payment/
+    │   │   │   └── page.tsx              # Payment page for 'land-transfer' service
+    │   │   └── qr-confirmation/
+    │   │       └── page.tsx              # QR confirmation page for 'land-transfer' service
     │   ├── register/
-    │   │   └── page.tsx              # User registration page
-    │   ├── globals.css               # Global CSS styles
-    │   └── layout.tsx                # Main application layout
+    │   │   └── page.tsx                  # User registration page
+    │   ├── search-duplicate-deeds/
+    │   │   ├── application/
+    │   │   │   └── page.tsx              # Application page for 'search-duplicate-deeds' service
+    │   │   ├── confirmation/
+    │   │   │   └── page.tsx              # Confirmation page for 'search-duplicate-deeds' service
+    │   │   ├── payment/
+    │   │   │   └── page.tsx              # Payment page for 'search-duplicate-deeds' service
+    │   │   └── qr-confirmation/
+    │   │       └── page.tsx              # QR confirmation page for 'search-duplicate-deeds' service
+    │   ├── search-land/
+    │   │   ├── application/
+    │   │   │   └── page.tsx              # Application page for 'search-land' service
+    │   │   ├── confirmation/
+    │   │   │   └── page.tsx              # Confirmation page for 'search-land' service
+    │   │   ├── payment/
+    │   │   │   └── page.tsx              # Payment page for 'search-land' service
+    │   │   └── qr-confirmation/
+    │   │       └── page.tsx              # QR confirmation page for 'search-land' service
+    │   ├── globals.css                   # Global CSS styles
+    │   ├── layout.tsx                    # Main application layout
+    │   └── page.tsx                      # Home page
     ├── components/
-    │   ├── announcements-section.tsx # Component for news and announcements
-    │   ├── contact-section.tsx       # Component for contact information
-    │   ├── dashboard-navigation-bar.tsx # Dashboard-specific navigation bar
-    │   ├── faq-section.tsx           # Component for frequently asked questions
-    │   ├── footer.tsx                # Footer component
-    │   ├── government-header.tsx     # Government header with language switcher
-    │   ├── hero-section.tsx          # Hero section component
-    │   ├── home-navigation-bar.tsx   # Home page navigation bar
-    │   ├── login-overlay.tsx         # Login modal/overlay component
-    │   ├── navigation-bar.tsx        # General navigation bar logic
-    │   ├── process-section.tsx       # "How it works" section
-    │   ├── services-section.tsx      # Services list component
-    │   └── theme-provider.tsx        # Theme provider
+    │   ├── ui/
+    │   │   ├── ...                       # Reusable UI components (from Shadcn/ui)
+    │   ├── announcements-section.tsx     # Component for news and announcements
+    │   ├── contact-section.tsx           # Component for contact information
+    │   ├── dashboard-navigation-bar.tsx  # Dashboard-specific navigation bar
+    │   ├── faq-section.tsx               # Component for frequently asked questions
+    │   ├── file-upload.tsx               # Component for file uploads
+    │   ├── footer.tsx                    # Footer component
+    │   ├── government-header.tsx         # Government header with language switcher
+    │   ├── hero-section.tsx              # Hero section component
+    │   ├── home-navigation-bar.tsx       # Home page navigation bar
+    │   ├── login-overlay.tsx             # Login modal/overlay component
+    │   ├── navigation-bar.tsx            # General navigation bar logic
+    │   ├── process-section.tsx           # "How it works" section
+    │   ├── services-section.tsx          # Services list component
+    │   └── theme-provider.tsx            # Theme provider (e.g., for dark mode)
     ├── contexts/
-    │   ├── auth-context.tsx          # React context for authentication state
-    │   └── translation-context.tsx   # React context for multi-language support
+    │   ├── auth-context.tsx              # React context for authentication state
+    │   └── translation-context.tsx       # React context for multi-language support
+    ├── hooks/
+    │   ├── use-mobile.ts                 # Custom hook to detect mobile devices
+    │   └── use-toast.ts                  # Custom hook for toast notifications
     ├── lib/
-    │   ├── use-smooth-scroll.ts      # Custom hook for smooth scrolling
-    │   └── utils.ts                  # Utility functions
+    │   ├── use-smooth-scroll.ts          # Custom hook for smooth scrolling
+    │   └── utils.ts                      # Utility functions
     ├── public/
-    │   └── ...                       # Image and asset files
-    ├── .gitignore                    # Git ignore file for frontend
-    ├── next.config.mjs               # Next.js configuration
-    ├── package.json                  # Node.js dependencies and scripts
-    └── tsconfig.json                 # TypeScript configuration
+    │   └── ...                           # Image and asset files
+    ├── styles/
+    │   └── globals.css                   # Global CSS styles
+    ├── .gitignore                        # Git ignore file for the frontend
+    ├── README.md                         # README file for the frontend
+    ├── components.json                   # Configuration for Shadcn/ui
+    ├── next.config.mjs                   # Next.js configuration
+    ├── package.json                      # Node.js dependencies and scripts
+    ├── pnpm-lock.yaml                    # PNPM lock file
+    ├── postcss.config.mjs                # PostCSS configuration
+    └── tsconfig.json                     # TypeScript configuration
 ```
 
 ### Database Schema

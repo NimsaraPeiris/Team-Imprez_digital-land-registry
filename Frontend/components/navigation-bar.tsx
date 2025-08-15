@@ -62,14 +62,14 @@ export default function NavigationBar() {
     { label: "About us", section: "about" },
     { label: "News & Events", section: "announcements" },
     { label: "FAQ", section: "faq" },
-    { label: "Contact Us", section: "contact" }
+    { label: "Contact s", section: "contact" }
   ]
 
   // Dashboard specific navigation items
   const dashboardNavItems = [
     { label: "Home", section: "home" },
     { label: "Services", section: "services" },
-    { label: "Contact Us", section: "contact" }
+    // { label: "Contact Us", section: "contact" }
   ]
 
   // Choose navigation items based on current path
