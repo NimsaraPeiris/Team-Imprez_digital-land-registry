@@ -108,11 +108,15 @@ except Exception:
 # Helper: Create all tables (for small dev/test use only)
 from sqlalchemy import text
 
-async def create_all_tables():
-    # initialize/get engine on the currently running event loop
-    from database.session import init_engine, get_engine
-    init_engine()
-    engine = get_engine()
+async def create_all_tables(engine=None):
+    """Create enum types and tables. If `engine` (AsyncEngine) is provided it will be used;
+    otherwise the application's session provider will be initialized and its engine used.
+    """
+    # initialize/get engine on the currently running event loop if not provided
+    if engine is None:
+        from database.session import init_engine, get_engine
+        init_engine()
+        engine = get_engine()
     if engine is None:
         raise RuntimeError("Database engine not available")
 
