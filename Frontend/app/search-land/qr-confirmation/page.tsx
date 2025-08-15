@@ -25,7 +25,7 @@ export default function QRConfirmationPage() {
   }, [])
 
   const handleBack = () => {
-    router.push("/land-transfer/payment")
+    router.push("/search-land/payment")
   }
 
   const handleGoToHome = () => {

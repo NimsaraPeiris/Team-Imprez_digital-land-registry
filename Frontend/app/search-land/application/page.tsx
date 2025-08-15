@@ -462,7 +462,7 @@ export default function LandTransferApplicationPage() {
       }
     } else if (currentStep === 3) {
       // Navigate to online payment section
-      router.push("/land-transfer/payment")
+      router.push("/search-land/payment")
     }
   }
 
@@ -470,7 +470,7 @@ export default function LandTransferApplicationPage() {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1)
     } else {
-      router.push("/land-transfer")
+      router.push("/search-land")
     }
   }
 
