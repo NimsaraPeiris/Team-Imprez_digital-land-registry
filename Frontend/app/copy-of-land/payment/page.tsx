@@ -115,7 +115,7 @@ export default function LandTransferPaymentPage() {
             </div>
             <div className="mb-8">
               <p className="text-black text-[15px] font-normal leading-[18px]">
-                Complete your payment to finalize the Copy of Land Registers application
+                Complete your payment to finalize the copy of land registers application
               </p>
             </div>
 

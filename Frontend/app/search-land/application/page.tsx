@@ -435,36 +435,92 @@ export default function LandTransferApplicationPage() {
   }
 
   const handleContinue = () => {
-    if (currentStep === 1) {
-      // Validate seller and property details before proceeding
-      const isValid = validateSection("seller") && validateSection("property")
-      if (isValid) {
-        setCurrentStep(2)
-      }
-    } else if (currentStep === 2) {
-      // Check if all required documents are uploaded before proceeding
-      const requiredDocuments = [
-        "originalDeed",
-        "purchaserNIC",
-        "purchaserPhoto",
-        "vendorPhoto",
-        "guarantor1NIC",
-        "guarantor2NIC",
-        "signature", // Included signature in required documents
-      ] as const
-      const allDocumentsUploaded = requiredDocuments.every((doc) => fileUploads[doc] !== null)
+  if (currentStep === 1) {
+    // Validate seller information
+    const sellerData = formData.seller;
+    const sellerErrors = {
+      fullName: validateFullName(sellerData.fullName),
+      email: validateEmail(sellerData.email),
+      phone: validatePhoneNumber(sellerData.phone),
+      nic: validateNIC(sellerData.nic),
+    };
 
-      if (allDocumentsUploaded) {
-        // Move to AI verification step (step 3)
-        setCurrentStep(3)
-      } else {
-        alert("Please upload all required documents before continuing.")
-      }
-    } else if (currentStep === 3) {
-      // Navigate to online payment section
-      router.push("/search-land/payment")
+    // Validate property information (basic required field validation)
+    const propertyData = formData.property;
+    const propertyErrors = {
+      village: !propertyData.village.trim() ? "Village is required" : "",
+      nameOfLand: !propertyData.nameOfLand.trim() ? "Name of land is required" : "",
+      extent: !propertyData.extent.trim() ? "Extent is required" : "",
+      korale: !propertyData.korale.trim() ? "Korale is required" : "",
+      pattu: !propertyData.pattu.trim() ? "Pattu is required" : "",
+      gnDivision: !propertyData.gnDivision.trim() ? "GN Division is required" : "",
+      dsDivision: !propertyData.dsDivision.trim() ? "DS Division is required" : "",
+      division: "", // This might not be required at this step
+      volumeNo: "",
+      folioNo: "",
+    };
+
+    // Validate register entries
+    const registerErrors = registerEntries.some(entry => 
+      !entry.division.trim() || !entry.volumeNo.trim() || !entry.folioNo.trim()
+    );
+
+    // Update errors state
+    setErrors(prev => ({
+      ...prev,
+      seller: sellerErrors,
+      property: propertyErrors,
+    }));
+
+    // Check if there are any errors
+    const hasSellerErrors = Object.values(sellerErrors).some(error => error !== "");
+    const hasPropertyErrors = Object.values(propertyErrors).some(error => error !== "");
+    
+    if (hasSellerErrors) {
+      alert("Please fix the errors in Applicant Details section");
+      return;
     }
+    
+    if (hasPropertyErrors) {
+      alert("Please fill in all required Property Details fields");
+      return;
+    }
+    
+    if (registerErrors) {
+      alert("Please fill in all register entry fields (Division, Vol.No, and Folio No)");
+      return;
+    }
+
+    // All validations passed, proceed to step 2
+    setCurrentStep(2);
+    
+  } else if (currentStep === 2) {
+    // Check if all required documents are uploaded before proceeding
+    const requiredDocuments = [
+      "originalDeed",
+      "purchaserNIC", 
+      "purchaserPhoto",
+      "vendorPhoto",
+      "guarantor1NIC",
+      "guarantor2NIC",
+      "signature",
+    ] as const;
+    
+    const allDocumentsUploaded = requiredDocuments.every(doc => fileUploads[doc] !== null);
+
+    if (allDocumentsUploaded) {
+      // Move to AI verification step (step 3)
+      setCurrentStep(3);
+    } else {
+      const missingDocs = requiredDocuments.filter(doc => fileUploads[doc] === null);
+      alert(`Please upload all required documents before continuing. Missing: ${missingDocs.join(', ')}`);
+    }
+    
+  } else if (currentStep === 3) {
+    // Navigate to online payment section
+    router.push("/search-land/payment");
   }
+};
 
   const handleBack = () => {
     if (currentStep > 1) {
@@ -921,14 +977,17 @@ export default function LandTransferApplicationPage() {
               </span>
             </button>
 
+            {/* Navigation error */}
             <button
-              className="w-full sm:w-auto px-4 sm:px-[18px] py-3 sm:py-[7px] bg-[#002E51] rounded-[8px] flex items-center justify-center gap-3 sm:gap-[12px] hover:bg-[#001a2e] transition-colors"
+              className="w-full sm:w-auto px-4 sm:px-[18px] py-2 sm:py-[7px] bg-[#002E51] rounded-[8px] flex items-center justify-center gap-3 lg:gap-[12px] hover:bg-[#001a2e] transition-colors"
               onClick={handleContinue}
             >
-              <span className="text-white text-sm sm:text-xs lg:text-[16px] font-medium leading-[19.2px] font-inter">
-                Continue
-              </span>
-              <img className="w-6 h-6 sm:w-[30px] sm:h-[30px]" src="/continue.png" alt="Arrow" />
+              <span className="text-white text-sm sm:text-base lg:text-[16px] font-medium font-inter">Continue</span>
+              <img
+                src="/continue.png"
+                alt="Arrow"
+                className="w-5 h-5 sm:w-6 sm:h-6 lg:w-[30px] lg:h-[30px] rotate-180 scale-x-[-1]"
+              />
             </button>
           </div>
         </div>

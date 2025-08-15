@@ -44,19 +44,22 @@ export default function LandTransferPaymentPage() {
     router.push("/land-transfer/application")
   }
 
+  // Check if all required fields are filled
+  const isFormValid = () => {
+    const cardHolderName = `${formData.firstName} ${formData.lastName}`.trim()
+    return (
+      cardHolderName.length > 0 &&
+      formData.cardNumber.trim().length > 0 &&
+      formData.expiryDate.trim().length > 0 &&
+      formData.cvv.trim().length > 0
+    )
+  }
+
   const handlePayNow = () => {
+    const cardHolderName = `${formData.firstName} ${formData.lastName}`.trim()
+    
     // Validate all required fields
-    const requiredFields = [
-      formData.firstName,
-      formData.lastName,
-      formData.cardNumber,
-      formData.expiryDate,
-      formData.cvv,
-    ]
-
-    const hasEmptyFields = requiredFields.some((field) => !field.trim())
-
-    if (hasEmptyFields) {
+    if (!cardHolderName || !formData.cardNumber.trim() || !formData.expiryDate.trim() || !formData.cvv.trim()) {
       alert("Please fill in all required payment details before continuing.")
       return
     }
@@ -86,8 +89,8 @@ export default function LandTransferPaymentPage() {
     router.push("/land-transfer/confirmation")
   }
 
-  const steps = [1, 2, 3, 4, 5]
-  const currentStep = 4
+  const steps = [1, 2, 3]
+  const currentStep = 2
 
   return (
     <div className="min-h-screen bg-white">
@@ -100,7 +103,7 @@ export default function LandTransferPaymentPage() {
       <main className="py-8 px-[75px]">
         {/* Page Title */}
         <div className="mb-10">
-          <h1 className="text-black text-[32px] font-bold leading-[48px] text-left">Land Transfer</h1>
+          <h1 className="text-black text-[32px] font-bold leading-[48px] text-left">Application for Land Transfer</h1>
         </div>
 
         {/* Form Container */}
@@ -116,7 +119,7 @@ export default function LandTransferPaymentPage() {
               </p>
             </div>
 
-            {/* Progress Indicator */}
+            {/* Progress Indicator - Now inside the form container after the header text */}
             <div className="mb-8">
               <div className="w-[281px] flex items-center justify-between">
                 <div className="w-[31px] h-[31px] bg-[#36BF29] border border-[#36BF29] rounded-full flex items-center justify-center">
@@ -194,7 +197,7 @@ export default function LandTransferPaymentPage() {
                       <div className="w-full h-[46px] bg-[#FAFAFA] border border-[#CECECE] rounded-[9px] relative">
                         <input
                           type="text"
-                          value={`${formData.firstName} ${formData.lastName}`}
+                          value={`${formData.firstName} ${formData.lastName}`.trim()}
                           onChange={(e) => {
                             const names = e.target.value.split(" ")
                             handleInputChange("firstName", names[0] || "")
@@ -258,7 +261,7 @@ export default function LandTransferPaymentPage() {
                       <div className="bg-[#F8F9FA] p-4 rounded-[8px]">
                         <div className="flex justify-between items-center mb-2">
                           <span className="text-[#666666] text-[14px]">Service Type:</span>
-                          <span className="text-black text-[14px] font-medium">Land Transfer</span>
+                          <span className="text-black text-[14px] font-medium">Copy of Land Registers</span>
                         </div>
                         <div className="flex justify-between items-center mb-2">
                           <span className="text-[#666666] text-[14px]">Application ID:</span>
@@ -339,39 +342,21 @@ export default function LandTransferPaymentPage() {
 
             <button
               onClick={handlePayNow}
-              disabled={
-                !formData.firstName ||
-                !formData.lastName ||
-                !formData.cardNumber ||
-                !formData.expiryDate ||
-                !formData.cvv
-              }
+              disabled={!isFormValid()}
               className={`px-[18px] py-[7px] rounded-[8px] flex items-center gap-3 transition-colors ${
-                !formData.firstName ||
-                !formData.lastName ||
-                !formData.cardNumber ||
-                !formData.expiryDate ||
-                !formData.cvv
+                !isFormValid()
                   ? "bg-gray-400 cursor-not-allowed"
                   : "bg-[#002E51] hover:bg-[#001a2e]"
               }`}
             >
               <span
                 className={`text-[16px] font-medium leading-[19.2px] ${
-                  !formData.firstName ||
-                  !formData.lastName ||
-                  !formData.cardNumber ||
-                  !formData.expiryDate ||
-                  !formData.cvv
+                  !isFormValid()
                     ? "text-gray-600"
                     : "text-white"
                 }`}
               >
-                {!formData.firstName ||
-                !formData.lastName ||
-                !formData.cardNumber ||
-                !formData.expiryDate ||
-                !formData.cvv
+                {!isFormValid()
                   ? "Complete Payment Details"
                   : "Pay Now and Continue"}
               </span>

@@ -51,22 +51,22 @@ export default function LandTransferConfirmationPage() {
 
                         {/* Progress Indicator */}
                         <div className="flex items-center justify-between mb-16 w-full max-w-[551px]">
-                            {steps.map((step, index) => (
+                            {[1, 2, 3].map((step, index) => (
                                 <React.Fragment key={step}>
                                     <div
-                                        className={`w-[31px] h-[31px] rounded-full border flex items-center justify-center relative overflow-hidden ${step <= currentStep ? "bg-[#36BF29] border-[#36BF29]" : "bg-[#F4F4F4] border-[#737373]"
+                                        className={`w-[31px] h-[31px] rounded-full border flex items-center justify-center relative overflow-hidden ${step <= 3 ? "bg-[#36BF29] border-[#36BF29]" : "bg-[#F4F4F4] border-[#737373]"
                                             }`}
                                     >
                                         <span
-                                            className={`text-[15px] font-normal leading-[18px] ${step <= currentStep ? "text-white" : "text-[#807E7E]"
+                                            className={`text-[15px] font-normal leading-[18px] ${step <= 3 ? "text-white" : "text-[#807E7E]"
                                                 }`}
                                         >
                                             {step}
                                         </span>
                                     </div>
-                                    {index < steps.length - 1 && (
+                                    {index < 2 && (
                                         <div
-                                            className={`w-[51px] h-0 border-t ${step < currentStep ? "border-[#36BF29]" : "border-[#807E7E]"
+                                            className={`w-[184px] h-0 border-t ${step < 3 ? "border-[#36BF29]" : "border-[#807E7E]"
                                                 }`}
                                         />
                                     )}
