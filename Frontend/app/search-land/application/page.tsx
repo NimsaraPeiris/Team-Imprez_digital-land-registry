@@ -9,12 +9,16 @@ import DashboardNavigationBar from "@/components/dashboard-navigation-bar"
 import Footer from "@/components/footer"
 import { useDropzone } from "react-dropzone"
 
+// ... (interfaces for FormData and FormErrors remain the same)
+
 interface FormData {
   seller: {
     fullName: string
+    address: string
     email: string
     phone: string
     nic: string
+    date: string
   }
   property: {
     village: string
@@ -33,9 +37,11 @@ interface FormData {
 interface FormErrors {
   seller: {
     fullName: string
+    address: string
     email: string
     phone: string
     nic: string
+    date: string
   }
   property: {
     village: string
@@ -51,6 +57,7 @@ interface FormErrors {
   }
 }
 
+
 export default function LandTransferApplicationPage() {
   const { user } = useAuth()
   const router = useRouter()
@@ -63,9 +70,11 @@ export default function LandTransferApplicationPage() {
   const [formData, setFormData] = useState<FormData>({
     seller: {
       fullName: "",
+      address: "",
       email: "",
       phone: "",
       nic: "",
+      date: "",
     },
     property: {
       village: "",
@@ -84,9 +93,11 @@ export default function LandTransferApplicationPage() {
   const [errors, setErrors] = useState<FormErrors>({
     seller: {
       fullName: "",
+      address: "",
       email: "",
       phone: "",
       nic: "",
+      date: "",
     },
     property: {
       village: "",
@@ -416,9 +427,11 @@ export default function LandTransferApplicationPage() {
       const sectionData = formData.seller
       const newErrors = {
         fullName: validateFullName(sectionData.fullName),
+        address: sectionData.address ? "" : "Address is required",
         email: validateEmail(sectionData.email),
         phone: validatePhoneNumber(sectionData.phone),
         nic: validateNIC(sectionData.nic),
+        date: sectionData.date ? "" : "Date is required",
       }
 
       setErrors((prev) => ({
@@ -435,92 +448,94 @@ export default function LandTransferApplicationPage() {
   }
 
   const handleContinue = () => {
-  if (currentStep === 1) {
-    // Validate seller information
-    const sellerData = formData.seller;
-    const sellerErrors = {
-      fullName: validateFullName(sellerData.fullName),
-      email: validateEmail(sellerData.email),
-      phone: validatePhoneNumber(sellerData.phone),
-      nic: validateNIC(sellerData.nic),
-    };
+    if (currentStep === 1) {
+      // Validate seller information
+      const sellerData = formData.seller;
+      const sellerErrors = {
+        fullName: validateFullName(sellerData.fullName),
+        address: !sellerData.address.trim() ? "Address is required" : "",
+        email: validateEmail(sellerData.email),
+        phone: validatePhoneNumber(sellerData.phone),
+        nic: validateNIC(sellerData.nic),
+        date: !sellerData.date.trim() ? "Date is required" : "",
+      };
 
-    // Validate property information (basic required field validation)
-    const propertyData = formData.property;
-    const propertyErrors = {
-      village: !propertyData.village.trim() ? "Village is required" : "",
-      nameOfLand: !propertyData.nameOfLand.trim() ? "Name of land is required" : "",
-      extent: !propertyData.extent.trim() ? "Extent is required" : "",
-      korale: !propertyData.korale.trim() ? "Korale is required" : "",
-      pattu: !propertyData.pattu.trim() ? "Pattu is required" : "",
-      gnDivision: !propertyData.gnDivision.trim() ? "GN Division is required" : "",
-      dsDivision: !propertyData.dsDivision.trim() ? "DS Division is required" : "",
-      division: "", // This might not be required at this step
-      volumeNo: "",
-      folioNo: "",
-    };
+      // Validate property information (basic required field validation)
+      const propertyData = formData.property;
+      const propertyErrors = {
+        village: !propertyData.village.trim() ? "Village is required" : "",
+        nameOfLand: !propertyData.nameOfLand.trim() ? "Name of land is required" : "",
+        extent: !propertyData.extent.trim() ? "Extent is required" : "",
+        korale: !propertyData.korale.trim() ? "Korale is required" : "",
+        pattu: !propertyData.pattu.trim() ? "Pattu is required" : "",
+        gnDivision: !propertyData.gnDivision.trim() ? "GN Division is required" : "",
+        dsDivision: !propertyData.dsDivision.trim() ? "DS Division is required" : "",
+        division: "", // This might not be required at this step
+        volumeNo: "",
+        folioNo: "",
+      };
 
-    // Validate register entries
-    const registerErrors = registerEntries.some(entry => 
-      !entry.division.trim() || !entry.volumeNo.trim() || !entry.folioNo.trim()
-    );
+      // Validate register entries
+      const registerErrors = registerEntries.some(entry =>
+        !entry.division.trim() || !entry.volumeNo.trim() || !entry.folioNo.trim()
+      );
 
-    // Update errors state
-    setErrors(prev => ({
-      ...prev,
-      seller: sellerErrors,
-      property: propertyErrors,
-    }));
+      // Update errors state
+      setErrors(prev => ({
+        ...prev,
+        seller: sellerErrors,
+        property: propertyErrors,
+      }));
 
-    // Check if there are any errors
-    const hasSellerErrors = Object.values(sellerErrors).some(error => error !== "");
-    const hasPropertyErrors = Object.values(propertyErrors).some(error => error !== "");
-    
-    if (hasSellerErrors) {
-      alert("Please fix the errors in Applicant Details section");
-      return;
+      // Check if there are any errors
+      const hasSellerErrors = Object.values(sellerErrors).some(error => error !== "");
+      const hasPropertyErrors = Object.values(propertyErrors).some(error => error !== "");
+
+      if (hasSellerErrors) {
+        alert("Please fix the errors in Applicant Details section");
+        return;
+      }
+
+      if (hasPropertyErrors) {
+        alert("Please fill in all required Property Details fields");
+        return;
+      }
+
+      if (registerErrors) {
+        alert("Please fill in all register entry fields (Division, Vol.No, and Folio No)");
+        return;
+      }
+
+      // All validations passed, proceed to step 2
+      setCurrentStep(2);
+
+    } else if (currentStep === 2) {
+      // Check if all required documents are uploaded before proceeding
+      const requiredDocuments = [
+        "originalDeed",
+        "purchaserNIC",
+        "purchaserPhoto",
+        "vendorPhoto",
+        "guarantor1NIC",
+        "guarantor2NIC",
+        "signature",
+      ] as const;
+
+      const allDocumentsUploaded = requiredDocuments.every(doc => fileUploads[doc] !== null);
+
+      if (allDocumentsUploaded) {
+        // Move to AI verification step (step 3)
+        setCurrentStep(3);
+      } else {
+        const missingDocs = requiredDocuments.filter(doc => fileUploads[doc] === null);
+        alert(`Please upload all required documents before continuing. Missing: ${missingDocs.join(', ')}`);
+      }
+
+    } else if (currentStep === 3) {
+      // Navigate to online payment section
+      router.push("/search-land/payment");
     }
-    
-    if (hasPropertyErrors) {
-      alert("Please fill in all required Property Details fields");
-      return;
-    }
-    
-    if (registerErrors) {
-      alert("Please fill in all register entry fields (Division, Vol.No, and Folio No)");
-      return;
-    }
-
-    // All validations passed, proceed to step 2
-    setCurrentStep(2);
-    
-  } else if (currentStep === 2) {
-    // Check if all required documents are uploaded before proceeding
-    const requiredDocuments = [
-      "originalDeed",
-      "purchaserNIC", 
-      "purchaserPhoto",
-      "vendorPhoto",
-      "guarantor1NIC",
-      "guarantor2NIC",
-      "signature",
-    ] as const;
-    
-    const allDocumentsUploaded = requiredDocuments.every(doc => fileUploads[doc] !== null);
-
-    if (allDocumentsUploaded) {
-      // Move to AI verification step (step 3)
-      setCurrentStep(3);
-    } else {
-      const missingDocs = requiredDocuments.filter(doc => fileUploads[doc] === null);
-      alert(`Please upload all required documents before continuing. Missing: ${missingDocs.join(', ')}`);
-    }
-    
-  } else if (currentStep === 3) {
-    // Navigate to online payment section
-    router.push("/search-land/payment");
-  }
-};
+  };
 
   const handleBack = () => {
     if (currentStep > 1) {
@@ -595,6 +610,7 @@ export default function LandTransferApplicationPage() {
     }
   }, [currentStep, isVerifying, hasVerified])
 
+
   return (
     <div className="min-h-screen bg-white">
       {/* Sticky header and navigation */}
@@ -612,24 +628,20 @@ export default function LandTransferApplicationPage() {
 
         {/* Form Container */}
         <div
-          className="w-full max-w-[1300px] mx-auto border-[0.3px] border-[#00508E] rounded-[5px] relative bg-white my-auto"
-          style={{
-            minHeight: `${1400 + (registerEntries.length - 1) * 100}px`,
-            height: "auto",
-          }}
+          className="w-full max-w-[1300px] mx-auto border-[0.3px] border-[#00508E] rounded-[5px] bg-white p-8 flex flex-col gap-8"
         >
           {/* Applicant Information Header */}
-          <div className="absolute left-4 sm:left-6 lg:left-[31px] top-8 sm:top-10 lg:top-[49px] w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] lg:w-[512px] flex flex-col gap-[8px]">
+          <div>
             <h2 className="text-black text-lg sm:text-xl lg:text-[20px] font-extrabold leading-tight lg:leading-[24px] font-inter">
               Applicant Information
             </h2>
-            <p className="text-black text-sm sm:text-base lg:text-[15px] font-normal leading-relaxed lg:leading-[18px] font-inter">
+            <p className="text-black text-sm sm:text-base lg:text-[15px] font-normal leading-relaxed lg:leading-[18px] font-inter mt-2">
               Please upload all required documents for verification
             </p>
           </div>
 
           {/* Progress Indicator */}
-          <div className="absolute left-4 sm:left-6 lg:left-[31px] top-24 sm:top-28 lg:top-[130px] w-[200px] sm:w-[220px] lg:w-[248px] flex items-center justify-between">
+          <div className="w-[248px] flex items-center justify-between">
             <div className="w-6 h-6 sm:w-7 sm:h-7 lg:w-[31px] lg:h-[31px] bg-[#36BF29] rounded-full border border-[#36BF29] flex items-center justify-center">
               <span className="text-white text-xs sm:text-sm lg:text-[15px] font-normal leading-[18px] font-inter">
                 1
@@ -650,7 +662,7 @@ export default function LandTransferApplicationPage() {
           </div>
 
           {/* Applicant Details Section */}
-          <div className="absolute left-4 sm:left-6 lg:left-[31px] top-40 sm:top-44 lg:top-[192px] w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] lg:w-[1219px] flex flex-col gap-[13px]">
+          <div className="flex flex-col gap-[13px]">
             <h3 className="text-black text-lg sm:text-xl lg:text-[20px] font-extrabold leading-tight lg:leading-[24px] font-inter">
               Applicant Details
             </h3>
@@ -666,9 +678,11 @@ export default function LandTransferApplicationPage() {
                     type="text"
                     placeholder="Enter applicant's full name"
                     className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
+                    value={formData.seller.fullName}
                     onChange={(e) => handleInputChange("seller", "fullName", e.target.value)}
                   />
                 </div>
+                {errors.seller.fullName && <p className="text-red-500 text-xs mt-1">{errors.seller.fullName}</p>}
               </div>
               <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
                 <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">Address</label>
@@ -677,12 +691,48 @@ export default function LandTransferApplicationPage() {
                     type="text"
                     placeholder="Enter Applicants Address"
                     className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
+                    value={formData.seller.address}
+                    onChange={(e) => handleInputChange("seller", "address", e.target.value)}
                   />
                 </div>
+                {errors.seller.address && <p className="text-red-500 text-xs mt-1">{errors.seller.address}</p>}
               </div>
             </div>
 
-            {/* Second Row - NIC and Date */}
+            {/* Second Row - Email and Phone */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8 lg:gap-[56px] pb-4">
+              <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
+                <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
+                  Email
+                </label>
+                <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
+                  <input
+                    type="email"
+                    placeholder="Enter applicant's email"
+                    className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
+                    value={formData.seller.email}
+                    onChange={(e) => handleInputChange("seller", "email", e.target.value)}
+                  />
+                </div>
+                {errors.seller.email && <p className="text-red-500 text-xs mt-1">{errors.seller.email}</p>}
+              </div>
+              <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
+                <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">Phone</label>
+                <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
+                  <input
+                    type="tel"
+                    placeholder="Enter applicant's phone number"
+                    className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
+                    value={formData.seller.phone}
+                    onChange={(e) => handleInputChange("seller", "phone", e.target.value)}
+                  />
+                </div>
+                {errors.seller.phone && <p className="text-red-500 text-xs mt-1">{errors.seller.phone}</p>}
+              </div>
+            </div>
+
+
+            {/* Third Row - NIC and Date */}
             <div className="flex items-center justify-between">
               <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
                 <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
@@ -693,9 +743,11 @@ export default function LandTransferApplicationPage() {
                     type="text"
                     placeholder="Enter applicant's National Identity Card Number"
                     className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
+                    value={formData.seller.nic}
                     onChange={(e) => handleInputChange("seller", "nic", e.target.value)}
                   />
                 </div>
+                {errors.seller.nic && <p className="text-red-500 text-xs mt-1">{errors.seller.nic}</p>}
               </div>
               <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
                 <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">Date</label>
@@ -704,8 +756,11 @@ export default function LandTransferApplicationPage() {
                     type="date"
                     placeholder="Enter Date"
                     className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
+                    value={formData.seller.date}
+                    onChange={(e) => handleInputChange("seller", "date", e.target.value)}
                   />
                 </div>
+                {errors.seller.date && <p className="text-red-500 text-xs mt-1">{errors.seller.date}</p>}
               </div>
             </div>
 
@@ -713,12 +768,11 @@ export default function LandTransferApplicationPage() {
             <div className="flex flex-col gap-[7px]">
               <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">Signature</label>
               <div
-                {...getRootPropsSignature()} // Using dropzone props instead of onClick
-                className={`w-full h-[119px] bg-[#E9E9E9] rounded-[6px] relative overflow-hidden border-none focus:outline-none focus:ring-2 focus:ring-[#00508E] flex items-center justify-center cursor-pointer ${
-                  isDragActiveSignature ? "bg-blue-50 ring-2 ring-[#00508E]" : ""
-                }`} // Removed hover effects and dashed border, added drag feedback
+                {...getRootPropsSignature()}
+                className={`w-full h-[119px] bg-[#E9E9E9] rounded-[6px] relative overflow-hidden border-none focus:outline-none focus:ring-2 focus:ring-[#00508E] flex items-center justify-center cursor-pointer ${isDragActiveSignature ? "bg-blue-50 ring-2 ring-[#00508E]" : ""
+                  }`}
               >
-                <input {...getInputPropsSignature()} /> {/* Using dropzone input props */}
+                <input {...getInputPropsSignature()} />
                 {signature ? (
                   <div className="relative w-full h-full">
                     <img
@@ -739,11 +793,9 @@ export default function LandTransferApplicationPage() {
                 ) : (
                   <div className="text-center px-0 my-9">
                     <div className="text-[#636363] text-[14px] font-medium mb-1 py-0">
-                      {isDragActiveSignature ? "Drop signature image here" : "Click to add signature or drag here"}{" "}
-                      {/* Added drag feedback text */}
+                      {isDragActiveSignature ? "Drop signature image here" : "Click to add signature or drag here"}
                     </div>
-                    <div className="text-[#888] text-[12px] my-0">Upload image file (JPG, PNG, GIF)</div>{" "}
-                    {/* Updated supported formats */}
+                    <div className="text-[#888] text-[12px] my-0">Upload image file (JPG, PNG, GIF)</div>
                   </div>
                 )}
               </div>
@@ -751,10 +803,10 @@ export default function LandTransferApplicationPage() {
           </div>
 
           {/* Blue Divider Line */}
-          <div className="absolute left-4 sm:left-6 lg:left-[31px] top-[597px] w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] lg:w-[1218px] h-0 border-t border-[#00508E]"></div>
+          <div className="w-full h-0 border-t border-[#00508E]"></div>
 
           {/* Property Details Section */}
-          <div className="absolute left-4 sm:left-6 lg:left-[31px] top-[626px] flex flex-col gap-[13px]">
+          <div className="flex flex-col gap-[13px]">
             <h3 className="text-black text-lg sm:text-xl lg:text-[20px] font-extrabold leading-tight lg:leading-[24px] font-inter">
               Property Details
             </h3>
@@ -770,9 +822,11 @@ export default function LandTransferApplicationPage() {
                     type="text"
                     placeholder="Enter village name"
                     className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
+                    value={formData.property.village}
                     onChange={(e) => handleInputChange("property", "village", e.target.value)}
                   />
                 </div>
+                {errors.property.village && <p className="text-red-500 text-xs mt-1">{errors.property.village}</p>}
               </div>
               <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
                 <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
@@ -783,9 +837,11 @@ export default function LandTransferApplicationPage() {
                     type="text"
                     placeholder="Enter Land name"
                     className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
+                    value={formData.property.nameOfLand}
                     onChange={(e) => handleInputChange("property", "nameOfLand", e.target.value)}
                   />
                 </div>
+                {errors.property.nameOfLand && <p className="text-red-500 text-xs mt-1">{errors.property.nameOfLand}</p>}
               </div>
             </div>
 
@@ -800,9 +856,11 @@ export default function LandTransferApplicationPage() {
                     type="text"
                     placeholder="Enter extent of the land"
                     className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
+                    value={formData.property.extent}
                     onChange={(e) => handleInputChange("property", "extent", e.target.value)}
                   />
                 </div>
+                {errors.property.extent && <p className="text-red-500 text-xs mt-1">{errors.property.extent}</p>}
               </div>
               <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
                 <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">Korale</label>
@@ -811,9 +869,11 @@ export default function LandTransferApplicationPage() {
                     type="text"
                     placeholder="Enter Korale name"
                     className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
+                    value={formData.property.korale}
                     onChange={(e) => handleInputChange("property", "korale", e.target.value)}
                   />
                 </div>
+                {errors.property.korale && <p className="text-red-500 text-xs mt-1">{errors.property.korale}</p>}
               </div>
             </div>
 
@@ -826,9 +886,11 @@ export default function LandTransferApplicationPage() {
                     type="text"
                     placeholder="Enter pattu name"
                     className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
+                    value={formData.property.pattu}
                     onChange={(e) => handleInputChange("property", "pattu", e.target.value)}
                   />
                 </div>
+                {errors.property.pattu && <p className="text-red-500 text-xs mt-1">{errors.property.pattu}</p>}
               </div>
               <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
                 <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
@@ -839,9 +901,11 @@ export default function LandTransferApplicationPage() {
                     type="text"
                     placeholder="Enter GN Division"
                     className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
+                    value={formData.property.gnDivision}
                     onChange={(e) => handleInputChange("property", "gnDivision", e.target.value)}
                   />
                 </div>
+                {errors.property.gnDivision && <p className="text-red-500 text-xs mt-1">{errors.property.gnDivision}</p>}
               </div>
             </div>
 
@@ -856,16 +920,19 @@ export default function LandTransferApplicationPage() {
                     type="text"
                     placeholder="Enter DS Division"
                     className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
+                    value={formData.property.dsDivision}
                     onChange={(e) => handleInputChange("property", "dsDivision", e.target.value)}
                   />
                 </div>
+                {errors.property.dsDivision && <p className="text-red-500 text-xs mt-1">{errors.property.dsDivision}</p>}
               </div>
               <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] h-[22px]"></div>
             </div>
           </div>
 
+
           {/* Registers Required for Search Section */}
-          <div className="absolute left-4 sm:left-6 lg:left-[30px] top-[1060px] w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] lg:w-[1219px]">
+          <div>
             <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
               Registers required for search
             </label>
@@ -964,10 +1031,7 @@ export default function LandTransferApplicationPage() {
           </div>
 
           {/* Navigation Buttons */}
-          <div
-            className={`absolute left-4 sm:left-6 lg:left-[30px] w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] lg:w-[1206px] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-0 my-auto`}
-            style={{ top: `${1300 + (registerEntries.length - 1) * 100}px` }}
-          >
+          <div className="w-full flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-0">
             <button
               className="w-full sm:w-auto sm:min-w-[73px] h-11 sm:h-[44px] bg-white border border-[#002E51] rounded-[8px] flex items-center justify-center hover:bg-gray-50 transition-colors px-4"
               onClick={handleBack}
@@ -977,7 +1041,6 @@ export default function LandTransferApplicationPage() {
               </span>
             </button>
 
-            {/* Navigation error */}
             <button
               className="w-full sm:w-auto px-4 sm:px-[18px] py-2 sm:py-[7px] bg-[#002E51] rounded-[8px] flex items-center justify-center gap-3 lg:gap-[12px] hover:bg-[#001a2e] transition-colors"
               onClick={handleContinue}
