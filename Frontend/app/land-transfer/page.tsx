@@ -18,26 +18,26 @@ export default function LandTransferPage() {
   const documents = [
     {
       id: "sales-agreement",
-      title: "Sales Agreement",
-      description: "Signed purchase agreement between buyer and seller",
+      title: "Original Deed of Transfer",
+      description: "The original legal document that proves the transfer of land ownership from the seller to the buyer.",
       format: "PDF,Original Scan",
     },
     {
       id: "title-deed",
-      title: "Current Title Deed",
-      description: "Signed purchase agreement between buyer and seller",
+      title: "Purchaser & Vendor NIC (Front & Back) – PDF",
+      description: "National Identity Cards of both the purchaser and vendor, scanned front and back, required for identity verification.",
       format: "PDF,Original Scan",
     },
     {
       id: "photo-id",
-      title: "Photo ID (Buyer & Seller)",
-      description: "Signed purchase agreement between buyer and seller",
+      title: "Purchaser & Vendor Photograph – Passport Size PDF",
+      description: "Recent passport size photographs of both the purchaser and vendor, used for official documentation.",
       format: "PDF,Original Scan",
     },
     {
-      id: "sales-agreement-2",
-      title: "Sales Agreement",
-      description: "Signed purchase agreement between buyer and seller",
+      id: "guarantor-nic",
+      title: "Guarantor 1 & Guarantor 2 NIC Number (Front & Back) – PDF",
+      description: "Scanned copies of the National Identity Cards (front and back) for both guarantors, required for legal assurance.",
       format: "PDF,Original Scan",
     },
   ]
@@ -120,33 +120,34 @@ export default function LandTransferPage() {
                 </p>
               </div>
 
-              <div className="space-y-[26px]">
+              {/* doc selection */}
+                <div className="space-y-[26px]">
                 {documents.map((document) => {
                   const isSelected = selectedDocuments.has(document.id)
                   return (
-                    <div
-                      key={document.id}
-                      onClick={() => toggleDocumentSelection(document.id)}
-                      className={`h-[147px] rounded-[9px] border cursor-pointer transition-all duration-200 relative overflow-hidden ${
-                        isSelected ? "border-[#4490CC] bg-blue-50" : "border-[#DAD7D7] hover:border-[#4490CC]/50"
-                      }`}
-                    >
-                      <div className="absolute left-[22px] top-[32px] w-[360px] flex flex-col gap-[10px]">
-                        <h3 className="text-black text-[24px] font-bold leading-[28.8px] font-inter">
-                          {document.title}
-                        </h3>
-                        <p className="text-[#7D7D7D] text-[15px] font-normal leading-[18px] font-inter">
-                          {document.description}
-                        </p>
-                        <div className="flex items-center">
-                          <span className="text-[#E36060] text-[13px] font-bold leading-[15.6px] font-inter">
-                            Format:{" "}
-                          </span>
-                          <span className="text-[#E36060] text-[13px] font-normal leading-[15.6px] font-inter">
-                            {document.format}
-                          </span>
-                        </div>
-                      </div>
+                  <div
+                    key={document.id}
+                    onClick={() => toggleDocumentSelection(document.id)}
+                    className={`h-[147px] rounded-[9px] border cursor-pointer transition-all duration-200 relative overflow-hidden ${
+                    isSelected ? "border-[#4490CC] bg-blue-50" : "border-[#DAD7D7] hover:border-[#4490CC]/50"
+                    }`}
+                  >
+                    <div className="absolute left-[22px] top-[32px] right-[140px] flex flex-col gap-[10px]">
+                    <h3 className="text-black text-[24px] font-bold leading-[28.8px] font-inter w-full break-words">
+                      {document.title}
+                    </h3>
+                    <p className="text-[#7D7D7D] text-[15px] font-normal leading-[18px] font-inter">
+                      {document.description}
+                    </p>
+                    <div className="flex items-center">
+                      <span className="text-[#E36060] text-[13px] font-bold leading-[15.6px] font-inter">
+                      Format:{" "}
+                      </span>
+                      <span className="text-[#E36060] text-[13px] font-normal leading-[15.6px] font-inter">
+                      {document.format}
+                      </span>
+                    </div>
+                    </div>
 
                       <div className="absolute right-[22px] top-[50px]">
                         <button

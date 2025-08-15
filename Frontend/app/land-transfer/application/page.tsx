@@ -870,6 +870,63 @@ export default function LandTransferApplicationPage() {
                 </div>
               </div>
 
+              {/* Vendor NIC */}
+              <div className="flex flex-col gap-[22px]">
+                <h3 className="text-black text-[17px] font-semibold leading-[20.4px]">
+                  Upload Vendor NIC (Front & Back) – PDF (Required)
+                </h3>
+                <div
+                  {...getRootPropsPurchaserNIC()}
+                  className={`h-[180px] border-2 border-dashed rounded-[12px] flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ${
+                    isDragActivePurchaserNIC
+                      ? "border-[#4490CC] bg-blue-50 scale-[1.02]"
+                      : fileUploads.purchaserNIC
+                        ? "border-green-500 bg-green-50"
+                        : "border-[#D1D5DB] bg-gray-50 hover:border-[#4490CC] hover:bg-blue-25"
+                  }`}
+                >
+                  <input
+                    {...getInputPropsPurchaserNIC()}
+                    type="file"
+                    accept=".pdf,.jpg,.jpeg"
+                    onChange={(e) => handleFileUpload("purchaserNIC", e)}
+                  />
+                  <div className="flex flex-col items-center gap-3">
+                    {fileUploads.purchaserNIC ? (
+                      <>
+                        <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                          <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-green-700 text-[14px] font-semibold">File Uploaded Successfully</p>
+                          <p className="text-green-600 text-[12px] mt-1">{fileUploads.purchaserNIC.name}</p>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                          <Upload className="w-6 h-6 text-blue-600" />
+                        </div>
+                        <div className="text-center">
+                          <p className="text-gray-700 text-[14px] font-semibold mb-1">
+                            {isDragActivePurchaserNIC ? "Drop file here" : "Drag & drop or click to upload"}
+                          </p>
+                          <p className="text-gray-500 text-[12px]">PDF files only • Max 10MB</p>
+                        </div>
+                        <button
+                          type="button"
+                          className="px-4 py-2 bg-[#4490CC] text-white text-[12px] font-medium rounded-[6px] hover:bg-[#3a7bb8] transition-colors"
+                        >
+                          Choose File
+                        </button>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+
               {/* Purchaser Photograph */}
               <div className="flex flex-col gap-[22px]">
                 <h3 className="text-black text-[17px] font-semibold leading-[20.4px]">
@@ -987,7 +1044,7 @@ export default function LandTransferApplicationPage() {
               {/* Guarantor 1 NIC */}
               <div className="flex flex-col gap-[22px]">
                 <h3 className="text-black text-[17px] font-semibold leading-[20.4px]">
-                  Upload Guarantor 1 NIC Number (Front & Back) – PDF (Required)
+                  Upload Guarantor 1 NIC (Front & Back) – PDF (Required)
                 </h3>
                 <div
                   {...getRootPropsGuarantor1NIC()}
@@ -1044,7 +1101,7 @@ export default function LandTransferApplicationPage() {
               {/* Guarantor 2 NIC */}
               <div className="flex flex-col gap-[22px]">
                 <h3 className="text-black text-[17px] font-semibold leading-[20.4px]">
-                  Upload Guarantor 2 NIC Number (Front & Back) – PDF (Required)
+                  Upload Guarantor 2 NIC (Front & Back) – PDF (Required)
                 </h3>
                 <div
                   {...getRootPropsGuarantor2NIC()}
