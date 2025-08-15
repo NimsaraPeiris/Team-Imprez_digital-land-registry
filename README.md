@@ -39,57 +39,171 @@ A full-stack web application for a Digital Land Registry Hub, with a Next.js fro
 ```
 Team-Imprez_digital-land-registry/
 ├── backend/
-│   ├── db/
-│   │   ├── lro_backend_models.py     # SQLAlchemy models, DB session, and password hashing utilities
-│   ├── routers/
-│   │   ├── admin/
-│   │   │   ├── applications.py       # Admin routes for application management
-│   │   │   └── documents.py          # Admin routes for document management
-│   │   └── user/
-│   │       ├── applications.py       # User routes for application management
-│   │       ├── auth.py               # User authentication routes (register, login)
-│   │       ├── documents.py          # User routes for document management
-│   │       └── payments.py           # User routes for payments
+│   ├── api/
+│   │   └── v1/
+│   │       └── endpoints/
+│   │           ├── __init__.py
+│   │           ├── admin_applications.py
+│   │           ├── admin_documents.py
+│   │           ├── user_applications.py
+│   │           ├── user_auth.py
+│   │           ├── user_documents.py
+│   │           └── user_payments.py
+│   ├── crud/
+│   │   ├── __init__.py
+│   │   ├── admin_applications.py
+│   │   ├── applications.py
+│   │   ├── documents.py
+│   │   ├── payments.py
+│   │   └── users.py
+│   ├── database/
+│   │   ├── __init__.py
+│   │   └── session.py
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── applications.py
+│   │   ├── base.py
+│   │   ├── documents.py
+│   │   ├── enums.py
+│   │   ├── lro_backend_models.py
+│   │   ├── officers.py
+│   │   ├── offices.py
+│   │   ├── payments.py
+│   │   ├── security.py
+│   │   ├── seed_data.py
+│   │   └── services.py
 │   ├── schemas/
-│   │   ├── admin_schemas.py          # Pydantic models for admin endpoints
-│   │   ├── common.py                 # Common enums shared across schemas
-│   │   └── user_schemas.py           # Pydantic models for user endpoints
-│   ├── main.py                       # Main FastAPI application entry point
-│   └── requirements.txt              # Python dependencies
+│   │   ├── __init__.py
+│   │   ├── admin_schemas.py
+│   │   ├── common.py
+│   │   └── user_schemas.py
+│   ├── scripts/
+│   │   └── setup_test_db.py
+│   ├── tests/
+│   │   ├── __init__.py
+│   │   ├── conftest.py
+│   │   ├── test_crud_smoke.py
+│   │   ├── test_enums.py
+│   │   ├── test_models_registration.py
+│   │   └── test_routes.py
+│   ├── tools/
+│   │   └── check_db_enums.py
+│   ├── .gitignore
+│   ├── init_db.py
+│   ├── main.py
+│   ├── plan.md
+│   └── requirements.txt
 └── Frontend/
     ├── app/
+    │   ├── copy/
+    │   │   ├── application/
+    │   │   │   └── page.tsx
+    │   │   ├── confirmation/
+    │   │   │   └── page.tsx
+    │   │   ├── payment/
+    │   │   │   └── page.tsx
+    │   │   └── qr-confirmation/
+    │   │       └── page.tsx
+    │   ├── copy-of-land/
+    │   │   ├── application/
+    │   │   │   └── page.tsx
+    │   │   ├── confirmation/
+    │   │   │   └── page.tsx
+    │   │   ├── payment/
+    │   │   │   └── page.tsx
+    │   │   └── qr-confirmation/
+    │   │       └── page.tsx
     │   ├── dashboard/
-    │   │   └── page.tsx              # User dashboard page
+    │   │   ├── layout.tsx
+    │   │   └── page.tsx
+    │   ├── land-transfer/
+    │   │   ├── application/
+    │   │   │   └── page.tsx
+    │   │   ├── confirmation/
+    │   │   │   └── page.tsx
+    │   │   ├── payment/
+    │   │   │   └── page.tsx
+    │   │   └── qr-confirmation/
+    │   │       └── page.tsx
     │   ├── register/
-    │   │   └── page.tsx              # User registration page
-    │   ├── globals.css               # Global CSS styles
-    │   └── layout.tsx                # Main application layout
+    │   │   └── page.tsx
+    │   ├── search-duplicate-deeds/
+    │   │   ├── application/
+    │   │   │   └── page.tsx
+    │   │   ├── confirmation/
+    │   │   │   └── page.tsx
+    │   │   ├── payment/
+    │   │   │   └── page.tsx
+    │   │   └── qr-confirmation/
+    │   │       └── page.tsx
+    │   ├── search-land/
+    │   │   ├── application/
+    │   │   │   └── page.tsx
+    │   │   ├── confirmation/
+    │   │   │   └── page.tsx
+    │   │   ├── payment/
+    │   │   │   └── page.tsx
+    │   │   └── qr-confirmation/
+    │   │       └── page.tsx
+    │   ├── globals.css
+    │   ├── layout.tsx
+    │   └── page.tsx
     ├── components/
-    │   ├── announcements-section.tsx # Component for news and announcements
-    │   ├── contact-section.tsx       # Component for contact information
-    │   ├── dashboard-navigation-bar.tsx # Dashboard-specific navigation bar
-    │   ├── faq-section.tsx           # Component for frequently asked questions
-    │   ├── footer.tsx                # Footer component
-    │   ├── government-header.tsx     # Government header with language switcher
-    │   ├── hero-section.tsx          # Hero section component
-    │   ├── home-navigation-bar.tsx   # Home page navigation bar
-    │   ├── login-overlay.tsx         # Login modal/overlay component
-    │   ├── navigation-bar.tsx        # General navigation bar logic
-    │   ├── process-section.tsx       # "How it works" section
-    │   ├── services-section.tsx      # Services list component
-    │   └── theme-provider.tsx        # Theme provider
+    │   ├── ui/
+    │   │   ├── accordion.tsx
+    │   │   ├── alert-dialog.tsx
+    │   │   ├── alert.tsx
+    │   │   ├── aspect-ratio.tsx
+    │   │   ├── ....
+    │   ├── announcements-section.tsx
+    │   ├── contact-section.tsx
+    │   ├── dashboard-navigation-bar.tsx
+    │   ├── faq-section.tsx
+    │   ├── file-upload.tsx
+    │   ├── footer.tsx
+    │   ├── government-header.tsx
+    │   ├── hero-section.tsx
+    │   ├── home-navigation-bar.tsx
+    │   ├── login-overlay.tsx
+    │   ├── navigation-bar.tsx
+    │   ├── process-section.tsx
+    │   ├── services-section.tsx
+    │   └── theme-provider.tsx
     ├── contexts/
-    │   ├── auth-context.tsx          # React context for authentication state
-    │   └── translation-context.tsx   # React context for multi-language support
+    │   ├── auth-context.tsx
+    │   └── translation-context.tsx
+    ├── hooks/
+    │   ├── use-mobile.ts
+    │   └── use-toast.ts
     ├── lib/
-    │   ├── use-smooth-scroll.ts      # Custom hook for smooth scrolling
-    │   └── utils.ts                  # Utility functions
+    │   ├── use-smooth-scroll.ts
+    │   └── utils.ts
     ├── public/
-    │   └── ...                       # Image and asset files
-    ├── .gitignore                    # Git ignore file for frontend
-    ├── next.config.mjs               # Next.js configuration
-    ├── package.json                  # Node.js dependencies and scripts
-    └── tsconfig.json                 # TypeScript configuration
+    │   ├── Frame 98.png
+    │   ├── continue.png
+    │   ├── document-icon.png
+    │   ├── generic-government-logo.png
+    │   ├── image 12.png
+    │   ├── land-registration-office.png
+    │   ├── modern-government-building.png
+    │   ├── placeholder-7ak8d.png
+    │   ├── placeholder-logo.png
+    │   ├── placeholder-logo.svg
+    │   ├── placeholder-user.jpg
+    │   ├── placeholder.jpg
+    │   ├── placeholder.svg
+    │   ├── right-arrow-icon.png
+    │   └── service.png
+    ├── styles/
+    │   └── globals.css
+    ├── .gitignore
+    ├── README.md
+    ├── components.json
+    ├── next.config.mjs
+    ├── package.json
+    ├── pnpm-lock.yaml
+    ├── postcss.config.mjs
+    └── tsconfig.json
 ```
 
 ### Database Schema
@@ -124,18 +238,18 @@ The API is built with FastAPI and includes separate routers for user and adminis
 
 These endpoints are for authenticated users (citizens) to manage their applications and related activities. All of these routes require a valid JWT token.
 
-| Endpoint | Method | Description | Source File |
+| Endpoint | Method | Description | 
 | :--- | :--- | :--- | :--- |
-| `/api/user/auth/register` | `POST` | Registers a new user account. Returns the new user's details. | |
-| `/api/user/auth/login` | `POST` | Authenticates a user with email and password. Returns an access token. | |
-| `/api/user/applications/` | `GET` | Lists all applications submitted by the current user. | |
-| `/api/user/applications/` | `POST` | Creates a new application for a specified service. | |
-| `/api/user/applications/{application_id}` | `GET` | Retrieves the details of a specific application. | |
-| `/api/user/applications/documents` | `POST` | Attaches metadata for an uploaded document to an application. | |
-| `/api/user/applications/{application_id}/documents` | `GET` | Lists all documents associated with a specific application. | |
-| `/api/user/documents/` | `GET` | Lists all documents uploaded by the current user across all applications. | |
-| `/api/user/payments/` | `POST` | Creates a new payment record for an application. | |
-| `/api/user/payments/application/{application_id}` | `GET` | Lists all payments made for a specific application. | |
+| `/api/user/auth/register` | `POST` | Registers a new user account. Returns the new user's details. |
+| `/api/user/auth/login` | `POST` | Authenticates a user with email and password. Returns an access token. |
+| `/api/user/applications/` | `GET` | Lists all applications submitted by the current user. |
+| `/api/user/applications/` | `POST` | Creates a new application for a specified service. |
+| `/api/user/applications/{application_id}` | `GET` | Retrieves the details of a specific application. |
+| `/api/user/applications/documents` | `POST` | Attaches metadata for an uploaded document to an application. |
+| `/api/user/applications/{application_id}/documents` | `GET` | Lists all documents associated with a specific application. |
+| `/api/user/documents/` | `GET` | Lists all documents uploaded by the current user across all applications. |
+| `/api/user/payments/` | `POST` | Creates a new payment record for an application. |
+| `/api/user/payments/application/{application_id}` | `GET` | Lists all payments made for a specific application. |
 
 -----
 
@@ -143,14 +257,14 @@ These endpoints are for authenticated users (citizens) to manage their applicati
 
 These endpoints are for authenticated officers to review and manage applications and documents. All of these routes require a valid JWT token associated with an officer account.
 
-| Endpoint | Method | Description | Source File |
+| Endpoint | Method | Description | 
 | :--- | :--- | :--- | :--- |
-| `/api/admin/applications/` | `GET` | Lists all applications in the system. | |
-| `/api/admin/applications/{application_id}` | `GET` | Retrieves the details of a specific application for review. | |
-| `/api/admin/applications/{application_id}/status` | `POST` | Updates the status of an application. | |
-| `/api/admin/applications/{application_id}/logs` | `GET` | Retrieves the log history for a specific application. | |
-| `/api/admin/documents/` | `GET` | Lists all documents uploaded across all applications. | |
-| `/api/admin/documents/{document_id}/verify` | `POST` | Sets the verification status for a specific document. | |
+| `/api/admin/applications/` | `GET` | Lists all applications in the system. |
+| `/api/admin/applications/{application_id}` | `GET` | Retrieves the details of a specific application for review. |
+| `/api/admin/applications/{application_id}/status` | `POST` | Updates the status of an application. |
+| `/api/admin/applications/{application_id}/logs` | `GET` | Retrieves the log history for a specific application. |
+| `/api/admin/documents/` | `GET` | Lists all documents uploaded across all applications. |
+| `/api/admin/documents/{document_id}/verify` | `POST` | Sets the verification status for a specific document. |
 
 -----
 
