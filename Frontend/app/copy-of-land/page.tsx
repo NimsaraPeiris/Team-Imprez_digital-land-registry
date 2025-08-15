@@ -32,7 +32,7 @@ export default function CopyOfLandPage() {
         <div className="w-[1291px] h-[151px] bg-[#102A3D] rounded-[9px] mb-[20px] relative">
           <div className="absolute left-[23px] top-[43px] flex flex-col gap-[5px]">
             <h1 className="text-white text-[35px] font-bold leading-[42px] font-inter">
-              Application for Copy of Land Regs
+              Application for Copy of Land Registers
             </h1>
             <p className="text-white text-[16px] font-light leading-[19.2px] font-inter">
               Request a copy of land documents

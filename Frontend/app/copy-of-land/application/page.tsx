@@ -169,7 +169,7 @@ export default function LandTransferApplicationPage() {
     const input = document.createElement("input")
     input.type = "file"
     input.accept = "image/*"
-    input.onchange = handleSignatureUpload
+    input.onchange = (e: Event) => handleSignatureUpload(e as unknown as React.ChangeEvent<HTMLInputElement>)
     input.click()
   }
 
@@ -332,32 +332,35 @@ export default function LandTransferApplicationPage() {
     return ""
   }
 
-  const handleInputChange = (section: string, field: string, value: string) => {
-    setFormData((prev) => ({
+  // Type for sections that are objects (not strings)
+  type ObjectSections = {
+    [K in keyof FormData]: FormData[K] extends object ? K : never
+  }[keyof FormData]
+ // Type for sections that are strings - Fixedd
+  const handleInputChange = <S extends ObjectSections>(
+    section: S,
+    field: keyof FormData[S],
+    value: string
+  ) => {
+    setFormData(prev => ({
       ...prev,
       [section]: {
-        ...prev[section as keyof typeof prev],
-        [field]: value,
-      },
+        ...prev[section],
+        [field]: value
+      }
     }))
+  }
 
-    // Clear error when user starts typing
-    if (
-      errors[section as keyof typeof errors] &&
-      errors[section as keyof typeof errors][field as keyof typeof errors.applicant]
-    ) {
-      setErrors((prev) => ({
-        ...prev,
-        [section]: {
-          ...prev[section as keyof typeof prev],
-          [field]: "",
-        },
-      }))
-    }
+  // Special handler for the reason field since it's at the top level
+  const handleReasonChange = (value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      reason: value
+    }))
   }
 
   const validateForm = (): boolean => {
-    const newErrors = {
+    const newErrors: FormErrors = {
       applicant: {
         fullName: validateFullName(formData.applicant.fullName),
         address: validateRequired(formData.applicant.address, "Address"),
@@ -406,7 +409,7 @@ export default function LandTransferApplicationPage() {
       await new Promise((resolve) => setTimeout(resolve, 2000))
 
       // Navigate to confirmation page
-      router.push("/copy-of-land/confirmation")
+      router.push("/copy-of-land/payment")
     } catch (error) {
       alert("An error occurred while submitting the form. Please try again.")
     } finally {
@@ -449,7 +452,7 @@ export default function LandTransferApplicationPage() {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1)
     } else {
-      router.push("/land-transfer")
+      router.push("/copy-of-land")
     }
   }
 
@@ -552,9 +555,8 @@ export default function LandTransferApplicationPage() {
                   placeholder="Enter Applicants full name"
                   value={formData.applicant.fullName}
                   onChange={(e) => handleInputChange("applicant", "fullName", e.target.value)}
-                  className={`w-full h-[39px] px-[10px] bg-[#E9E9E9] rounded-[6px] text-[#636363] text-[12px] font-normal font-inter border-none focus:outline-none ${
-                    errors.applicant.fullName ? "ring-2 ring-red-500" : ""
-                  }`}
+                  className={`w-full h-[39px] px-[10px] bg-[#E9E9E9] rounded-[6px] text-[#636363] text-[12px] font-normal font-inter border-none focus:outline-none ${errors.applicant.fullName ? "ring-2 ring-red-500" : ""
+                    }`}
                 />
                 {errors.applicant.fullName && (
                   <span className="text-red-500 text-xs mt-1">{errors.applicant.fullName}</span>
@@ -567,9 +569,8 @@ export default function LandTransferApplicationPage() {
                   placeholder="Enter Applicants Address"
                   value={formData.applicant.address}
                   onChange={(e) => handleInputChange("applicant", "address", e.target.value)}
-                  className={`w-full h-[39px] px-[10px] bg-[#E9E9E9] rounded-[6px] text-[#636363] text-[12px] font-normal font-inter border-none focus:outline-none ${
-                    errors.applicant.address ? "ring-2 ring-red-500" : ""
-                  }`}
+                  className={`w-full h-[39px] px-[10px] bg-[#E9E9E9] rounded-[6px] text-[#636363] text-[12px] font-normal font-inter border-none focus:outline-none ${errors.applicant.address ? "ring-2 ring-red-500" : ""
+                    }`}
                 />
                 {errors.applicant.address && (
                   <span className="text-red-500 text-xs mt-1">{errors.applicant.address}</span>
@@ -586,9 +587,8 @@ export default function LandTransferApplicationPage() {
                   placeholder="Enter Applicants NIC Number"
                   value={formData.applicant.nic}
                   onChange={(e) => handleInputChange("applicant", "nic", e.target.value)}
-                  className={`w-full h-[39px] px-[10px] bg-[#E9E9E9] rounded-[6px] text-[#636363] text-[12px] font-normal font-inter border-none focus:outline-none ${
-                    errors.applicant.nic ? "ring-2 ring-red-500" : ""
-                  }`}
+                  className={`w-full h-[39px] px-[10px] bg-[#E9E9E9] rounded-[6px] text-[#636363] text-[12px] font-normal font-inter border-none focus:outline-none ${errors.applicant.nic ? "ring-2 ring-red-500" : ""
+                    }`}
                 />
                 {errors.applicant.nic && <span className="text-red-500 text-xs mt-1">{errors.applicant.nic}</span>}
               </div>
@@ -599,9 +599,8 @@ export default function LandTransferApplicationPage() {
                   placeholder="Enter Date"
                   value={formData.applicant.date}
                   onChange={(e) => handleInputChange("applicant", "date", e.target.value)}
-                  className={`w-full h-[39px] px-[10px] bg-[#E9E9E9] rounded-[6px] text-[#636363] text-[12px] font-normal font-inter border-none focus:outline-none ${
-                    errors.applicant.date ? "ring-2 ring-red-500" : ""
-                  }`}
+                  className={`w-full h-[39px] px-[10px] bg-[#E9E9E9] rounded-[6px] text-[#636363] text-[12px] font-normal font-inter border-none focus:outline-none ${errors.applicant.date ? "ring-2 ring-red-500" : ""
+                    }`}
                 />
                 {errors.applicant.date && <span className="text-red-500 text-xs mt-1">{errors.applicant.date}</span>}
               </div>
@@ -649,9 +648,8 @@ export default function LandTransferApplicationPage() {
                   placeholder="Enter district"
                   value={formData.land.district}
                   onChange={(e) => handleInputChange("land", "district", e.target.value)}
-                  className={`w-full h-[39px] px-[10px] bg-[#E9E9E9] rounded-[6px] text-[#636363] text-[12px] font-normal font-inter border-none focus:outline-none ${
-                    errors.land.district ? "ring-2 ring-red-500" : ""
-                  }`}
+                  className={`w-full h-[39px] px-[10px] bg-[#E9E9E9] rounded-[6px] text-[#636363] text-[12px] font-normal font-inter border-none focus:outline-none ${errors.land.district ? "ring-2 ring-red-500" : ""
+                    }`}
                 />
                 {errors.land.district && <span className="text-red-500 text-xs mt-1">{errors.land.district}</span>}
               </div>
@@ -665,9 +663,8 @@ export default function LandTransferApplicationPage() {
                   placeholder="Enter village"
                   value={formData.land.village}
                   onChange={(e) => handleInputChange("land", "village", e.target.value)}
-                  className={`w-full h-[39px] px-[10px] bg-[#E9E9E9] rounded-[6px] text-[#636363] text-[12px] font-normal font-inter border-none focus:outline-none ${
-                    errors.land.village ? "ring-2 ring-red-500" : ""
-                  }`}
+                  className={`w-full h-[39px] px-[10px] bg-[#E9E9E9] rounded-[6px] text-[#636363] text-[12px] font-normal font-inter border-none focus:outline-none ${errors.land.village ? "ring-2 ring-red-500" : ""
+                    }`}
                 />
                 {errors.land.village && <span className="text-red-500 text-xs mt-1">{errors.land.village}</span>}
               </div>
@@ -682,9 +679,8 @@ export default function LandTransferApplicationPage() {
                   placeholder="Enter the name of the land"
                   value={formData.land.landName}
                   onChange={(e) => handleInputChange("land", "landName", e.target.value)}
-                  className={`w-full h-[39px] px-[10px] bg-[#E9E9E9] rounded-[6px] text-[#636363] text-[12px] font-normal font-inter border-none focus:outline-none ${
-                    errors.land.landName ? "ring-2 ring-red-500" : ""
-                  }`}
+                  className={`w-full h-[39px] px-[10px] bg-[#E9E9E9] rounded-[6px] text-[#636363] text-[12px] font-normal font-inter border-none focus:outline-none ${errors.land.landName ? "ring-2 ring-red-500" : ""
+                    }`}
                 />
                 {errors.land.landName && <span className="text-red-500 text-xs mt-1">{errors.land.landName}</span>}
               </div>
@@ -695,9 +691,8 @@ export default function LandTransferApplicationPage() {
                   placeholder="Enter extent in perches"
                   value={formData.land.extent}
                   onChange={(e) => handleInputChange("land", "extent", e.target.value)}
-                  className={`w-full h-[39px] px-[10px] bg-[#E9E9E9] rounded-[6px] text-[#636363] text-[12px] font-normal font-inter border-none focus:outline-none ${
-                    errors.land.extent ? "ring-2 ring-red-500" : ""
-                  }`}
+                  className={`w-full h-[39px] px-[10px] bg-[#E9E9E9] rounded-[6px] text-[#636363] text-[12px] font-normal font-inter border-none focus:outline-none ${errors.land.extent ? "ring-2 ring-red-500" : ""
+                    }`}
                 />
                 {errors.land.extent && <span className="text-red-500 text-xs mt-1">{errors.land.extent}</span>}
               </div>
@@ -707,16 +702,15 @@ export default function LandTransferApplicationPage() {
           {/* Second Divider */}
           <div className="absolute left-[30px] top-[879px] w-[1218px] h-0 border-t border-[#00508E]"></div>
 
-          {/* Reason for Request */}
+          {/* Reason for Request fixed*/}
           <div className="absolute left-[29px] top-[896px] w-[1219px] flex flex-col gap-[7px]">
             <label className="text-black text-[13px] font-semibold font-inter">Reason for the request</label>
             <textarea
               placeholder="Reason for the request"
               value={formData.reason}
-              onChange={(e) => handleInputChange("extract", "reason", e.target.value)}
-              className={`w-full h-[119px] px-[10px] py-[7px] bg-[#E9E9E9] rounded-[6px] text-black text-[13px] font-light font-inter border-none focus:outline-none resize-none ${
-                errors.reason ? "ring-2 ring-red-500" : ""
-              }`}
+              onChange={(e) => handleReasonChange(e.target.value)}
+              className={`w-full h-[119px] px-[10px] py-[7px] bg-[#E9E9E9] rounded-[6px] text-black text-[13px] font-light font-inter border-none focus:outline-none resize-none ${errors.reason ? "ring-2 ring-red-500" : ""
+                }`}
             />
             {errors.reason && <span className="text-red-500 text-xs mt-1">{errors.reason}</span>}
           </div>
@@ -737,9 +731,8 @@ export default function LandTransferApplicationPage() {
                   placeholder="Enter Division"
                   value={formData.extract.division}
                   onChange={(e) => handleInputChange("extract", "division", e.target.value)}
-                  className={`w-full h-[39px] px-[10px] bg-[#E9E9E9] rounded-[6px] text-[#636363] text-[12px] font-normal font-inter border-none focus:outline-none ${
-                    errors.extract.division ? "ring-2 ring-red-500" : ""
-                  }`}
+                  className={`w-full h-[39px] px-[10px] bg-[#E9E9E9] rounded-[6px] text-[#636363] text-[12px] font-normal font-inter border-none focus:outline-none ${errors.extract.division ? "ring-2 ring-red-500" : ""
+                    }`}
                 />
                 {errors.extract.division && (
                   <span className="text-red-500 text-xs mt-1">{errors.extract.division}</span>
@@ -752,9 +745,8 @@ export default function LandTransferApplicationPage() {
                   placeholder="Enter volume"
                   value={formData.extract.volume}
                   onChange={(e) => handleInputChange("extract", "volume", e.target.value)}
-                  className={`w-full h-[39px] px-[10px] bg-[#E9E9E9] rounded-[6px] text-[#636363] text-[12px] font-normal font-inter border-none focus:outline-none ${
-                    errors.extract.volume ? "ring-2 ring-red-500" : ""
-                  }`}
+                  className={`w-full h-[39px] px-[10px] bg-[#E9E9E9] rounded-[6px] text-[#636363] text-[12px] font-normal font-inter border-none focus:outline-none ${errors.extract.volume ? "ring-2 ring-red-500" : ""
+                    }`}
                 />
                 {errors.extract.volume && <span className="text-red-500 text-xs mt-1">{errors.extract.volume}</span>}
               </div>
@@ -769,9 +761,8 @@ export default function LandTransferApplicationPage() {
                   placeholder="Enter the name of the land"
                   value={formData.extract.folio}
                   onChange={(e) => handleInputChange("extract", "folio", e.target.value)}
-                  className={`w-full h-[39px] px-[10px] bg-[#E9E9E9] rounded-[6px] text-[#636363] text-[12px] font-normal font-inter border-none focus:outline-none ${
-                    errors.extract.folio ? "ring-2 ring-red-500" : ""
-                  }`}
+                  className={`w-full h-[39px] px-[10px] bg-[#E9E9E9] rounded-[6px] text-[#636363] text-[12px] font-normal font-inter border-none focus:outline-none ${errors.extract.folio ? "ring-2 ring-red-500" : ""
+                    }`}
                 />
                 {errors.extract.folio && <span className="text-red-500 text-xs mt-1">{errors.extract.folio}</span>}
               </div>
@@ -781,16 +772,18 @@ export default function LandTransferApplicationPage() {
 
           {/* Navigation Buttons */}
           <div className="absolute left-[29px] top-[1349px] w-[1206px] flex justify-between items-center my-7">
-            <button className="w-[73px] h-[44px] bg-white border border-[#002E51] rounded-[8px] flex items-center justify-center hover:bg-gray-50 transition-colors">
+            <button 
+              onClick={handleBack}
+              className="w-[73px] h-[44px] bg-white border border-[#002E51] rounded-[8px] flex items-center justify-center hover:bg-gray-50 transition-colors"
+            >
               <span className="text-black text-[16px] font-medium font-inter">Back</span>
             </button>
 
             <button
               onClick={handleSubmit}
               disabled={isSubmitting}
-              className={`px-[18px] py-[7px] rounded-[8px] flex items-center gap-[12px] transition-colors ${
-                isSubmitting ? "bg-gray-400 cursor-not-allowed" : "bg-[#002E51] hover:bg-[#001a2e]"
-              }`}
+              className={`px-[18px] py-[7px] rounded-[8px] flex items-center gap-[12px] transition-colors ${isSubmitting ? "bg-gray-400 cursor-not-allowed" : "bg-[#002E51] hover:bg-[#001a2e]"
+                }`}
             >
               <span className="text-white text-[16px] font-medium font-inter">
                 {isSubmitting ? "Submitting..." : "Submit"}
