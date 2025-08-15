@@ -9,8 +9,6 @@ import DashboardNavigationBar from "@/components/dashboard-navigation-bar"
 import Footer from "@/components/footer"
 import { useDropzone } from "react-dropzone"
 
-// ... (interfaces for FormData and FormErrors remain the same)
-
 interface FormData {
   seller: {
     fullName: string
@@ -56,7 +54,6 @@ interface FormErrors {
     folioNo: string
   }
 }
-
 
 export default function LandTransferApplicationPage() {
   const { user } = useAuth()
@@ -610,7 +607,6 @@ export default function LandTransferApplicationPage() {
     }
   }, [currentStep, isVerifying, hasVerified])
 
-
   return (
     <div className="min-h-screen bg-white">
       {/* Sticky header and navigation */}
@@ -627,9 +623,7 @@ export default function LandTransferApplicationPage() {
         </div>
 
         {/* Form Container */}
-        <div
-          className="w-full max-w-[1300px] mx-auto border-[0.3px] border-[#00508E] rounded-[5px] bg-white p-8 flex flex-col gap-8"
-        >
+        <div className="w-full max-w-[1300px] mx-auto border-[0.3px] border-[#00508E] rounded-[5px] bg-white p-8 flex flex-col gap-8">
           {/* Applicant Information Header */}
           <div>
             <h2 className="text-black text-lg sm:text-xl lg:text-[20px] font-extrabold leading-tight lg:leading-[24px] font-inter">
@@ -667,140 +661,143 @@ export default function LandTransferApplicationPage() {
               Applicant Details
             </h3>
 
-            {/* First Row - Full Name and Address */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8 lg:gap-[56px] pb-4">
-              <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
-                <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
-                  Full Name
-                </label>
-                <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                  <input
-                    type="text"
-                    placeholder="Enter applicant's full name"
-                    className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                    value={formData.seller.fullName}
-                    onChange={(e) => handleInputChange("seller", "fullName", e.target.value)}
-                  />
-                </div>
-                {errors.seller.fullName && <p className="text-red-500 text-xs mt-1">{errors.seller.fullName}</p>}
-              </div>
-              <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
-                <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">Address</label>
-                <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                  <input
-                    type="text"
-                    placeholder="Enter Applicants Address"
-                    className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                    value={formData.seller.address}
-                    onChange={(e) => handleInputChange("seller", "address", e.target.value)}
-                  />
-                </div>
-                {errors.seller.address && <p className="text-red-500 text-xs mt-1">{errors.seller.address}</p>}
-              </div>
-            </div>
-
-            {/* Second Row - Email and Phone */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8 lg:gap-[56px] pb-4">
-              <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
-                <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
-                  Email
-                </label>
-                <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                  <input
-                    type="email"
-                    placeholder="Enter applicant's email"
-                    className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                    value={formData.seller.email}
-                    onChange={(e) => handleInputChange("seller", "email", e.target.value)}
-                  />
-                </div>
-                {errors.seller.email && <p className="text-red-500 text-xs mt-1">{errors.seller.email}</p>}
-              </div>
-              <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
-                <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">Phone</label>
-                <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                  <input
-                    type="tel"
-                    placeholder="Enter applicant's phone number"
-                    className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                    value={formData.seller.phone}
-                    onChange={(e) => handleInputChange("seller", "phone", e.target.value)}
-                  />
-                </div>
-                {errors.seller.phone && <p className="text-red-500 text-xs mt-1">{errors.seller.phone}</p>}
-              </div>
-            </div>
-
-
-            {/* Third Row - NIC and Date */}
-            <div className="flex items-center justify-between">
-              <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
-                <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
-                  National Identity Card Number
-                </label>
-                <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                  <input
-                    type="text"
-                    placeholder="Enter applicant's National Identity Card Number"
-                    className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                    value={formData.seller.nic}
-                    onChange={(e) => handleInputChange("seller", "nic", e.target.value)}
-                  />
-                </div>
-                {errors.seller.nic && <p className="text-red-500 text-xs mt-1">{errors.seller.nic}</p>}
-              </div>
-              <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
-                <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">Date</label>
-                <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                  <input
-                    type="date"
-                    placeholder="Enter Date"
-                    className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                    value={formData.seller.date}
-                    onChange={(e) => handleInputChange("seller", "date", e.target.value)}
-                  />
-                </div>
-                {errors.seller.date && <p className="text-red-500 text-xs mt-1">{errors.seller.date}</p>}
-              </div>
-            </div>
-
-            {/* Signature Field */}
-            <div className="flex flex-col gap-[7px]">
-              <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">Signature</label>
-              <div
-                {...getRootPropsSignature()}
-                className={`w-full h-[119px] bg-[#E9E9E9] rounded-[6px] relative overflow-hidden border-none focus:outline-none focus:ring-2 focus:ring-[#00508E] flex items-center justify-center cursor-pointer ${isDragActiveSignature ? "bg-blue-50 ring-2 ring-[#00508E]" : ""
-                  }`}
-              >
-                <input {...getInputPropsSignature()} />
-                {signature ? (
-                  <div className="relative w-full h-full">
-                    <img
-                      src={signature || "/placeholder.svg"}
-                      alt="Signature"
-                      className="w-full h-full object-contain p-2"
+            {/* Form rows */}
+            <div className="space-y-4">
+              {/* Full Name and Address */}
+              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-8 lg:gap-[56px]">
+                <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter mb-[7px] block">
+                    Full Name
+                  </label>
+                  <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
+                    <input
+                      type="text"
+                      placeholder="Enter applicant's full name"
+                      className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
+                      value={formData.seller.fullName}
+                      onChange={(e) => handleInputChange("seller", "fullName", e.target.value)}
                     />
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        removeSignature()
-                      }}
-                      className="absolute top-2 right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600 transition-colors px-3 sm:px-4"
-                    >
-                      ×
-                    </button>
                   </div>
-                ) : (
-                  <div className="text-center px-0 my-9">
-                    <div className="text-[#636363] text-[14px] font-medium mb-1 py-0">
-                      {isDragActiveSignature ? "Drop signature image here" : "Click to add signature or drag here"}
+                  <p className="text-red-500 text-xs mt-1 h-4">{errors.seller.fullName}</p>
+                </div>
+                <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter mb-[7px] block">Address</label>
+                  <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
+                    <input
+                      type="text"
+                      placeholder="Enter Applicants Address"
+                      className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
+                      value={formData.seller.address}
+                      onChange={(e) => handleInputChange("seller", "address", e.target.value)}
+                    />
+                  </div>
+                  <p className="text-red-500 text-xs mt-1 h-4">{errors.seller.address}</p>
+                </div>
+              </div>
+
+              {/* Email and Phone */}
+              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-8 lg:gap-[56px]">
+                <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter mb-[7px] block">
+                    Email
+                  </label>
+                  <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
+                    <input
+                      type="email"
+                      placeholder="Enter applicant's email"
+                      className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
+                      value={formData.seller.email}
+                      onChange={(e) => handleInputChange("seller", "email", e.target.value)}
+                    />
+                  </div>
+                  <p className="text-red-500 text-xs mt-1 h-4">{errors.seller.email}</p>
+                </div>
+                <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter mb-[7px] block">Phone</label>
+                  <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
+                    <input
+                      type="tel"
+                      placeholder="Enter applicant's phone number"
+                      className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
+                      value={formData.seller.phone}
+                      onChange={(e) => handleInputChange("seller", "phone", e.target.value)}
+                    />
+                  </div>
+                  <p className="text-red-500 text-xs mt-1 h-4">{errors.seller.phone}</p>
+                </div>
+              </div>
+
+              {/* NIC and Date */}
+              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-8 lg:gap-[56px]">
+                <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter mb-[7px] block">
+                    National Identity Card Number
+                  </label>
+                  <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
+                    <input
+                      type="text"
+                      placeholder="Enter applicant's National Identity Card Number"
+                      className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
+                      value={formData.seller.nic}
+                      onChange={(e) => handleInputChange("seller", "nic", e.target.value)}
+                    />
+                  </div>
+                  <p className="text-red-500 text-xs mt-1 h-4">{errors.seller.nic}</p>
+                </div>
+                <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter mb-[7px] block">Date</label>
+                  <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
+                    <input
+                      type="date"
+                      placeholder="Enter Date"
+                      className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
+                      value={formData.seller.date}
+                      onChange={(e) => handleInputChange("seller", "date", e.target.value)}
+                    />
+                  </div>
+                  <p className="text-red-500 text-xs mt-1 h-4">{errors.seller.date}</p>
+                </div>
+              </div>
+
+              {/* Signature Field */}
+              <div className="flex flex-col gap-[7px]">
+                <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">Signature</label>
+                <div
+                  {...getRootPropsSignature()}
+                  className={`w-full h-[119px] bg-[#E9E9E9] rounded-[6px] relative overflow-hidden border-none focus:outline-none focus:ring-2 focus:ring-[#00508E] flex items-center justify-center cursor-pointer ${isDragActiveSignature ? "bg-blue-50 ring-2 ring-[#00508E]" : ""
+                    }`}
+                >
+                  <input {...getInputPropsSignature()} />
+                  {signature ? (
+                    <div className="relative w-full h-full">
+                      <img
+                        src={signature || "/placeholder.svg"}
+                        alt="Signature"
+                        className="w-full h-full object-contain p-2"
+                      />
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          removeSignature()
+                        }}
+                        className="absolute top-2 right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600 transition-colors px-3 sm:px-4"
+                      >
+                        ×
+                      </button>
                     </div>
-                    <div className="text-[#888] text-[12px] my-0">Upload image file (JPG, PNG, GIF)</div>
-                  </div>
-                )}
+                  ) : (
+                    <div className="text-center px-0 my-9">
+                      <div className="text-[#636363] text-[14px] font-medium mb-1 py-0">
+                        {isDragActiveSignature ? "Drop signature image here" : "Click to add signature or drag here"}
+                      </div>
+                      <div className="text-[#888] text-[12px] my-0">Upload image file (JPG, PNG, GIF)</div>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
+
 
           {/* Blue Divider Line */}
           <div className="w-full h-0 border-t border-[#00508E]"></div>
@@ -811,122 +808,124 @@ export default function LandTransferApplicationPage() {
               Property Details
             </h3>
 
-            {/* First Row - Village and Name of Land */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8 lg:gap-[56px] pb-4">
-              <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
-                <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
-                  Village <span className="font-light">(where the land is located)</span>
-                </label>
-                <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                  <input
-                    type="text"
-                    placeholder="Enter village name"
-                    className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                    value={formData.property.village}
-                    onChange={(e) => handleInputChange("property", "village", e.target.value)}
-                  />
+            {/* Form Rows */}
+            <div className="space-y-4">
+              {/* Village and Name of Land */}
+              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-8 lg:gap-[56px]">
+                <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter mb-[7px] block">
+                    Village <span className="font-light">(where the land is located)</span>
+                  </label>
+                  <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
+                    <input
+                      type="text"
+                      placeholder="Enter village name"
+                      className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
+                      value={formData.property.village}
+                      onChange={(e) => handleInputChange("property", "village", e.target.value)}
+                    />
+                  </div>
+                  <p className="text-red-500 text-xs mt-1 h-4">{errors.property.village}</p>
                 </div>
-                {errors.property.village && <p className="text-red-500 text-xs mt-1">{errors.property.village}</p>}
-              </div>
-              <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
-                <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
-                  Name of the Land
-                </label>
-                <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                  <input
-                    type="text"
-                    placeholder="Enter Land name"
-                    className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                    value={formData.property.nameOfLand}
-                    onChange={(e) => handleInputChange("property", "nameOfLand", e.target.value)}
-                  />
+                <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter mb-[7px] block">
+                    Name of the Land
+                  </label>
+                  <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
+                    <input
+                      type="text"
+                      placeholder="Enter Land name"
+                      className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
+                      value={formData.property.nameOfLand}
+                      onChange={(e) => handleInputChange("property", "nameOfLand", e.target.value)}
+                    />
+                  </div>
+                  <p className="text-red-500 text-xs mt-1 h-4">{errors.property.nameOfLand}</p>
                 </div>
-                {errors.property.nameOfLand && <p className="text-red-500 text-xs mt-1">{errors.property.nameOfLand}</p>}
               </div>
-            </div>
 
-            {/* Second Row - Extent and Korale */}
-            <div className="flex items-center justify-between h-[68px]">
-              <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
-                <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
-                  Extent of the land
-                </label>
-                <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                  <input
-                    type="text"
-                    placeholder="Enter extent of the land"
-                    className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                    value={formData.property.extent}
-                    onChange={(e) => handleInputChange("property", "extent", e.target.value)}
-                  />
+              {/* Extent and Korale */}
+              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-8 lg:gap-[56px]">
+                <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter mb-[7px] block">
+                    Extent of the land
+                  </label>
+                  <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
+                    <input
+                      type="text"
+                      placeholder="Enter extent of the land"
+                      className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
+                      value={formData.property.extent}
+                      onChange={(e) => handleInputChange("property", "extent", e.target.value)}
+                    />
+                  </div>
+                  <p className="text-red-500 text-xs mt-1 h-4">{errors.property.extent}</p>
                 </div>
-                {errors.property.extent && <p className="text-red-500 text-xs mt-1">{errors.property.extent}</p>}
-              </div>
-              <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
-                <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">Korale</label>
-                <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                  <input
-                    type="text"
-                    placeholder="Enter Korale name"
-                    className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                    value={formData.property.korale}
-                    onChange={(e) => handleInputChange("property", "korale", e.target.value)}
-                  />
+                <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter mb-[7px] block">Korale</label>
+                  <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
+                    <input
+                      type="text"
+                      placeholder="Enter Korale name"
+                      className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
+                      value={formData.property.korale}
+                      onChange={(e) => handleInputChange("property", "korale", e.target.value)}
+                    />
+                  </div>
+                  <p className="text-red-500 text-xs mt-1 h-4">{errors.property.korale}</p>
                 </div>
-                {errors.property.korale && <p className="text-red-500 text-xs mt-1">{errors.property.korale}</p>}
               </div>
-            </div>
 
-            {/* Third Row - Pattu and GN Division */}
-            <div className="flex items-center justify-between">
-              <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
-                <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">Pattu</label>
-                <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                  <input
-                    type="text"
-                    placeholder="Enter pattu name"
-                    className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                    value={formData.property.pattu}
-                    onChange={(e) => handleInputChange("property", "pattu", e.target.value)}
-                  />
+              {/* Pattu and GN Division */}
+              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-8 lg:gap-[56px]">
+                <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter mb-[7px] block">Pattu</label>
+                  <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
+                    <input
+                      type="text"
+                      placeholder="Enter pattu name"
+                      className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
+                      value={formData.property.pattu}
+                      onChange={(e) => handleInputChange("property", "pattu", e.target.value)}
+                    />
+                  </div>
+                  <p className="text-red-500 text-xs mt-1 h-4">{errors.property.pattu}</p>
                 </div>
-                {errors.property.pattu && <p className="text-red-500 text-xs mt-1">{errors.property.pattu}</p>}
-              </div>
-              <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
-                <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
-                  GN Division
-                </label>
-                <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                  <input
-                    type="text"
-                    placeholder="Enter GN Division"
-                    className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                    value={formData.property.gnDivision}
-                    onChange={(e) => handleInputChange("property", "gnDivision", e.target.value)}
-                  />
+                <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter mb-[7px] block">
+                    GN Division
+                  </label>
+                  <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
+                    <input
+                      type="text"
+                      placeholder="Enter GN Division"
+                      className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
+                      value={formData.property.gnDivision}
+                      onChange={(e) => handleInputChange("property", "gnDivision", e.target.value)}
+                    />
+                  </div>
+                  <p className="text-red-500 text-xs mt-1 h-4">{errors.property.gnDivision}</p>
                 </div>
-                {errors.property.gnDivision && <p className="text-red-500 text-xs mt-1">{errors.property.gnDivision}</p>}
               </div>
-            </div>
 
-            {/* Fourth Row - DS Division */}
-            <div className="flex items-center justify-between">
-              <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
-                <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
-                  DS Division
-                </label>
-                <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                  <input
-                    type="text"
-                    placeholder="Enter DS Division"
-                    className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                    value={formData.property.dsDivision}
-                    onChange={(e) => handleInputChange("property", "dsDivision", e.target.value)}
-                  />
+              {/* DS Division */}
+              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-8 lg:gap-[56px]">
+                <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter mb-[7px] block">
+                    DS Division
+                  </label>
+                  <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
+                    <input
+                      type="text"
+                      placeholder="Enter DS Division"
+                      className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
+                      value={formData.property.dsDivision}
+                      onChange={(e) => handleInputChange("property", "dsDivision", e.target.value)}
+                    />
+                  </div>
+                  <p className="text-red-500 text-xs mt-1 h-4">{errors.property.dsDivision}</p>
                 </div>
-                {errors.property.dsDivision && <p className="text-red-500 text-xs mt-1">{errors.property.dsDivision}</p>}
               </div>
-              <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] h-[22px]"></div>
             </div>
           </div>
 
@@ -1041,6 +1040,7 @@ export default function LandTransferApplicationPage() {
               </span>
             </button>
 
+            {/* Navigation error */}
             <button
               className="w-full sm:w-auto px-4 sm:px-[18px] py-2 sm:py-[7px] bg-[#002E51] rounded-[8px] flex items-center justify-center gap-3 lg:gap-[12px] hover:bg-[#001a2e] transition-colors"
               onClick={handleContinue}
