@@ -13,7 +13,7 @@ type Msg = {
 };
 
 export default function Chatbot() {
-  const [active, setActive] = useState(true);
+  const [active, setActive] = useState(false);
   const [history, setHistory] = useState<Msg[]>([]);
   const [input, setInput] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
