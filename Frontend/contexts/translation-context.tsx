@@ -241,7 +241,7 @@ const translations = {
     "dashboard.services.landTransfer": "ඉඩම් පැවරීම",
     "dashboard.services.landTransfer.desc": "සම්පූර්ණ නීතිමය ලේඛන සහ සත්‍යාපනය සහිතව විකුණන්නාගේ සිට ගැනුම්කරුවාට ඉඩම් හිමිකම් පැවරීම ලියාපදිංචි කරන්න.",
     "dashboard.services.certifiedCopy": "ඉඩමක සහතික කළ පිටපතක් සඳහා අයදුම්පත",
-    "dashboard.services.certifiedCopy.desc": "නීතිමය, පරිපාලනීය හෝ පුද්ගලික යොමුව සඳහා ඉඩම් පේරුම්වල නිල සහතික කළ පිටපතක් ඉල්ලීම.",
+    "dashboard.services.certifiedCopy.desc": "නීතිමය, පරිපාලනීය හෝ පුද්ග���ික යොමුව සඳහා ඉඩම් පේරුම්වල නිල සහතික කළ පිටපතක් ඉල්ලීම.",
     "dashboard.services.searchLandRegisters": "ඉඩම් ලේඛන සෙවීම සඳහා අයදුම්පත",
     "dashboard.services.searchLandRegisters.desc": "හිමිකම් විස්තර, සීමාවන් සහ භෝගයන් සත්‍යාපනය කිරීම සඳහා නිල ඉඩම් ලේඛනාගාරයේ සෙවීමක් කරන්න.",
     "dashboard.services.searchLandRegisters2.desc": "දේපල ඉතිහාසය සහ ලියාපදිංචිකරණ විස්තර තහවුරු කිරීම සඳහා ලියාපදිංචි ඉඩම් පේරුම් සොයාගෙන සමාලෝචනය කරන්න.",

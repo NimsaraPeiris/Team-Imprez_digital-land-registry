@@ -1,12 +1,10 @@
 "use client"
-
-import React, { useState, useCallback, useEffect } from "react"
+import { useState, useCallback, useEffect } from "react"
 import { useAuth } from "@/contexts/auth-context"
 import { useRouter } from "next/navigation"
 import GovernmentHeader from "@/components/government-header"
 import DashboardNavigationBar from "@/components/dashboard-navigation-bar"
 import Footer from "@/components/footer"
-import { ArrowLeft, Upload, AlertCircle } from "lucide-react"
 import { useDropzone } from "react-dropzone"
 
 interface FormData {
@@ -75,12 +73,13 @@ export default function LandTransferApplicationPage() {
   })
 
   const [fileUploads, setFileUploads] = useState<{
-    originalDeed: File | null,
-    purchaserNIC: File | null,
-    purchaserPhoto: File | null,
-    vendorPhoto: File | null,
-    guarantor1NIC: File | null,
-    guarantor2NIC: File | null,
+    originalDeed: File | null
+    purchaserNIC: File | null
+    purchaserPhoto: File | null
+    vendorPhoto: File | null
+    guarantor1NIC: File | null
+    guarantor2NIC: File | null
+    signature: File | null // Added signature to fileUploads state
   }>({
     originalDeed: null,
     purchaserNIC: null,
@@ -88,6 +87,7 @@ export default function LandTransferApplicationPage() {
     vendorPhoto: null,
     guarantor1NIC: null,
     guarantor2NIC: null,
+    signature: null, // Added signature to initial state
   })
 
   const onDropOriginalDeed = useCallback((acceptedFiles: File[]) => {
@@ -114,78 +114,89 @@ export default function LandTransferApplicationPage() {
     setFileUploads((prevState) => ({ ...prevState, guarantor2NIC: acceptedFiles[0] }))
   }, [])
 
-  const {
-    getRootProps: getRootPropsOriginalDeed,
-    getInputProps: getInputPropsOriginalDeed,
-    isDragActive: isDragActiveOriginalDeed,
-  } = useDropzone({
-    onDrop: onDropOriginalDeed,
-    multiple: false,
-    accept: {
-      "application/pdf": [".pdf"],
-      // "image/jpeg": [".jpg", ".jpeg"],
-    },
-  })
-  const {
-    getRootProps: getRootPropsPurchaserNIC,
-    getInputProps: getInputPropsPurchaserNIC,
-    isDragActive: isDragActivePurchaserNIC,
-  } = useDropzone({
-    onDrop: onDropPurchaserNIC,
-    multiple: false,
-    accept: {
-      "application/pdf": [".pdf"],
-      // "image/jpeg": [".jpg", ".jpeg"],
-    },
-  })
-  const {
-    getRootProps: getRootPropsPurchaserPhoto,
-    getInputProps: getInputPropsPurchaserPhoto,
-    isDragActive: isDragActivePurchaserPhoto,
-  } = useDropzone({
-    onDrop: onDropPurchaserPhoto,
-    multiple: false,
-    accept: {
-      "application/pdf": [".pdf"],
-      // "image/jpeg": [".jpg", ".jpeg"],
-    },
-  })
-  const {
-    getRootProps: getRootPropsVendorPhoto,
-    getInputProps: getInputPropsVendorPhoto,
-    isDragActive: isDragActiveVendorPhoto,
-  } = useDropzone({
-    onDrop: onDropVendorPhoto,
-    multiple: false,
-    accept: {
-      "application/pdf": [".pdf"],
-      // "image/jpeg": [".jpg", ".jpeg"],
-    },
-  })
-  const {
-    getRootProps: getRootPropsGuarantor1NIC,
-    getInputProps: getInputPropsGuarantor1NIC,
-    isDragActive: isDragActiveGuarantor1NIC,
-  } = useDropzone({
-    onDrop: onDropGuarantor1NIC,
-    multiple: false,
-    accept: {
-      "application/pdf": [".pdf"],
-      // "image/jpeg": [".jpg", ".jpeg"],
-    },
-  })
-  const {
-    getRootProps: getRootPropsGuarantor2NIC,
-    getInputProps: getInputPropsGuarantor2NIC,
-    isDragActive: isDragActiveGuarantor2NIC,
-  } = useDropzone({
-    onDrop: onDropGuarantor2NIC,
-    multiple: false,
-    accept: {
-      "application/pdf": [".pdf"],
-      // "image/jpeg": [".jpg", ".jpeg"],
-    },
-  })
+  const onDropSignature = useCallback((acceptedFiles: File[]) => {
+    setFileUploads((prevState) => ({ ...prevState, signature: acceptedFiles[0] }))
+  }, [])
+
+  const handleInputChange = (section: "seller" | "buyer", field: string, value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      [section]: {
+        ...prev[section],
+        [field]: value,
+      },
+    }))
+
+    // Clear error when user starts typing
+    if (errors[section][field as keyof typeof errors.seller]) {
+      setErrors((prev) => ({
+        ...prev,
+        [section]: {
+          ...prev[section],
+          [field]: "",
+        },
+      }))
+    }
+  }
+
+  const validateSection = (section: "seller" | "buyer"): boolean => {
+    const sectionData = formData[section]
+    const newErrors = {
+      fullName: validateFullName(sectionData.fullName),
+      email: validateEmail(sectionData.email),
+      phone: validatePhoneNumber(sectionData.phone),
+      nic: validateNIC(sectionData.nic),
+    }
+
+    setErrors((prev) => ({
+      ...prev,
+      [section]: newErrors,
+    }))
+
+    return !Object.values(newErrors).some((error) => error !== "")
+  }
+
+  const handleContinue = () => {
+    if (currentStep === 1) {
+      // Validate seller and buyer details before proceeding
+      const isValid = validateSection("seller") && validateSection("buyer")
+      if (isValid) {
+        setCurrentStep(2)
+      }
+    } else if (currentStep === 2) {
+      // Check if all required documents are uploaded before proceeding
+      const requiredDocuments = [
+        "originalDeed",
+        "purchaserNIC",
+        "purchaserPhoto",
+        "vendorPhoto",
+        "guarantor1NIC",
+        "guarantor2NIC",
+        "signature", // Added signature to required documents
+      ] as const
+      const allDocumentsUploaded = requiredDocuments.every((doc) => fileUploads[doc] !== null)
+
+      if (allDocumentsUploaded) {
+        // Move to AI verification step (step 3)
+        setCurrentStep(3)
+      } else {
+        alert("Please upload all required documents before continuing.")
+      }
+    } else if (currentStep === 3) {
+      // Navigate to online payment section
+      router.push("/land-transfer/payment")
+    }
+  }
+
+  const handleBack = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1)
+    } else {
+      router.push("/land-transfer")
+    }
+  }
+
+  const steps = [1, 2, 3, 4, 5]
 
   const validateEmail = (email: string): string => {
     if (!email) return "Email is required"
@@ -340,116 +351,105 @@ export default function LandTransferApplicationPage() {
     return ""
   }
 
-  const handleInputChange = (section: "seller" | "buyer", field: string, value: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      [section]: {
-        ...prev[section],
-        [field]: value,
-      },
-    }))
+  const {
+    getRootProps: getRootPropsOriginalDeed,
+    getInputProps: getInputPropsOriginalDeed,
+    isDragActive: isDragActiveOriginalDeed,
+  } = useDropzone({
+    onDrop: onDropOriginalDeed,
+    multiple: false,
+    accept: {
+      "application/pdf": [".pdf"],
+    },
+  })
+  const {
+    getRootProps: getRootPropsPurchaserNIC,
+    getInputProps: getInputPropsPurchaserNIC,
+    isDragActive: isDragActivePurchaserNIC,
+  } = useDropzone({
+    onDrop: onDropPurchaserNIC,
+    multiple: false,
+    accept: {
+      "application/pdf": [".pdf"],
+    },
+  })
+  const {
+    getRootProps: getRootPropsPurchaserPhoto,
+    getInputProps: getInputPropsPurchaserPhoto,
+    isDragActive: isDragActivePurchaserPhoto,
+  } = useDropzone({
+    onDrop: onDropPurchaserPhoto,
+    multiple: false,
+    accept: {
+      "application/pdf": [".pdf"],
+    },
+  })
+  const {
+    getRootProps: getRootPropsVendorPhoto,
+    getInputProps: getInputPropsVendorPhoto,
+    isDragActive: isDragActiveVendorPhoto,
+  } = useDropzone({
+    onDrop: onDropVendorPhoto,
+    multiple: false,
+    accept: {
+      "application/pdf": [".pdf"],
+    },
+  })
+  const {
+    getRootProps: getRootPropsGuarantor1NIC,
+    getInputProps: getInputPropsGuarantor1NIC,
+    isDragActive: isDragActiveGuarantor1NIC,
+  } = useDropzone({
+    onDrop: onDropGuarantor1NIC,
+    multiple: false,
+    accept: {
+      "application/pdf": [".pdf"],
+    },
+  })
+  const {
+    getRootProps: getRootPropsGuarantor2NIC,
+    getInputProps: getInputPropsGuarantor2NIC,
+    isDragActive: isDragActiveGuarantor2NIC,
+  } = useDropzone({
+    onDrop: onDropGuarantor2NIC,
+    multiple: false,
+    accept: {
+      "application/pdf": [".pdf"],
+    },
+  })
+  const {
+    getRootProps: getRootPropsSignature,
+    getInputProps: getInputPropsSignature,
+    isDragActive: isDragActiveSignature,
+  } = useDropzone({
+    onDrop: onDropSignature,
+    multiple: false,
+    accept: {
+      "image/jpeg": [".jpg", ".jpeg"],
+      "image/png": [".png"],
+      "image/gif": [".gif"],
+    },
+  })
 
-    // Clear error when user starts typing
-    if (errors[section][field as keyof typeof errors.seller]) {
-      setErrors((prev) => ({
-        ...prev,
-        [section]: {
-          ...prev[section],
-          [field]: "",
-        },
-      }))
-    }
-  }
-
-  const validateSection = (section: "seller" | "buyer"): boolean => {
-    const sectionData = formData[section]
-    const newErrors = {
-      fullName: validateFullName(sectionData.fullName),
-      email: validateEmail(sectionData.email),
-      phone: validatePhoneNumber(sectionData.phone),
-      nic: validateNIC(sectionData.nic),
-    }
-
-    setErrors((prev) => ({
-      ...prev,
-      [section]: newErrors,
-    }))
-
-    return !Object.values(newErrors).some((error) => error !== "")
-  }
-
-  const handleContinue = () => {
-    if (currentStep === 1) {
-      // Validate seller and buyer details before proceeding
-      const isValid = validateSection("seller") && validateSection("buyer")
-      if (isValid) {
-        setCurrentStep(2)
-      }
-    } else if (currentStep === 2) {
-      // Check if all required documents are uploaded before proceeding
-      const requiredDocuments = [
-        "originalDeed",
-        "purchaserNIC",
-        "purchaserPhoto",
-        "vendorPhoto",
-        "guarantor1NIC",
-        "guarantor2NIC",
-      ] as const
-      const allDocumentsUploaded = requiredDocuments.every((doc) => fileUploads[doc] !== null)
-
-      if (allDocumentsUploaded) {
-        // Move to AI verification step (step 3)
-        setCurrentStep(3)
-      } else {
-        alert("Please upload all required documents before continuing.")
-      }
-    } else if (currentStep === 3) {
-      // Navigate to online payment section
-      router.push("/land-transfer/payment")
-    }
-  }
-
-  const handleBack = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1)
-    } else {
-      router.push("/land-transfer")
-    }
-  }
-
-  const steps = [1, 2, 3, 4, 5]
-
-  const handleFileUpload = (fileType: string, event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
-    if (file) {
-      setFileUploads((prev) => ({ ...prev, [fileType]: file }))
-    }
-  }
-
-  // Add new state for verification animation
   const [verificationStatus, setVerificationStatus] = useState<{ [key: string]: "checking" | "verified" }>({})
   const [isVerifying, setIsVerifying] = useState(false)
   const [hasVerified, setHasVerified] = useState(false)
 
-  // Add useEffect to handle verification animation when step 3 is reached
   useEffect(() => {
     if (currentStep === 3 && !isVerifying && !hasVerified) {
       setIsVerifying(true)
       const documents = ["originalDeed", "purchaserNIC", "purchaserPhoto", "vendorPhoto"]
 
-      // Start verification animation
       documents.forEach((doc, index) => {
         setTimeout(() => {
           setVerificationStatus((prev) => ({ ...prev, [doc]: "checking" }))
 
-          // After 2 seconds, mark as verified
           setTimeout(() => {
             setVerificationStatus((prev) => ({ ...prev, [doc]: "verified" }))
           }, 2000)
-        }, index * 500) // Stagger the start of each verification
+        }, index * 500)
       })
 
-      // Mark verification complete after all documents are processed
       setTimeout(
         () => {
           setIsVerifying(false)
@@ -462,814 +462,343 @@ export default function LandTransferApplicationPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Sticky header and navigation */}
       <div className="sticky top-0 z-50">
         <GovernmentHeader />
         <DashboardNavigationBar />
       </div>
 
-      <main className="py-8 px-[75px]">
-        {/* Page Title */}
-        <div className="mb-10">
-          <h1 className="text-black text-[32px] font-bold leading-[48px] text-left">Land Transfer</h1>
+      <main className="py-4 sm:py-6 lg:py-8 px-4 sm:px-6 lg:px-[75px]">
+        <div className="mb-6 lg:mb-10">
+          <h1 className="text-black text-2xl sm:text-3xl lg:text-[32px] font-bold leading-tight lg:leading-[48px] font-inter text-left">
+            Application for search Duplicate of Deeds
+          </h1>
         </div>
 
-        {/* Form Container */}
-        <div className="w-full max-w-[1300px] mx-auto border border-[#00508E] rounded-[5px] relative overflow-hidden">
-          {/* Form Header */}
-          <div className="px-8 pt-12 pb-6">
-            <div className="mb-2">
-              <h2 className="text-black text-[20px] font-extrabold leading-[24px]">
-                {currentStep === 1
-                  ? "Seller & Buyer details"
-                  : currentStep === 2
-                    ? "Upload Required Documentation"
-                    : "AI Verify"}
-              </h2>
-            </div>
-            <div className="mb-8">
-              <p className="text-black text-[15px] font-normal leading-[18px]">
-                {currentStep === 1
-                  ? "Please enter all required details for verification"
-                  : currentStep === 2
-                    ? "Please upload all required documents for verification"
-                    : "AI verification of uploaded documents completed"}
-              </p>
-            </div>
+        <div className="w-full max-w-full border-[0.3px] border-[#00508E] rounded-[5px] bg-white p-4 sm:p-6 lg:p-8">
+          <div className="mb-6 lg:mb-8">
+            <h2 className="text-black text-lg sm:text-xl lg:text-[20px] font-extrabold leading-tight sm:leading-relaxed lg:leading-[24px] font-inter mb-2">
+              Applicant Information
+            </h2>
+            <p className="text-black text-sm sm:text-base lg:text-[15px] font-normal leading-relaxed lg:leading-[18px] font-inter">
+              Please upload all required documents for verification
+            </p>
+          </div>
 
-            {/* Progress Indicator */}
-            <div className="flex items-center justify-between mb-16 w-[551px]">
-              {steps.map((step, index) => (
-                <React.Fragment key={step}>
-                  <div
-                    className={`w-[31px] h-[31px] rounded-full border flex items-center justify-center relative overflow-hidden ${
-                      step <= currentStep ? "bg-[#36BF29] border-[#36BF29]" : "bg-[#F4F4F4] border-[#737373]"
-                    }`}
-                  >
-                    <span
-                      className={`text-[15px] font-normal leading-[18px] ${
-                        step <= currentStep ? "text-white" : "text-[#807E7E]"
-                      }`}
-                    >
-                      {step}
-                    </span>
-                  </div>
-                  {index < steps.length - 1 && (
-                    <div
-                      className={`w-[51px] h-0 border-t ${
-                        step < currentStep ? "border-[#36BF29]" : "border-[#737373]"
-                      }`}
-                    />
-                  )}
-                </React.Fragment>
-              ))}
+          <div className="flex items-center justify-start gap-4 sm:gap-6 lg:gap-8 mb-8 lg:mb-12 max-w-sm">
+            <div className="w-6 h-6 sm:w-7 sm:h-7 lg:w-[31px] lg:h-[31px] bg-[#36BF29] rounded-full border border-[#36BF29] flex items-center justify-center">
+              <span className="text-white text-xs sm:text-sm lg:text-[15px] font-normal leading-[18px] font-inter">
+                1
+              </span>
+            </div>
+            <div className="w-8 sm:w-10 lg:w-[51px] h-0 border-t border-[#737373]"></div>
+
+            <div className="w-6 h-6 sm:w-7 sm:h-7 lg:w-[31px] lg:h-[31px] bg-[#F4F4F4] rounded-full border border-[#737373] flex items-center justify-center">
+              <span className="text-[#807E7E] text-xs sm:text-sm lg:text-[15px] font-normal leading-[18px] font-inter">
+                2
+              </span>
+            </div>
+            <div className="w-8 sm:w-10 lg:w-[51px] h-0 border-t border-[#807E7E]"></div>
+
+            <div className="w-6 h-6 sm:w-7 sm:h-7 lg:w-[31px] lg:h-[31px] bg-[#F4F4F4] rounded-full border border-[#807E7E] flex items-center justify-center">
+              <span className="text-[#807E7E] text-xs sm:text-sm lg:text-[15px] font-normal leading-[18px] font-inter">
+                3
+              </span>
             </div>
           </div>
 
-          {currentStep === 1 ? (
-            // Seller & Buyer Details Form
-            <>
-              {/* Seller Details Section */}
-              <div className="px-8 mb-8">
-                <h3 className="text-black text-[20px] font-extrabold leading-[24px] mb-4">Seller Details</h3>
+          <div className="mb-8 lg:mb-12">
+            <h3 className="text-black text-lg sm:text-xl lg:text-[20px] font-extrabold leading-tight lg:leading-[24px] font-inter mb-4 lg:mb-6">
+              Applicant Details
+            </h3>
 
-                <div className="grid grid-cols-2 gap-14 mb-6">
-                  {/* Seller Full Name */}
-                  <div className="flex flex-col gap-2">
-                    <label className="text-black text-[13px] font-semibold leading-[22px]">Full Name</label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        value={formData.seller.fullName}
-                        onChange={(e) => handleInputChange("seller", "fullName", e.target.value)}
-                        placeholder="Enter seller's full name"
-                        className={`w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
-                          errors.seller.fullName ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
-                        }`}
-                      />
-                      {errors.seller.fullName && (
-                        <AlertCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-red-500" />
-                      )}
-                    </div>
-                    {errors.seller.fullName && (
-                      <p className="text-red-500 text-xs flex items-center gap-1">
-                        <AlertCircle className="w-3 h-3" />
-                        {errors.seller.fullName}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Seller Email */}
-                  <div className="flex flex-col gap-2">
-                    <label className="text-black text-[13px] font-semibold leading-[22px]">E-mail</label>
-                    <div className="relative">
-                      <input
-                        type="email"
-                        value={formData.seller.email}
-                        onChange={(e) => handleInputChange("seller", "email", e.target.value)}
-                        placeholder="Enter seller's email"
-                        className={`w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
-                          errors.seller.email ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
-                        }`}
-                      />
-                      {errors.seller.email && (
-                        <AlertCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-red-500" />
-                      )}
-                    </div>
-                    {errors.seller.email && (
-                      <p className="text-red-500 text-xs flex items-center gap-1">
-                        <AlertCircle className="w-3 h-3" />
-                        {errors.seller.email}
-                      </p>
-                    )}
-                  </div>
+            <div className="space-y-4 lg:space-y-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
+                <div className="flex flex-col gap-1 lg:gap-[7px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter Applicants full name"
+                    value={formData.seller.fullName}
+                    onChange={(e) => handleInputChange("seller", "fullName", e.target.value)}
+                    className="w-full h-8 sm:h-9 lg:h-[39px] px-2 lg:px-[10px] bg-[#E9E9E9] rounded-[6px] text-xs sm:text-sm lg:text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E] font-inter"
+                  />
+                  {errors.seller.fullName && (
+                    <p className="text-red-500 text-xs sm:text-sm lg:text-[12px] font-inter">
+                      {errors.seller.fullName}
+                    </p>
+                  )}
                 </div>
-
-                <div className="grid grid-cols-2 gap-14">
-                  {/* Seller Phone */}
-                  <div className="flex flex-col gap-2">
-                    <label className="text-black text-[13px] font-semibold leading-[22px]">Phone</label>
-                    <div className="relative">
-                      <input
-                        type="tel"
-                        value={formData.seller.phone}
-                        onChange={(e) => handleInputChange("seller", "phone", e.target.value)}
-                        placeholder="Enter seller's phone number"
-                        className={`w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
-                          errors.seller.phone ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
-                        }`}
-                      />
-                      {errors.seller.phone && (
-                        <AlertCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-red-500" />
-                      )}
-                    </div>
-                    {errors.seller.phone && (
-                      <p className="text-red-500 text-xs flex items-center gap-1">
-                        <AlertCircle className="w-3 h-3" />
-                        {errors.seller.phone}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Seller NIC */}
-                  <div className="flex flex-col gap-2">
-                    <label className="text-black text-[13px] font-semibold leading-[22px]">NIC</label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        value={formData.seller.nic}
-                        onChange={(e) => handleInputChange("seller", "nic", e.target.value)}
-                        placeholder="Enter seller's NIC"
-                        className={`w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
-                          errors.seller.nic ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
-                        }`}
-                      />
-                      {errors.seller.nic && (
-                        <AlertCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-red-500" />
-                      )}
-                    </div>
-                    {errors.seller.nic && (
-                      <p className="text-red-500 text-xs flex items-center gap-1">
-                        <AlertCircle className="w-3 h-3" />
-                        {errors.seller.nic}
-                      </p>
-                    )}
-                  </div>
+                <div className="flex flex-col gap-1 lg:gap-[7px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
+                    Address
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter applicants address"
+                    value={formData.seller.email}
+                    onChange={(e) => handleInputChange("seller", "email", e.target.value)}
+                    className="w-full h-8 sm:h-9 lg:h-[39px] px-2 lg:px-[10px] bg-[#E9E9E9] rounded-[6px] text-xs sm:text-sm lg:text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E] font-inter"
+                  />
+                  {errors.seller.email && (
+                    <p className="text-red-500 text-xs sm:text-sm lg:text-[12px] font-inter">{errors.seller.email}</p>
+                  )}
                 </div>
               </div>
 
-              {/* Divider */}
-              <div className="w-full h-[1px] bg-[#00508E] mx-8" style={{ width: "calc(100% - 64px)" }} />
-
-              {/* Buyer Details Section */}
-              <div className="px-8 py-8">
-                <h3 className="text-black text-[20px] font-extrabold leading-[24px] mb-4">Buyer Details</h3>
-
-                <div className="grid grid-cols-2 gap-14 mb-6">
-                  {/* Buyer Full Name */}
-                  <div className="flex flex-col gap-2">
-                    <label className="text-black text-[13px] font-semibold leading-[22px]">Full Name</label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        value={formData.buyer.fullName}
-                        onChange={(e) => handleInputChange("buyer", "fullName", e.target.value)}
-                        placeholder="Enter buyer's full name"
-                        className={`w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
-                          errors.buyer.fullName ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
-                        }`}
-                      />
-                      {errors.buyer.fullName && (
-                        <AlertCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-red-500" />
-                      )}
-                    </div>
-                    {errors.buyer.fullName && (
-                      <p className="text-red-500 text-xs flex items-center gap-1">
-                        <AlertCircle className="w-3 h-3" />
-                        {errors.buyer.fullName}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Buyer Email */}
-                  <div className="flex flex-col gap-2">
-                    <label className="text-black text-[13px] font-semibold leading-[22px]">E-mail</label>
-                    <div className="relative">
-                      <input
-                        type="email"
-                        value={formData.buyer.email}
-                        onChange={(e) => handleInputChange("buyer", "email", e.target.value)}
-                        placeholder="Enter buyer's email"
-                        className={`w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
-                          errors.buyer.email ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
-                        }`}
-                      />
-                      {errors.buyer.email && (
-                        <AlertCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-red-500" />
-                      )}
-                    </div>
-                    {errors.buyer.email && (
-                      <p className="text-red-500 text-xs flex items-center gap-1">
-                        <AlertCircle className="w-3 h-3" />
-                        {errors.buyer.email}
-                      </p>
-                    )}
-                  </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
+                <div className="flex flex-col gap-1 lg:gap-[7px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
+                    National Identity Card Number
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter Applicants NIC number"
+                    value={formData.seller.phone}
+                    onChange={(e) => handleInputChange("seller", "phone", e.target.value)}
+                    className="w-full h-8 sm:h-9 lg:h-[39px] px-2 lg:px-[10px] bg-[#E9E9E9] rounded-[6px] text-xs sm:text-sm lg:text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E] font-inter"
+                  />
+                  {errors.seller.phone && (
+                    <p className="text-red-500 text-xs sm:text-sm lg:text-[12px] font-inter">{errors.seller.phone}</p>
+                  )}
                 </div>
-
-                <div className="grid grid-cols-2 gap-14">
-                  {/* Buyer Phone */}
-                  <div className="flex flex-col gap-2">
-                    <label className="text-black text-[13px] font-semibold leading-[22px]">Phone</label>
-                    <div className="relative">
-                      <input
-                        type="tel"
-                        value={formData.buyer.phone}
-                        onChange={(e) => handleInputChange("buyer", "phone", e.target.value)}
-                        placeholder="Enter buyer's phone number"
-                        className={`w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
-                          errors.buyer.phone ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
-                        }`}
-                      />
-                      {errors.buyer.phone && (
-                        <AlertCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-red-500" />
-                      )}
-                    </div>
-                    {errors.buyer.phone && (
-                      <p className="text-red-500 text-xs flex items-center gap-1">
-                        <AlertCircle className="w-3 h-3" />
-                        {errors.buyer.phone}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Buyer NIC */}
-                  <div className="flex flex-col gap-2">
-                    <label className="text-black text-[13px] font-semibold leading-[22px]">NIC</label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        value={formData.buyer.nic}
-                        onChange={(e) => handleInputChange("buyer", "nic", e.target.value)}
-                        placeholder="Enter buyer's NIC"
-                        className={`w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
-                          errors.buyer.nic ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
-                        }`}
-                      />
-                      {errors.buyer.nic && (
-                        <AlertCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-red-500" />
-                      )}
-                    </div>
-                    {errors.buyer.nic && (
-                      <p className="text-red-500 text-xs flex items-center gap-1">
-                        <AlertCircle className="w-3 h-3" />
-                        {errors.buyer.nic}
-                      </p>
-                    )}
-                  </div>
+                <div className="flex flex-col gap-1 lg:gap-[7px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">Id</label>
+                  <input
+                    type="text"
+                    placeholder="Enter seller's full name"
+                    value={formData.seller.nic}
+                    onChange={(e) => handleInputChange("seller", "nic", e.target.value)}
+                    className="w-full h-8 sm:h-9 lg:h-[39px] px-2 lg:px-[10px] bg-[#E9E9E9] rounded-[6px] text-xs sm:text-sm lg:text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E] font-inter"
+                  />
+                  {errors.seller.nic && (
+                    <p className="text-red-500 text-xs sm:text-sm lg:text-[12px] font-inter">{errors.seller.nic}</p>
+                  )}
                 </div>
               </div>
 
-              {/* Divider */}
-              <div className="w-full h-[1px] bg-[#00508E] mx-8" style={{ width: "calc(100% - 64px)" }} />
-            </>
-          ) : currentStep === 2 ? (
-            // Document Upload Sections (existing code)
-            <div className="px-8 flex flex-col gap-8 mb-8">
-              {/* Original Deed of Transfer */}
-              <div className="flex flex-col gap-[22px]">
-                <h3 className="text-black text-[17px] font-semibold leading-[20.4px]">
-                  Upload Original Deed of Transfer (Scan/PDF) - Required
-                </h3>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
+                <div className="flex flex-col gap-1 lg:gap-[7px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
+                    Date of application
+                  </label>
+                  <input
+                    type="date"
+                    placeholder="Enter date of application"
+                    className="w-full h-8 sm:h-9 lg:h-[39px] px-2 lg:px-[10px] bg-[#E9E9E9] rounded-[6px] text-xs sm:text-sm lg:text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E] font-inter"
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-1 lg:gap-[7px]">
+                <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
+                  Signature
+                </label>
                 <div
-                  {...getRootPropsOriginalDeed()}
-                  className={`h-[180px] border-2 border-dashed rounded-[12px] flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ${
-                    isDragActiveOriginalDeed
-                      ? "border-[#4490CC] bg-blue-50 scale-[1.02]"
-                      : fileUploads.originalDeed
-                        ? "border-green-500 bg-green-50"
-                        : "border-[#D1D5DB] bg-gray-50 hover:border-[#4490CC] hover:bg-blue-25"
+                  {...getRootPropsSignature()}
+                  className={`w-full h-24 sm:h-28 lg:h-[119px] bg-[#E9E9E9] rounded-[6px] flex items-center justify-center relative overflow-hidden border-none focus:outline-none focus:ring-2 focus:ring-[#00508E] cursor-pointer ${
+                    isDragActiveSignature ? "ring-2 ring-[#00508E]" : ""
                   }`}
                 >
-                  <input
-                    {...getInputPropsOriginalDeed()}
-                    type="file"
-                    accept=".pdf,.jpg,.jpeg"
-                    onChange={(e) => handleFileUpload("originalDeed", e)}
-                  />
-                  <div className="flex flex-col items-center gap-3">
-                    {fileUploads.originalDeed ? (
-                      <>
-                        <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                          <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
-                        </div>
-                        <div className="text-center">
-                          <p className="text-green-700 text-[14px] font-semibold">File Uploaded Successfully</p>
-                          <p className="text-green-600 text-[12px] mt-1">{fileUploads.originalDeed.name}</p>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                          <Upload className="w-6 h-6 text-blue-600" />
-                        </div>
-                        <div className="text-center">
-                          <p className="text-gray-700 text-[14px] font-semibold mb-1">
-                            {isDragActiveOriginalDeed ? "Drop file here" : "Drag & drop or click to upload"}
-                          </p>
-                          <p className="text-gray-500 text-[12px]">PDF files only • Max 10MB</p>
-                        </div>
-                        <button
-                          type="button"
-                          className="px-4 py-2 bg-[#4490CC] text-white text-[12px] font-medium rounded-[6px] hover:bg-[#3a7bb8] transition-colors"
-                        >
-                          Choose File
-                        </button>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              {/* Purchaser NIC */}
-              <div className="flex flex-col gap-[22px]">
-                <h3 className="text-black text-[17px] font-semibold leading-[20.4px]">
-                  Upload Purchaser NIC (Front & Back) – PDF (Required)
-                </h3>
-                <div
-                  {...getRootPropsPurchaserNIC()}
-                  className={`h-[180px] border-2 border-dashed rounded-[12px] flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ${
-                    isDragActivePurchaserNIC
-                      ? "border-[#4490CC] bg-blue-50 scale-[1.02]"
-                      : fileUploads.purchaserNIC
-                        ? "border-green-500 bg-green-50"
-                        : "border-[#D1D5DB] bg-gray-50 hover:border-[#4490CC] hover:bg-blue-25"
-                  }`}
-                >
-                  <input
-                    {...getInputPropsPurchaserNIC()}
-                    type="file"
-                    accept=".pdf,.jpg,.jpeg"
-                    onChange={(e) => handleFileUpload("purchaserNIC", e)}
-                  />
-                  <div className="flex flex-col items-center gap-3">
-                    {fileUploads.purchaserNIC ? (
-                      <>
-                        <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                          <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
-                        </div>
-                        <div className="text-center">
-                          <p className="text-green-700 text-[14px] font-semibold">File Uploaded Successfully</p>
-                          <p className="text-green-600 text-[12px] mt-1">{fileUploads.purchaserNIC.name}</p>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                          <Upload className="w-6 h-6 text-blue-600" />
-                        </div>
-                        <div className="text-center">
-                          <p className="text-gray-700 text-[14px] font-semibold mb-1">
-                            {isDragActivePurchaserNIC ? "Drop file here" : "Drag & drop or click to upload"}
-                          </p>
-                          <p className="text-gray-500 text-[12px]">PDF files only • Max 10MB</p>
-                        </div>
-                        <button
-                          type="button"
-                          className="px-4 py-2 bg-[#4490CC] text-white text-[12px] font-medium rounded-[6px] hover:bg-[#3a7bb8] transition-colors"
-                        >
-                          Choose File
-                        </button>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              {/* Purchaser Photograph */}
-              <div className="flex flex-col gap-[22px]">
-                <h3 className="text-black text-[17px] font-semibold leading-[20.4px]">
-                  Upload Purchaser Photograph – Passport Size PDF (Required)
-                </h3>
-                <div
-                  {...getRootPropsPurchaserPhoto()}
-                  className={`h-[180px] border-2 border-dashed rounded-[12px] flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ${
-                    isDragActivePurchaserPhoto
-                      ? "border-[#4490CC] bg-blue-50 scale-[1.02]"
-                      : fileUploads.purchaserPhoto
-                        ? "border-green-500 bg-green-50"
-                        : "border-[#D1D5DB] bg-gray-50 hover:border-[#4490CC] hover:bg-blue-25"
-                  }`}
-                >
-                  <input
-                    {...getInputPropsPurchaserPhoto()}
-                    type="file"
-                    accept=".pdf,.jpg,.jpeg"
-                    onChange={(e) => handleFileUpload("purchaserPhoto", e)}
-                  />
-                  <div className="flex flex-col items-center gap-3">
-                    {fileUploads.purchaserPhoto ? (
-                      <>
-                        <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                          <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
-                        </div>
-                        <div className="text-center">
-                          <p className="text-green-700 text-[14px] font-semibold">File Uploaded Successfully</p>
-                          <p className="text-green-600 text-[12px] mt-1">{fileUploads.purchaserPhoto.name}</p>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                          <Upload className="w-6 h-6 text-blue-600" />
-                        </div>
-                        <div className="text-center">
-                          <p className="text-gray-700 text-[14px] font-semibold mb-1">
-                            {isDragActivePurchaserPhoto ? "Drop file here" : "Drag & drop or click to upload"}
-                          </p>
-                          <p className="text-gray-500 text-[12px]">PDF files only • Max 10MB</p>
-                        </div>
-                        <button
-                          type="button"
-                          className="px-4 py-2 bg-[#4490CC] text-white text-[12px] font-medium rounded-[6px] hover:bg-[#3a7bb8] transition-colors"
-                        >
-                          Choose File
-                        </button>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              {/* Vendor Photograph */}
-              <div className="flex flex-col gap-[22px]">
-                <h3 className="text-black text-[17px] font-semibold leading-[20.4px]">
-                  Upload Vendor Photograph – Passport Size PDF (Required)
-                </h3>
-                <div
-                  {...getRootPropsVendorPhoto()}
-                  className={`h-[180px] border-2 border-dashed rounded-[12px] flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ${
-                    isDragActiveVendorPhoto
-                      ? "border-[#4490CC] bg-blue-50 scale-[1.02]"
-                      : fileUploads.vendorPhoto
-                        ? "border-green-500 bg-green-50"
-                        : "border-[#D1D5DB] bg-gray-50 hover:border-[#4490CC] hover:bg-blue-25"
-                  }`}
-                >
-                  <input
-                    {...getInputPropsVendorPhoto()}
-                    type="file"
-                    accept=".pdf,.jpg,.jpeg"
-                    onChange={(e) => handleFileUpload("vendorPhoto", e)}
-                  />
-                  <div className="flex flex-col items-center gap-3">
-                    {fileUploads.vendorPhoto ? (
-                      <>
-                        <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                          <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
-                        </div>
-                        <div className="text-center">
-                          <p className="text-green-700 text-[14px] font-semibold">File Uploaded Successfully</p>
-                          <p className="text-green-600 text-[12px] mt-1">{fileUploads.vendorPhoto.name}</p>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                          <Upload className="w-6 h-6 text-blue-600" />
-                        </div>
-                        <div className="text-center">
-                          <p className="text-gray-700 text-[14px] font-semibold mb-1">
-                            {isDragActiveVendorPhoto ? "Drop file here" : "Drag & drop or click to upload"}
-                          </p>
-                          <p className="text-gray-500 text-[12px]">PDF files only • Max 10MB</p>
-                        </div>
-                        <button
-                          type="button"
-                          className="px-4 py-2 bg-[#4490CC] text-white text-[12px] font-medium rounded-[6px] hover:bg-[#3a7bb8] transition-colors"
-                        >
-                          Choose File
-                        </button>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              {/* Guarantor 1 NIC */}
-              <div className="flex flex-col gap-[22px]">
-                <h3 className="text-black text-[17px] font-semibold leading-[20.4px]">
-                  Upload Guarantor 1 NIC Number (Front & Back) – PDF (Required)
-                </h3>
-                <div
-                  {...getRootPropsGuarantor1NIC()}
-                  className={`h-[180px] border-2 border-dashed rounded-[12px] flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ${
-                    isDragActiveGuarantor1NIC
-                      ? "border-[#4490CC] bg-blue-50 scale-[1.02]"
-                      : fileUploads.guarantor1NIC
-                        ? "border-green-500 bg-green-50"
-                        : "border-[#D1D5DB] bg-gray-50 hover:border-[#4490CC] hover:bg-blue-25"
-                  }`}
-                >
-                  <input
-                    {...getInputPropsGuarantor1NIC()}
-                    type="file"
-                    accept=".pdf,.jpg,.jpeg"
-                    onChange={(e) => handleFileUpload("guarantor1NIC", e)}
-                  />
-                  <div className="flex flex-col items-center gap-3">
-                    {fileUploads.guarantor1NIC ? (
-                      <>
-                        <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                          <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
-                        </div>
-                        <div className="text-center">
-                          <p className="text-green-700 text-[14px] font-semibold">File Uploaded Successfully</p>
-                          <p className="text-green-600 text-[12px] mt-1">{fileUploads.guarantor1NIC.name}</p>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                          <Upload className="w-6 h-6 text-blue-600" />
-                        </div>
-                        <div className="text-center">
-                          <p className="text-gray-700 text-[14px] font-semibold mb-1">
-                            {isDragActiveGuarantor1NIC ? "Drop file here" : "Drag & drop or click to upload"}
-                          </p>
-                          <p className="text-gray-500 text-[12px]">PDF files only • Max 10MB</p>
-                        </div>
-                        <button
-                          type="button"
-                          className="px-4 py-2 bg-[#4490CC] text-white text-[12px] font-medium rounded-[6px] hover:bg-[#3a7bb8] transition-colors"
-                        >
-                          Choose File
-                        </button>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              {/* Guarantor 2 NIC */}
-              <div className="flex flex-col gap-[22px]">
-                <h3 className="text-black text-[17px] font-semibold leading-[20.4px]">
-                  Upload Guarantor 2 NIC Number (Front & Back) – PDF (Required)
-                </h3>
-                <div
-                  {...getRootPropsGuarantor2NIC()}
-                  className={`h-[180px] border-2 border-dashed rounded-[12px] flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ${
-                    isDragActiveGuarantor2NIC
-                      ? "border-[#4490CC] bg-blue-50 scale-[1.02]"
-                      : fileUploads.guarantor2NIC
-                        ? "border-green-500 bg-green-50"
-                        : "border-[#D1D5DB] bg-gray-50 hover:border-[#4490CC] hover:bg-blue-25"
-                  }`}
-                >
-                  <input
-                    {...getInputPropsGuarantor2NIC()}
-                    type="file"
-                    accept=".pdf,.jpg,.jpeg"
-                    onChange={(e) => handleFileUpload("guarantor2NIC", e)}
-                  />
-                  <div className="flex flex-col items-center gap-3">
-                    {fileUploads.guarantor2NIC ? (
-                      <>
-                        <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                          <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
-                        </div>
-                        <div className="text-center">
-                          <p className="text-green-700 text-[14px] font-semibold">File Uploaded Successfully</p>
-                          <p className="text-green-600 text-[12px] mt-1">{fileUploads.guarantor2NIC.name}</p>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                          <Upload className="w-6 h-6 text-blue-600" />
-                        </div>
-                        <div className="text-center">
-                          <p className="text-gray-700 text-[14px] font-semibold mb-1">
-                            {isDragActiveGuarantor2NIC ? "Drop file here" : "Drag & drop or click to upload"}
-                          </p>
-                          <p className="text-gray-500 text-[12px]">PDF files only • Max 10MB</p>
-                        </div>
-                        <button
-                          type="button"
-                          className="px-4 py-2 bg-[#4490CC] text-white text-[12px] font-medium rounded-[6px] hover:bg-[#3a7bb8] transition-colors"
-                        >
-                          Choose File
-                        </button>
-                      </>
-                    )}
-                  </div>
+                  <input {...getInputPropsSignature()} />
+                  {fileUploads.signature ? (
+                    <div className="relative w-full h-full">
+                      <img
+                        src={URL.createObjectURL(fileUploads.signature) || "/placeholder.svg"}
+                        alt="Signature"
+                        className="w-full h-full object-contain"
+                      />
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setFileUploads((prev) => ({ ...prev, signature: null }))
+                        }}
+                        className="absolute top-2 right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="text-center px-4">
+                      <div className="text-[#636363] text-xs sm:text-sm font-inter font-medium mb-1">
+                        {isDragActiveSignature
+                          ? "Drop signature image here"
+                          : "Click to add signature image or drag here"}
+                      </div>
+                      <p className="text-[#636363] text-[10px] font-inter">Supports JPG, PNG, GIF</p>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
-          ) : currentStep === 3 ? (
-            // AI Verification Results with Animation
-            <div className="px-8 flex flex-col gap-12 mb-8">
-              {/* Original Deed Verification */}
-              <div className="flex flex-col gap-3">
-                <div className="flex flex-col gap-6">
-                  <h3 className="text-black text-[17px] font-semibold leading-[20.4px]">Original Deed Verification</h3>
-                  <div className="h-[52px] border border-[#BDBBBB] rounded-[5px] flex items-center justify-between px-4">
-                    <span className="text-black text-[17px] font-semibold leading-[20.4px]">
-                      {fileUploads.originalDeed ? fileUploads.originalDeed.name : "original_deed.pdf"}
-                    </span>
-                    <div className="flex items-center gap-2">
-                      {verificationStatus.originalDeed === "checking" ? (
-                        <div className="flex items-center gap-2 px-3 py-1 rounded bg-yellow-100">
-                          <div className="w-4 h-4 border-2 border-yellow-500 border-t-transparent rounded-full animate-spin"></div>
-                          <span className="text-yellow-700 text-[17px] font-normal leading-[20.4px]">Checking...</span>
-                        </div>
-                      ) : verificationStatus.originalDeed === "verified" ? (
-                        <div className="flex items-center gap-2 bg-[#36BF29] px-3 py-1 rounded">
-                          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
-                          <span className="text-white text-[17px] font-normal leading-[20.4px]">Verified</span>
-                        </div>
-                      ) : (
-                        <div className="flex items-center gap-2 px-3 py-1 rounded bg-gray-100">
-                          <span className="text-gray-500 text-[17px] font-normal leading-[20.4px]">Pending</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
+          </div>
+
+          <div className="w-full h-0 border-t border-[#00508E] mb-8 lg:mb-12"></div>
+
+          <div className="mb-8 lg:mb-12">
+            <div className="space-y-4 lg:space-y-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
+                <div className="flex flex-col gap-1 lg:gap-[7px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
+                    Notary Public name
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter the name of the notary public who attested the deed"
+                    className="w-full h-8 sm:h-9 lg:h-[39px] px-2 lg:px-[10px] bg-[#E9E9E9] rounded-[6px] text-xs sm:text-sm lg:text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E] font-inter"
+                  />
                 </div>
-                {verificationStatus.originalDeed === "verified" && (
-                  <p className="text-[#36BF29] text-[17px] font-normal leading-[20.4px]">
-                    Document successfully verified and authenticated.
-                  </p>
-                )}
+                <div className="flex flex-col gap-1 lg:gap-[7px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
+                    District or Station of Notary Public
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter the District or station where the Notary Public practiced at the time."
+                    className="w-full h-8 sm:h-9 lg:h-[39px] px-2 lg:px-[10px] bg-[#E9E9E9] rounded-[6px] text-xs sm:text-sm lg:text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E] font-inter"
+                  />
+                </div>
               </div>
 
-              {/* Purchaser NIC Verification */}
-              <div className="flex flex-col gap-3">
-                <div className="flex flex-col gap-6">
-                  <h3 className="text-black text-[17px] font-semibold leading-[20.4px]">Purchaser NIC Verification</h3>
-                  <div className="h-[52px] border border-[#BDBBBB] rounded-[5px] flex items-center justify-between px-4">
-                    <span className="text-black text-[17px] font-semibold leading-[20.4px]">
-                      {fileUploads.purchaserNIC ? fileUploads.purchaserNIC.name : "purchaser_nic.pdf"}
-                    </span>
-                    <div className="flex items-center gap-2">
-                      {verificationStatus.purchaserNIC === "checking" ? (
-                        <div className="flex items-center gap-2 px-3 py-1 rounded bg-yellow-100">
-                          <div className="w-4 h-4 border-2 border-yellow-500 border-t-transparent rounded-full animate-spin"></div>
-                          <span className="text-yellow-700 text-[17px] font-normal leading-[20.4px]">Checking...</span>
-                        </div>
-                      ) : verificationStatus.purchaserNIC === "verified" ? (
-                        <div className="flex items-center gap-2 bg-[#36BF29] px-3 py-1 rounded">
-                          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
-                          <span className="text-white text-[17px] font-normal leading-[20.4px]">Verified</span>
-                        </div>
-                      ) : (
-                        <div className="flex items-center gap-2 px-3 py-1 rounded bg-gray-100">
-                          <span className="text-gray-500 text-[17px] font-normal leading-[20.4px]">Pending</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
+                <div className="flex flex-col gap-1 lg:gap-[7px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
+                    Number of the deed
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter the number of the deed"
+                    className="w-full h-8 sm:h-9 lg:h-[39px] px-2 lg:px-[10px] bg-[#E9E9E9] rounded-[6px] text-xs sm:text-sm lg:text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E] font-inter"
+                  />
                 </div>
-                {verificationStatus.purchaserNIC === "verified" && (
-                  <p className="text-[#36BF29] text-[17px] font-normal leading-[20.4px]">
-                    NIC document successfully verified and authenticated.
-                  </p>
-                )}
+                <div className="flex flex-col gap-1 lg:gap-[7px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
+                    Date of the deed
+                  </label>
+                  <input
+                    type="date"
+                    placeholder="Enter the date or probable period of the deed"
+                    className="w-full h-8 sm:h-9 lg:h-[39px] px-2 lg:px-[10px] bg-[#E9E9E9] rounded-[6px] text-xs sm:text-sm lg:text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E] font-inter"
+                  />
+                </div>
               </div>
 
-              {/* Purchaser Photo Verification */}
-              <div className="flex flex-col gap-3">
-                <div className="flex flex-col gap-6">
-                  <h3 className="text-black text-[17px] font-semibold leading-[20.4px]">
-                    Purchaser Photo Verification
-                  </h3>
-                  <div className="h-[52px] border border-[#BDBBBB] rounded-[5px] flex items-center justify-between px-4">
-                    <span className="text-black text-[17px] font-semibold leading-[20.4px]">
-                      {fileUploads.purchaserPhoto ? fileUploads.purchaserPhoto.name : "purchaser_photo.jpg"}
-                    </span>
-                    <div className="flex items-center gap-2">
-                      {verificationStatus.purchaserPhoto === "checking" ? (
-                        <div className="flex items-center gap-2 px-3 py-1 rounded bg-yellow-100">
-                          <div className="w-4 h-4 border-2 border-yellow-500 border-t-transparent rounded-full animate-spin"></div>
-                          <span className="text-yellow-700 text-[17px] font-normal leading-[20.4px]">Checking...</span>
-                        </div>
-                      ) : verificationStatus.purchaserPhoto === "verified" ? (
-                        <div className="flex items-center gap-2 bg-[#36BF29] px-3 py-1 rounded">
-                          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
-                          <span className="text-white text-[17px] font-normal leading-[20.4px]">Verified</span>
-                        </div>
-                      ) : (
-                        <div className="flex items-center gap-2 px-3 py-1 rounded bg-gray-100">
-                          <span className="text-gray-500 text-[17px] font-normal leading-[20.4px]">Pending</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
+                <div className="flex flex-col gap-1 lg:gap-[7px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
+                    Name of the granter/transferor
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter the name of the granter/transferor"
+                    className="w-full h-8 sm:h-9 lg:h-[39px] px-2 lg:px-[10px] bg-[#E9E9E9] rounded-[6px] text-xs sm:text-sm lg:text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E] font-inter"
+                  />
                 </div>
-                {verificationStatus.purchaserPhoto === "verified" && (
-                  <p className="text-[#36BF29] text-[17px] font-normal leading-[20.4px]">
-                    Photo successfully verified and authenticated.
-                  </p>
-                )}
+                <div className="flex flex-col gap-1 lg:gap-[7px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
+                    Name of the grantee/transferee
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter the name of the grantee/transferee"
+                    className="w-full h-8 sm:h-9 lg:h-[39px] px-2 lg:px-[10px] bg-[#E9E9E9] rounded-[6px] text-xs sm:text-sm lg:text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E] font-inter"
+                  />
+                </div>
               </div>
 
-              {/* Vendor Photo Verification */}
-              <div className="flex flex-col gap-3">
-                <div className="flex flex-col gap-6">
-                  <h3 className="text-black text-[17px] font-semibold leading-[20.4px]">Vendor Photo Verification</h3>
-                  <div className="h-[52px] border border-[#BDBBBB] rounded-[5px] flex items-center justify-between px-4">
-                    <span className="text-black text-[17px] font-semibold leading-[20.4px]">
-                      {fileUploads.vendorPhoto ? fileUploads.vendorPhoto.name : "vendor_photo.jpg"}
-                    </span>
-                    <div className="flex items-center gap-2">
-                      {verificationStatus.vendorPhoto === "checking" ? (
-                        <div className="flex items-center gap-2 px-3 py-1 rounded bg-yellow-100">
-                          <div className="w-4 h-4 border-2 border-yellow-500 border-t-transparent rounded-full animate-spin"></div>
-                          <span className="text-yellow-700 text-[17px] font-normal leading-[20.4px]">Checking...</span>
-                        </div>
-                      ) : verificationStatus.vendorPhoto === "verified" ? (
-                        <div className="flex items-center gap-2 bg-[#36BF29] px-3 py-1 rounded">
-                          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
-                          <span className="text-white text-[17px] font-normal leading-[20.4px]">Verified</span>
-                        </div>
-                      ) : (
-                        <div className="flex items-center gap-2 px-3 py-1 rounded bg-gray-100">
-                          <span className="text-gray-500 text-[17px] font-normal leading-[20.4px]">Pending</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
+                <div className="flex flex-col gap-1 lg:gap-[7px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
+                    Village
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter the village where the land is located"
+                    className="w-full h-8 sm:h-9 lg:h-[39px] px-2 lg:px-[10px] bg-[#E9E9E9] rounded-[6px] text-xs sm:text-sm lg:text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E] font-inter"
+                  />
                 </div>
-                {verificationStatus.vendorPhoto === "verified" && (
-                  <p className="text-[#36BF29] text-[17px] font-normal leading-[20.4px]">
-                    Photo successfully verified and authenticated.
-                  </p>
-                )}
+                <div className="flex flex-col gap-1 lg:gap-[7px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
+                    Name of the Land
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter the name of the land"
+                    className="w-full h-8 sm:h-9 lg:h-[39px] px-2 lg:px-[10px] bg-[#E9E9E9] rounded-[6px] text-xs sm:text-sm lg:text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E] font-inter"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
+                <div className="flex flex-col gap-1 lg:gap-[7px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
+                    Extent of the land
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter the extent of the land"
+                    className="w-full h-8 sm:h-9 lg:h-[39px] px-2 lg:px-[10px] bg-[#E9E9E9] rounded-[6px] text-xs sm:text-sm lg:text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E] font-inter"
+                  />
+                </div>
+                <div className="flex flex-col gap-1 lg:gap-[7px]">
+                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
+                    Korale/Pattu/GN Division/DS Divison
+                  </label>
+                  <input
+                    type="text"
+                    placeholder=""
+                    className="w-full h-8 sm:h-9 lg:h-[39px] px-2 lg:px-[10px] bg-[#E9E9E9] rounded-[6px] text-xs sm:text-sm lg:text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E] font-inter"
+                  />
+                </div>
               </div>
             </div>
-          ) : null}
+          </div>
 
-          {/* Action Buttons */}
-          <div className="px-8 py-8 flex justify-between items-center">
+          <div className="mb-8 lg:mb-12">
+            <div className="space-y-4 lg:space-y-6">
+              <div className="flex flex-col gap-1 lg:gap-[7px]">
+                <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
+                  Reason for Search
+                </label>
+                <textarea
+                  placeholder="Enter reason for search"
+                  rows={4}
+                  className="w-full h-24 sm:h-28 lg:h-[119px] px-2 lg:px-[10px] py-2 bg-[#E9E9E9] rounded-[6px] text-xs sm:text-sm lg:text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E] font-inter resize-none"
+                />
+              </div>
+
+              <div className="flex flex-col gap-1 lg:gap-[7px]">
+                <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
+                  If for a court case, the case number
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter case number if applicable"
+                  className="w-full h-8 sm:h-9 lg:h-[39px] px-2 lg:px-[10px] bg-[#E9E9E9] rounded-[6px] text-xs sm:text-sm lg:text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E] font-inter"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 pt-4 border-t border-gray-200">
             <button
+              className="w-full sm:w-auto px-4 sm:px-[18px] py-2 sm:py-[12px] lg:w-[73px] lg:h-[44px] bg-white border border-[#002E51] rounded-[8px] flex items-center justify-center hover:bg-gray-50 transition-colors"
               onClick={handleBack}
-              className="w-[73px] h-[44px] bg-white border border-[#002E51] rounded-[8px] flex items-center justify-center hover:bg-gray-50 transition-colors"
             >
-              <span className="text-black text-[16px] font-medium leading-[19.2px]">Back</span>
+              <span className="text-black text-sm sm:text-base lg:text-[16px] font-medium font-inter">Back</span>
             </button>
 
             <button
+              className="w-full sm:w-auto px-4 sm:px-[18px] py-2 sm:py-[7px] bg-[#002E51] rounded-[8px] flex items-center justify-center gap-3 lg:gap-[12px] hover:bg-[#001a2e] transition-colors"
               onClick={handleContinue}
-              className="px-[18px] py-[7px] bg-[#002E51] rounded-[8px] flex items-center gap-3 hover:bg-[#001a2e] transition-colors"
             >
-              <span className="text-white text-[16px] font-medium leading-[19.2px]">
-                {currentStep === 2
-                  ? `Continue (${Object.values(fileUploads).filter((file) => file !== null).length}/6 uploaded)`
-                  : "Continue"}
-              </span>
-              <div className="w-[30px] h-[30px] rounded flex items-center justify-center">
-                <ArrowLeft className="w-4 h-4 text-[#ffffff] rotate-180" />
-              </div>
+              <span className="text-white text-sm sm:text-base lg:text-[16px] font-medium font-inter">Continue</span>
+              <img
+                src="/continue.png"
+                alt="Arrow"
+                className="w-5 h-5 sm:w-6 sm:h-6 lg:w-[30px] lg:h-[30px] rotate-180 scale-x-[-1]"
+              />
             </button>
           </div>
         </div>
