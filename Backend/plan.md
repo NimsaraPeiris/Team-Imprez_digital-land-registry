@@ -127,3 +127,26 @@ Safety notes
 - Defaults in `.env` are for local development only (use a separate `.env.example` if you prefer to commit an example file instead of real `.env`).
 
 I'll now implement the `.env` update and code changes (steps 2-4), run the test suite, and fix issues if any.
+
+## Phase 8 — Remove legacy `routers/` folder (safe cleanup)
+
+Goal
+- Remove the old `routers/` folder now that all endpoint modules live under `api/v1/endpoints/`.
+- Ensure the codebase continues to work and tests pass after removal.
+
+Strategy (safe, incremental)
+1. Replace any non-trivial legacy router modules with minimal compatibility shims that re-export the corresponding `api.v1.endpoints` router. This makes the codebase safe to remove the `routers/` folder in a single commit.
+2. Run the full test suite and fix any remaining references to `routers.*`.
+3. If tests pass, delete the `routers/` directory (or move it to an `archive/` folder) in a single commit.
+4. Update documentation and developer notes to explain the new layout and remove references to `routers/`.
+
+Checklist before deletion
+- `pytest` passes locally (unit + integration tests)
+- No runtime imports reference `routers.*` (static search)
+- CI config updated if it referenced `routers/`
+
+Execution plan for now
+- Update `plan.md` (this change).
+- Convert any remaining legacy router files that contain logic into minimal re-export shims (so deletion is safe).
+- Run tests to confirm no regressions.
+- After your confirmation I will remove the `routers/` folder and commit the change.
