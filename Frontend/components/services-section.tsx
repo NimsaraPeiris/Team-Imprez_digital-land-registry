@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import LoginOverlay from "./login-overlay"
 
 const services = [
@@ -44,6 +45,7 @@ const services = [
 
 export default function ServicesSection() {
   const [isLoginOpen, setIsLoginOpen] = useState(false)
+  const router = useRouter()
 
   return (
     <section className="bg-white py-16" data-section="services">
@@ -56,7 +58,10 @@ export default function ServicesSection() {
               Explore our most-requested services and get started online.
             </p>
           </div>
-          <div className="text-[20px] text-black hover:text-[#00508E] transition-colors duration-300 cursor-pointer leading-6 font-normal">
+          <div
+            className="text-[20px] text-black hover:text-[#00508E] transition-colors duration-300 cursor-pointer leading-6 font-normal"
+            onClick={() => router.push('/dashboard')} // Navigate to dashboard
+          >
             View all Services
           </div>
         </div>
