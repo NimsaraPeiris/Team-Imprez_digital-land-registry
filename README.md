@@ -43,167 +43,149 @@ Team-Imprez_digital-land-registry/
 │   │   └── v1/
 │   │       └── endpoints/
 │   │           ├── __init__.py
-│   │           ├── admin_applications.py
-│   │           ├── admin_documents.py
-│   │           ├── user_applications.py
-│   │           ├── user_auth.py
-│   │           ├── user_documents.py
-│   │           └── user_payments.py
+│   │           ├── admin_applications.py       # Admin routes for application management
+│   │           ├── admin_documents.py          # Admin routes for document management
+│   │           ├── user_applications.py        # User routes for their own applications
+│   │           ├── user_auth.py                # User authentication routes (register, login)
+│   │           ├── user_documents.py           # User routes for their own documents
+│   │           └── user_payments.py            # User routes for payments
 │   ├── crud/
 │   │   ├── __init__.py
-│   │   ├── admin_applications.py
-│   │   ├── applications.py
-│   │   ├── documents.py
-│   │   ├── payments.py
-│   │   └── users.py
+│   │   ├── admin_applications.py       # CRUD functions for admin application management
+│   │   ├── applications.py             # General CRUD functions for applications
+│   │   ├── documents.py                # CRUD functions for documents
+│   │   ├── payments.py                 # CRUD functions for payments
+│   │   └── users.py                    # CRUD functions for users
 │   ├── database/
 │   │   ├── __init__.py
-│   │   └── session.py
+│   │   └── session.py                  # Database session management
 │   ├── models/
 │   │   ├── __init__.py
-│   │   ├── applications.py
-│   │   ├── base.py
-│   │   ├── documents.py
-│   │   ├── enums.py
-│   │   ├── lro_backend_models.py
-│   │   ├── officers.py
-│   │   ├── offices.py
-│   │   ├── payments.py
-│   │   ├── security.py
-│   │   ├── seed_data.py
-│   │   └── services.py
+│   │   ├── applications.py             # SQLAlchemy models for applications
+│   │   ├── base.py                     # Base model for SQLAlchemy
+│   │   ├── documents.py                # SQLAlchemy models for documents
+│   │   ├── enums.py                    # Enum definitions for database models
+│   │   ├── lro_backend_models.py       # Main file for all SQLAlchemy models
+│   │   ├── officers.py                 # SQLAlchemy models for officers
+│   │   ├── offices.py                  # SQLAlchemy models for offices
+│   │   ├── payments.py                 # SQLAlchemy models for payments
+│   │   ├── security.py                 # Security-related models and utilities
+│   │   ├── seed_data.py                # Script for seeding the database with initial data
+│   │   └── services.py                 # SQLAlchemy models for services
 │   ├── schemas/
 │   │   ├── __init__.py
-│   │   ├── admin_schemas.py
-│   │   ├── common.py
-│   │   └── user_schemas.py
+│   │   ├── admin_schemas.py            # Pydantic models for admin endpoints
+│   │   ├── common.py                   # Common enums and schemas
+│   │   └── user_schemas.py             # Pydantic models for user endpoints
 │   ├── scripts/
-│   │   └── setup_test_db.py
+│   │   └── setup_test_db.py            # Script to set up a test database
 │   ├── tests/
 │   │   ├── __init__.py
-│   │   ├── conftest.py
-│   │   ├── test_crud_smoke.py
-│   │   ├── test_enums.py
-│   │   ├── test_models_registration.py
-│   │   └── test_routes.py
+│   │   ├── conftest.py                 # Pytest configuration and fixtures
+│   │   ├── test_crud_smoke.py          # Smoke tests for CRUD operations
+│   │   ├── test_enums.py               # Tests for enums
+│   │   ├── test_models_registration.py # Tests for model registration
+│   │   └── test_routes.py              # Tests for API routes
 │   ├── tools/
-│   │   └── check_db_enums.py
-│   ├── .gitignore
-│   ├── init_db.py
-│   ├── main.py
-│   ├── plan.md
-│   └── requirements.txt
+│   │   └── check_db_enums.py           # Tool to check database enums
+│   ├── .gitignore                      # Git ignore file for the backend
+│   ├── init_db.py                      # Script to initialize the database
+│   ├── main.py                         # Main FastAPI application entry point
+│   ├── plan.md                         # Project planning document
+│   └── requirements.txt                # Python dependencies
 └── Frontend/
     ├── app/
     │   ├── copy/
     │   │   ├── application/
-    │   │   │   └── page.tsx
+    │   │   │   └── page.tsx              # Application page for 'copy' service
     │   │   ├── confirmation/
-    │   │   │   └── page.tsx
+    │   │   │   └── page.tsx              # Confirmation page for 'copy' service
     │   │   ├── payment/
-    │   │   │   └── page.tsx
+    │   │   │   └── page.tsx              # Payment page for 'copy' service
     │   │   └── qr-confirmation/
-    │   │       └── page.tsx
+    │   │       └── page.tsx              # QR confirmation page for 'copy' service
     │   ├── copy-of-land/
     │   │   ├── application/
-    │   │   │   └── page.tsx
+    │   │   │   └── page.tsx              # Application page for 'copy-of-land' service
     │   │   ├── confirmation/
-    │   │   │   └── page.tsx
+    │   │   │   └── page.tsx              # Confirmation page for 'copy-of-land' service
     │   │   ├── payment/
-    │   │   │   └── page.tsx
+    │   │   │   └── page.tsx              # Payment page for 'copy-of-land' service
     │   │   └── qr-confirmation/
-    │   │       └── page.tsx
+    │   │       └── page.tsx              # QR confirmation page for 'copy-of-land' service
     │   ├── dashboard/
-    │   │   ├── layout.tsx
-    │   │   └── page.tsx
+    │   │   ├── layout.tsx                # Layout for the dashboard
+    │   │   └── page.tsx                  # User dashboard page
     │   ├── land-transfer/
     │   │   ├── application/
-    │   │   │   └── page.tsx
+    │   │   │   └── page.tsx              # Application page for 'land-transfer' service
     │   │   ├── confirmation/
-    │   │   │   └── page.tsx
+    │   │   │   └── page.tsx              # Confirmation page for 'land-transfer' service
     │   │   ├── payment/
-    │   │   │   └── page.tsx
+    │   │   │   └── page.tsx              # Payment page for 'land-transfer' service
     │   │   └── qr-confirmation/
-    │   │       └── page.tsx
+    │   │       └── page.tsx              # QR confirmation page for 'land-transfer' service
     │   ├── register/
-    │   │   └── page.tsx
+    │   │   └── page.tsx                  # User registration page
     │   ├── search-duplicate-deeds/
     │   │   ├── application/
-    │   │   │   └── page.tsx
+    │   │   │   └── page.tsx              # Application page for 'search-duplicate-deeds' service
     │   │   ├── confirmation/
-    │   │   │   └── page.tsx
+    │   │   │   └── page.tsx              # Confirmation page for 'search-duplicate-deeds' service
     │   │   ├── payment/
-    │   │   │   └── page.tsx
+    │   │   │   └── page.tsx              # Payment page for 'search-duplicate-deeds' service
     │   │   └── qr-confirmation/
-    │   │       └── page.tsx
+    │   │       └── page.tsx              # QR confirmation page for 'search-duplicate-deeds' service
     │   ├── search-land/
     │   │   ├── application/
-    │   │   │   └── page.tsx
+    │   │   │   └── page.tsx              # Application page for 'search-land' service
     │   │   ├── confirmation/
-    │   │   │   └── page.tsx
+    │   │   │   └── page.tsx              # Confirmation page for 'search-land' service
     │   │   ├── payment/
-    │   │   │   └── page.tsx
+    │   │   │   └── page.tsx              # Payment page for 'search-land' service
     │   │   └── qr-confirmation/
-    │   │       └── page.tsx
-    │   ├── globals.css
-    │   ├── layout.tsx
-    │   └── page.tsx
+    │   │       └── page.tsx              # QR confirmation page for 'search-land' service
+    │   ├── globals.css                   # Global CSS styles
+    │   ├── layout.tsx                    # Main application layout
+    │   └── page.tsx                      # Home page
     ├── components/
     │   ├── ui/
-    │   │   ├── accordion.tsx
-    │   │   ├── alert-dialog.tsx
-    │   │   ├── alert.tsx
-    │   │   ├── aspect-ratio.tsx
-    │   │   ├── ....
-    │   ├── announcements-section.tsx
-    │   ├── contact-section.tsx
-    │   ├── dashboard-navigation-bar.tsx
-    │   ├── faq-section.tsx
-    │   ├── file-upload.tsx
-    │   ├── footer.tsx
-    │   ├── government-header.tsx
-    │   ├── hero-section.tsx
-    │   ├── home-navigation-bar.tsx
-    │   ├── login-overlay.tsx
-    │   ├── navigation-bar.tsx
-    │   ├── process-section.tsx
-    │   ├── services-section.tsx
-    │   └── theme-provider.tsx
+    │   │   ├── ...                       # Reusable UI components (from Shadcn/ui)
+    │   ├── announcements-section.tsx     # Component for news and announcements
+    │   ├── contact-section.tsx           # Component for contact information
+    │   ├── dashboard-navigation-bar.tsx  # Dashboard-specific navigation bar
+    │   ├── faq-section.tsx               # Component for frequently asked questions
+    │   ├── file-upload.tsx               # Component for file uploads
+    │   ├── footer.tsx                    # Footer component
+    │   ├── government-header.tsx         # Government header with language switcher
+    │   ├── hero-section.tsx              # Hero section component
+    │   ├── home-navigation-bar.tsx       # Home page navigation bar
+    │   ├── login-overlay.tsx             # Login modal/overlay component
+    │   ├── navigation-bar.tsx            # General navigation bar logic
+    │   ├── process-section.tsx           # "How it works" section
+    │   ├── services-section.tsx          # Services list component
+    │   └── theme-provider.tsx            # Theme provider (e.g., for dark mode)
     ├── contexts/
-    │   ├── auth-context.tsx
-    │   └── translation-context.tsx
+    │   ├── auth-context.tsx              # React context for authentication state
+    │   └── translation-context.tsx       # React context for multi-language support
     ├── hooks/
-    │   ├── use-mobile.ts
-    │   └── use-toast.ts
+    │   ├── use-mobile.ts                 # Custom hook to detect mobile devices
+    │   └── use-toast.ts                  # Custom hook for toast notifications
     ├── lib/
-    │   ├── use-smooth-scroll.ts
-    │   └── utils.ts
+    │   ├── use-smooth-scroll.ts          # Custom hook for smooth scrolling
+    │   └── utils.ts                      # Utility functions
     ├── public/
-    │   ├── Frame 98.png
-    │   ├── continue.png
-    │   ├── document-icon.png
-    │   ├── generic-government-logo.png
-    │   ├── image 12.png
-    │   ├── land-registration-office.png
-    │   ├── modern-government-building.png
-    │   ├── placeholder-7ak8d.png
-    │   ├── placeholder-logo.png
-    │   ├── placeholder-logo.svg
-    │   ├── placeholder-user.jpg
-    │   ├── placeholder.jpg
-    │   ├── placeholder.svg
-    │   ├── right-arrow-icon.png
-    │   └── service.png
+    │   └── ...                           # Image and asset files
     ├── styles/
-    │   └── globals.css
-    ├── .gitignore
-    ├── README.md
-    ├── components.json
-    ├── next.config.mjs
-    ├── package.json
-    ├── pnpm-lock.yaml
-    ├── postcss.config.mjs
-    └── tsconfig.json
+    │   └── globals.css                   # Global CSS styles
+    ├── .gitignore                        # Git ignore file for the frontend
+    ├── README.md                         # README file for the frontend
+    ├── components.json                   # Configuration for Shadcn/ui
+    ├── next.config.mjs                   # Next.js configuration
+    ├── package.json                      # Node.js dependencies and scripts
+    ├── pnpm-lock.yaml                    # PNPM lock file
+    ├── postcss.config.mjs                # PostCSS configuration
+    └── tsconfig.json                     # TypeScript configuration
 ```
 
 ### Database Schema
@@ -238,18 +220,18 @@ The API is built with FastAPI and includes separate routers for user and adminis
 
 These endpoints are for authenticated users (citizens) to manage their applications and related activities. All of these routes require a valid JWT token.
 
-| Endpoint | Method | Description | 
+| Endpoint | Method | Description | Source File |
 | :--- | :--- | :--- | :--- |
-| `/api/user/auth/register` | `POST` | Registers a new user account. Returns the new user's details. |
-| `/api/user/auth/login` | `POST` | Authenticates a user with email and password. Returns an access token. |
-| `/api/user/applications/` | `GET` | Lists all applications submitted by the current user. |
-| `/api/user/applications/` | `POST` | Creates a new application for a specified service. |
-| `/api/user/applications/{application_id}` | `GET` | Retrieves the details of a specific application. |
-| `/api/user/applications/documents` | `POST` | Attaches metadata for an uploaded document to an application. |
-| `/api/user/applications/{application_id}/documents` | `GET` | Lists all documents associated with a specific application. |
-| `/api/user/documents/` | `GET` | Lists all documents uploaded by the current user across all applications. |
-| `/api/user/payments/` | `POST` | Creates a new payment record for an application. |
-| `/api/user/payments/application/{application_id}` | `GET` | Lists all payments made for a specific application. |
+| `/api/user/auth/register` | `POST` | Registers a new user account. Returns the new user's details. | |
+| `/api/user/auth/login` | `POST` | Authenticates a user with email and password. Returns an access token. | |
+| `/api/user/applications/` | `GET` | Lists all applications submitted by the current user. | |
+| `/api/user/applications/` | `POST` | Creates a new application for a specified service. | |
+| `/api/user/applications/{application_id}` | `GET` | Retrieves the details of a specific application. | |
+| `/api/user/applications/documents` | `POST` | Attaches metadata for an uploaded document to an application. | |
+| `/api/user/applications/{application_id}/documents` | `GET` | Lists all documents associated with a specific application. | |
+| `/api/user/documents/` | `GET` | Lists all documents uploaded by the current user across all applications. | |
+| `/api/user/payments/` | `POST` | Creates a new payment record for an application. | |
+| `/api/user/payments/application/{application_id}` | `GET` | Lists all payments made for a specific application. | |
 
 -----
 
@@ -257,14 +239,14 @@ These endpoints are for authenticated users (citizens) to manage their applicati
 
 These endpoints are for authenticated officers to review and manage applications and documents. All of these routes require a valid JWT token associated with an officer account.
 
-| Endpoint | Method | Description | 
+| Endpoint | Method | Description | Source File |
 | :--- | :--- | :--- | :--- |
-| `/api/admin/applications/` | `GET` | Lists all applications in the system. |
-| `/api/admin/applications/{application_id}` | `GET` | Retrieves the details of a specific application for review. |
-| `/api/admin/applications/{application_id}/status` | `POST` | Updates the status of an application. |
-| `/api/admin/applications/{application_id}/logs` | `GET` | Retrieves the log history for a specific application. |
-| `/api/admin/documents/` | `GET` | Lists all documents uploaded across all applications. |
-| `/api/admin/documents/{document_id}/verify` | `POST` | Sets the verification status for a specific document. |
+| `/api/admin/applications/` | `GET` | Lists all applications in the system. | |
+| `/api/admin/applications/{application_id}` | `GET` | Retrieves the details of a specific application for review. | |
+| `/api/admin/applications/{application_id}/status` | `POST` | Updates the status of an application. | |
+| `/api/admin/applications/{application_id}/logs` | `GET` | Retrieves the log history for a specific application. | |
+| `/api/admin/documents/` | `GET` | Lists all documents uploaded across all applications. | |
+| `/api/admin/documents/{document_id}/verify` | `POST` | Sets the verification status for a specific document. | |
 
 -----
 
