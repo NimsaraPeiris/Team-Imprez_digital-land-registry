@@ -211,7 +211,6 @@ export default function LandTransferConfirmationPage() {
           </div>
         </div>
       </main>
-
       <Footer />
     </div>
   )
