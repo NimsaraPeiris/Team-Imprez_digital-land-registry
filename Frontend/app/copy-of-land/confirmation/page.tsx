@@ -45,7 +45,7 @@ export default function LandTransferConfirmationPage() {
             </div>
             <div className="mb-8">
               <p className="text-black text-[15px] font-normal leading-[18px]">
-                Your land transfer application has been successfully submitted
+                Your Copy of Land Registers application has been successfully submitted
               </p>
             </div>
 

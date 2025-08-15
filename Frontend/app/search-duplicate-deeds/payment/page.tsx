@@ -100,7 +100,7 @@ export default function LandTransferPaymentPage() {
       <main className="py-8 px-[75px]">
         {/* Page Title */}
         <div className="mb-10">
-          <h1 className="text-black text-[32px] font-bold leading-[48px] text-left">Land Transfer</h1>
+          <h1 className="text-black text-[32px] font-bold leading-[48px] text-left">Application for search Duplicate of Deeds</h1>
         </div>
 
         {/* Form Container */}
@@ -112,7 +112,7 @@ export default function LandTransferPaymentPage() {
             </div>
             <div className="mb-8">
               <p className="text-black text-[15px] font-normal leading-[18px]">
-                Complete your payment to finalize the land transfer application
+                Complete your payment to finalize the search duplicate of deeds application
               </p>
             </div>
 
@@ -269,7 +269,7 @@ export default function LandTransferPaymentPage() {
                       <div className="bg-[#F8F9FA] p-4 rounded-[8px]">
                         <div className="flex justify-between items-center mb-2">
                           <span className="text-[#666666] text-[14px]">Service Type:</span>
-                          <span className="text-black text-[14px] font-medium">Land Transfer</span>
+                          <span className="text-black text-[14px] font-medium">Search Duplicate of Deeds</span>
                         </div>
                         <div className="flex justify-between items-center mb-2">
                           <span className="text-[#666666] text-[14px]">Application ID:</span>
