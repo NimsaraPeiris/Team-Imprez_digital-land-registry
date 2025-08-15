@@ -196,7 +196,7 @@ export default function LandTransferPage() {
                 className="w-[350px] h-[62px] bg-white border border-[#00508E] rounded-[10px] flex items-center justify-center hover:bg-blue-50 transition-colors"
               >
                 <span className="text-[#00508E] text-[24px] font-normal leading-[28.8px] font-inter">
-                  Back to Service
+                  Back to Services
                 </span>
               </button>
             </div>

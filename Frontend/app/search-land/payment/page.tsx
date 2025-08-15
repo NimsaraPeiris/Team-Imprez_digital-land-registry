@@ -41,7 +41,7 @@ export default function LandTransferPaymentPage() {
   }
 
   const handleBack = () => {
-    router.push("/land-transfer/application")
+    router.push("/search-land/application")
   }
 
   const handlePayNow = () => {
@@ -117,31 +117,20 @@ export default function LandTransferPaymentPage() {
             </div>
 
             {/* Progress Indicator */}
-            <div className="flex items-center justify-between mb-16 w-[551px]">
-              {steps.map((step, index) => (
-                <React.Fragment key={step}>
-                  <div
-                    className={`w-[31px] h-[31px] rounded-full border flex items-center justify-center relative overflow-hidden ${
-                      step <= currentStep ? "bg-[#36BF29] border-[#36BF29]" : "bg-[#F4F4F4] border-[#737373]"
-                    }`}
-                  >
-                    <span
-                      className={`text-[15px] font-normal leading-[18px] ${
-                        step <= currentStep ? "text-white" : "text-[#807E7E]"
-                      }`}
-                    >
-                      {step}
-                    </span>
-                  </div>
-                  {index < steps.length - 1 && (
-                    <div
-                      className={`w-[51px] h-0 border-t ${
-                        step < currentStep ? "border-[#36BF29]" : "border-[#737373]"
-                      }`}
-                    />
-                  )}
-                </React.Fragment>
-              ))}
+            <div className="mb-8">
+              <div className="w-[281px] flex items-center justify-between">
+                <div className="w-[31px] h-[31px] bg-[#36BF29] border border-[#36BF29] rounded-full flex items-center justify-center">
+                  <span className="text-white text-[15px] font-normal leading-[18px] font-inter">1</span>
+                </div>
+                <div className="w-[51px] h-0 border-t border-[#36BF29]"></div>
+                <div className="w-[31px] h-[31px] bg-[#36BF29] border border-[#36BF29] rounded-full flex items-center justify-center">
+                  <span className="text-white text-[15px] font-normal leading-[18px] font-inter">2</span>
+                </div>
+                <div className="w-[51px] h-0 border-t border-[#36BF29]"></div>
+                <div className="w-[31px] h-[31px] bg-[#F4F4F4] border border-[#737373] rounded-full flex items-center justify-center">
+                  <span className="text-[#807E7E] text-[15px] font-normal leading-[18px] font-inter">3</span>
+                </div>
+              </div>
             </div>
           </div>
 

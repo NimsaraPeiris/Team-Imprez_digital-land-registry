@@ -12,7 +12,7 @@ export default function LandTransferConfirmationPage() {
   const router = useRouter()
 
   const handleBack = () => {
-    router.push("/land-transfer/payment")
+    router.push("/copy/payment")
   }
 
   const handleGoToHome = () => {
