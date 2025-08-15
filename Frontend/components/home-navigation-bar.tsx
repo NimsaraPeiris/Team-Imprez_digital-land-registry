@@ -22,7 +22,7 @@ export default function HomeNavigationBar() {
     { label: t('nav.about'), section: "about" },
     { label: t('nav.news'), section: "announcements" },
     { label: t('nav.faq'), section: "faq" },
-    { label: t('nav.contact'), section: "contact" }
+    { label: t('nav.contact'), section: "faq" }
   ]
 
   // Handle dashboard navigation
