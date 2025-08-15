@@ -76,7 +76,7 @@ export default function LandTransferPage() {
         {/* Header Section */}
         <div className="w-[1291px] h-[151px] bg-[#102A3D] rounded-[9px] mb-[20px] relative">
           <div className="absolute left-[23px] top-[43px] flex flex-col gap-[5px]">
-            <h1 className="text-white text-[35px] font-bold leading-[42px] font-inter">Land Transfer</h1>
+            <h1 className="text-white text-[35px] font-bold leading-[42px] font-inter">Application for Land Transfer</h1>
             <p className="text-white text-[16px] font-light leading-[19.2px] font-inter">
               ownership transfer from seller to buyer
             </p>

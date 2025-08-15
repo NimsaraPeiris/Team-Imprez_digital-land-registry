@@ -40,7 +40,7 @@ export default function GovernmentHeader() {
           {/* Hotline */}
           <div className="flex items-center gap-2">
             <span className="text-white text-lg font-bold">{t('gov.hotline')}</span>
-            <span className="text-white text-lg font-bold">1919</span>
+            <span className="text-white text-lg font-bold">0300 006 0411</span>
           </div>
 
           {/* Language options */}

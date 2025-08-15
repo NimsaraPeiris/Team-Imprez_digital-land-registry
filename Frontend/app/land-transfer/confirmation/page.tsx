@@ -33,7 +33,7 @@ export default function LandTransferConfirmationPage() {
       <main className="py-8 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-[75px]">
         {/* Page Title */}
         <div className="mb-10">
-          <h1 className="text-black text-[32px] font-bold leading-[48px] text-left">Land Transfer</h1>
+          <h1 className="text-black text-[32px] font-bold leading-[48px] text-left">Application for Land Transfer</h1>
         </div>
 
         {/* Form Container */}
