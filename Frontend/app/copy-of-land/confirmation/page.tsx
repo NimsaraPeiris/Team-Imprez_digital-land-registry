@@ -12,15 +12,15 @@ export default function LandTransferConfirmationPage() {
   const router = useRouter()
 
   const handleBack = () => {
-    router.push("/land-transfer/payment")
+    router.push("/copy-of-land/payment")
   }
 
   const handleGoToHome = () => {
     router.push("/dashboard")
   }
 
-  const steps = [1, 2, 3, 4, 5]
-  const currentStep = 5 // All steps completed
+  const steps = [1, 2, 3]
+  const currentStep = 3
 
   return (
     <div className="min-h-screen bg-white">
@@ -33,7 +33,7 @@ export default function LandTransferConfirmationPage() {
       <main className="py-8 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-[75px]">
         {/* Page Title */}
         <div className="mb-10">
-          <h1 className="text-black text-[32px] font-bold leading-[48px] text-left">Land Transfer</h1>
+          <h1 className="text-black text-[32px] font-bold leading-[48px] text-left">Application for Copy of Land Registers</h1>
         </div>
 
         {/* Form Container */}
@@ -49,32 +49,21 @@ export default function LandTransferConfirmationPage() {
               </p>
             </div>
 
-            {/* Progress Indicator */}
-            <div className="flex items-center justify-between mb-16 w-full max-w-[551px]">
-              {steps.map((step, index) => (
-                <React.Fragment key={step}>
-                  <div
-                    className={`w-[31px] h-[31px] rounded-full border flex items-center justify-center relative overflow-hidden ${
-                      step <= currentStep ? "bg-[#36BF29] border-[#36BF29]" : "bg-[#F4F4F4] border-[#737373]"
-                    }`}
-                  >
-                    <span
-                      className={`text-[15px] font-normal leading-[18px] ${
-                        step <= currentStep ? "text-white" : "text-[#807E7E]"
-                      }`}
-                    >
-                      {step}
-                    </span>
-                  </div>
-                  {index < steps.length - 1 && (
-                    <div
-                      className={`w-[51px] h-0 border-t ${
-                        step < currentStep ? "border-[#36BF29]" : "border-[#807E7E]"
-                      }`}
-                    />
-                  )}
-                </React.Fragment>
-              ))}
+            {/* Progress Indicator - Now inside the form container after the header text */}
+            <div className="mb-8">
+              <div className="w-[281px] flex items-center justify-between">
+                <div className="w-[31px] h-[31px] bg-[#36BF29] border border-[#36BF29] rounded-full flex items-center justify-center">
+                  <span className="text-white text-[15px] font-normal leading-[18px] font-inter">1</span>
+                </div>
+                <div className="w-[51px] h-0 border-t border-[#36BF29]"></div>
+                <div className="w-[31px] h-[31px] bg-[#36BF29] border border-[#36BF29] rounded-full flex items-center justify-center">
+                  <span className="text-white text-[15px] font-normal leading-[18px] font-inter">2</span>
+                </div>
+                <div className="w-[51px] h-0 border-t border-[#36BF29]"></div>
+                <div className="w-[31px] h-[31px] bg-[#36BF29] border border-[#36BF29] rounded-full flex items-center justify-center">
+                  <span className="text-white text-[15px] font-normal leading-[18px] font-inter">3</span>
+                </div>
+              </div>
             </div>
 
             {/* Confirmation Details */}

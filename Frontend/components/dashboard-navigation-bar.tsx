@@ -24,7 +24,22 @@ export default function DashboardNavigationBar() {
   const handleNavigation = (item: { label: string; section: string }) => {
     console.log(`Dashboard Navigation clicked: ${item.label}`)
 
-    // All navigation items on dashboard scroll to their respective sections
+    if (item.section === "home") {
+      router.push('/') // Navigate to main home page
+      return
+    }
+
+    if (item.section === "contact") {
+      // Scroll to footer section
+      const footerElement = document.querySelector('footer')
+      if (footerElement) {
+        footerElement.scrollIntoView({ behavior: 'smooth' })
+        setActiveSection(item.label)
+      }
+      return
+    }
+
+    // All other dashboard navigation scrolls normally
     scrollToSection(item.section)
     setActiveSection(item.label)
   }
@@ -46,7 +61,6 @@ export default function DashboardNavigationBar() {
       }
     }
 
-    // Throttle scroll events for better performance
     let ticking = false
     const throttledScroll = () => {
       if (!ticking) {
