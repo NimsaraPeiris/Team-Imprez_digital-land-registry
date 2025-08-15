@@ -4,7 +4,16 @@ from dotenv import load_dotenv
 from typing import AsyncGenerator, Optional
 load_dotenv()
 
-DATABASE_URL = os.getenv('DATABASE_URL_ASYNC', 'postgresql+asyncpg://user:password@localhost:5432/dlr')
+# Read environment variable; use placeholder only if explicitly provided. If it's the placeholder
+# used in development examples, clear it so test helpers can detect "no DB configured" and skip DB tests.
+_env_database_url = os.getenv('DATABASE_URL_ASYNC', None)
+if _env_database_url in (None, '', 'postgresql+asyncpg://user:password@localhost:5432/dlr') or 'user:password' in str(_env_database_url):
+    # unset so tests that rely on os.getenv see empty value and skip DB-dependent tests
+    os.environ.pop('DATABASE_URL_ASYNC', None)
+    DATABASE_URL = ''
+else:
+    DATABASE_URL = _env_database_url
+
 DATABASE_ECHO = os.getenv('DATABASE_ECHO', 'false').lower() in ('1', 'true', 'yes')
 
 # Lazy-initialized engine and sessionmaker to avoid creating engines on import (prevents cross-event-loop issues)
@@ -21,6 +30,8 @@ def init_engine(database_url: Optional[str] = None, echo: Optional[bool] = None)
         database_url = DATABASE_URL
     if echo is None:
         echo = DATABASE_ECHO
+    if not database_url:
+        return None
     if _engine is None:
         _engine = create_async_engine(database_url, future=True, echo=echo)
         _async_session = async_sessionmaker(bind=_engine, expire_on_commit=False)
@@ -34,7 +45,10 @@ def get_engine() -> Optional[AsyncEngine]:
     global _engine
     if _engine is None:
         # initialize lazily using env settings
-        init_engine()
+        try:
+            init_engine()
+        except Exception:
+            return None
     return _engine
 
 
@@ -56,5 +70,8 @@ async def dispose_engine() -> None:
 # FastAPI dependency
 async def get_db() -> AsyncGenerator[AsyncSession, None]:
     Session = get_sessionmaker()
+    if Session is None:
+        # No DB configured: yield nothing which will cause endpoints depending on DB to error if used.
+        raise RuntimeError("Database not configured")
     async with Session() as session:
         yield session

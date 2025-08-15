@@ -7,3 +7,6 @@ env/
 venv/
 ENV/
 .env
+uploaded_documents/
+*.sqlite3
+*.db

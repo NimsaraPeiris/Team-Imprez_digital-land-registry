@@ -74,6 +74,13 @@ class AppLandTransfer(Base):
     seller_nic = Column("seller_nic", String(64), nullable=True)
     buyer_full_name = Column("buyer_full_name", String(255), nullable=False)
     buyer_nic = Column("buyer_nic", String(64), nullable=True)
+    # Add additional contact/info fields from frontend
+    seller_email = Column("seller_email", String(320), nullable=True)
+    seller_phone = Column("seller_phone", String(32), nullable=True)
+    buyer_email = Column("buyer_email", String(320), nullable=True)
+    buyer_phone = Column("buyer_phone", String(32), nullable=True)
+    guarantor1_nic = Column("guarantor1_nic", String(64), nullable=True)
+    guarantor2_nic = Column("guarantor2_nic", String(64), nullable=True)
 
     application = relationship("Application", back_populates="land_transfer")
 
@@ -84,6 +91,22 @@ class AppSearchDuplicateDeeds(Base):
     application_id = Column("application_id", Integer, ForeignKey("applications.application_id", ondelete="CASCADE"), nullable=False, unique=True)
     notary_public_name = Column("notary_public_name", String(255), nullable=True)
     deed_number = Column("deed_number", String(255), nullable=True)
+    # Additional deed/search fields
+    district_of_station = Column("district_of_station", String(255), nullable=True)
+    number_of_deeds = Column("number_of_deeds", Integer, nullable=True)
+    date_of_deed = Column("date_of_deed", String(64), nullable=True)
+    guarantor_name = Column("guarantor_name", String(255), nullable=True)
+    guarantee_transferee_name = Column("guarantee_transferee_name", String(255), nullable=True)
+    village = Column("village", String(255), nullable=True)
+    property_name = Column("property_name", String(255), nullable=True)
+    extent = Column("extent", String(128), nullable=True)
+    korale = Column("korale", String(128), nullable=True)
+    pattu = Column("pattu", String(128), nullable=True)
+    gn_division = Column("gn_division", String(128), nullable=True)
+    ds_division = Column("ds_division", String(128), nullable=True)
+    reason_for_search = Column("reason_for_search", Text, nullable=True)
+    court_case_no = Column("court_case_no", String(128), nullable=True)
+    applicant_signature_document_id = Column("applicant_signature_document_id", Integer, nullable=True)
 
     application = relationship("Application", back_populates="search_duplicate")
 
@@ -94,6 +117,12 @@ class AppCopyOfLandRegisters(Base):
     application_id = Column("application_id", Integer, ForeignKey("applications.application_id", ondelete="CASCADE"), nullable=False, unique=True)
     land_district = Column("land_district", String(255), nullable=True)
     extract_folio = Column("extract_folio", String(255), nullable=True)
+    # Additional fields per frontend form
+    property_village = Column("property_village", String(255), nullable=True)
+    property_names = Column("property_names", Text, nullable=True)
+    extent = Column("extent", String(128), nullable=True)
+    reason_for_request = Column("reason_for_request", Text, nullable=True)
+    applicant_signature_document_id = Column("applicant_signature_document_id", Integer, nullable=True)
 
     application = relationship("Application", back_populates="copy_register")
 
@@ -107,6 +136,14 @@ class AppSearchLandRegisters(Base):
 
     folios = relationship("SearchRegisterFolios", back_populates="search_register", cascade="all, delete-orphan")
     application = relationship("Application", back_populates="search_register")
+
+    # Additional geographic fields
+    extent = Column("extent", String(128), nullable=True)
+    korale = Column("korale", String(128), nullable=True)
+    pattu = Column("pattu", String(128), nullable=True)
+    gn_division = Column("gn_division", String(128), nullable=True)
+    ds_division = Column("ds_division", String(128), nullable=True)
+    applicant_signature_document_id = Column("applicant_signature_document_id", Integer, nullable=True)
 
 
 class SearchRegisterFolios(Base):
@@ -126,5 +163,10 @@ class AppCopyOfDocument(Base):
     application_id = Column("application_id", Integer, ForeignKey("applications.application_id", ondelete="CASCADE"), nullable=False, unique=True)
     document_deed_number = Column("document_deed_number", String(255), nullable=True)
     reason_for_request = Column("reason_for_request", Text, nullable=True)
+    # New fields
+    date_of_deed_attestation = Column("date_of_deed_attestation", String(64), nullable=True)
+    notary_public_name = Column("notary_public_name", String(255), nullable=True)
+    notary_address = Column("notary_address", String(512), nullable=True)
+    applicant_signature_document_id = Column("applicant_signature_document_id", Integer, nullable=True)
 
     application = relationship("Application", back_populates="copy_document")
