@@ -39,6 +39,7 @@ app.include_router(chat, prefix="/api")
 from api.v1.endpoints.internal_static import router as internal_static_router
 app.include_router(internal_static_router, prefix="/api")
 
+
 # Optional startup event
 @app.on_event("startup")
 async def startup():
