@@ -316,3 +316,32 @@ From the `Frontend` directory, run the following command:
 ```sh
 pnpm dev
 ```
+
+### Run with Docker Compose (development)
+
+A simple docker-compose is provided to run both services together for development. From the repository root run:
+
+```pwsh
+docker-compose up --build
+```
+
+- Backend will be available at: http://localhost:8000
+- Frontend dev server will be available at: http://localhost:3000
+
+Files uploaded by the backend are persisted to `Backend/uploaded_documents/` on the host. The compose file mounts the `Backend` folder into the backend container so source changes are picked up.
+
+### Environment / config notes
+
+- Backend default database (development): sqlite at `sqlite+aiosqlite:///./db.sqlite3` (this is used by default in `Backend`).
+- Frontend expects the API base for absolute URLs in `NEXT_PUBLIC_API_BASE` when building for production (development uses the dev server and the frontend code normalizes internal static download URLs returned by the backend).
+
+### Production notes (recommended changes before production)
+
+- Replace the development `sqlite` database with a proper DB (Postgres). Use environment variable `DATABASE_URL` set to a Postgres DSN.
+- Add a migration system (Alembic) and run migrations during deployment rather than relying on models.create_all() in code.
+- Build the frontend with `pnpm build` and serve the static build via a dedicated Node/Static server or via Next.js start (no `--reload`), and run the backend with Uvicorn/Gunicorn without `--reload`.
+- Do not expose development servers (Next dev or Uvicorn --reload) in production.
+
+### Where to get help
+
+- See `Backend/README.md` and `Frontend/README.md` for service-specific instructions.
