@@ -87,7 +87,7 @@ export default function LandTransferPage() {
         <div className="w-[1284px] h-[374px] rounded-[24px] border border-[#DAD7D7] mb-[20px] relative overflow-hidden">
           <div className="absolute left-[44px] top-[35px] w-[646px] h-[304px] bg-[#8C8C8C] rounded-[8px] relative overflow-hidden">
             <iframe
-              src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+              src="https://www.youtube.com/embed/ho6HYJnFUc8?si=iYaZ4oLNWW0hL96-"
               title="Land Transfer Tutorial"
               className="w-full h-full rounded-[8px]"
               frameBorder="0"
