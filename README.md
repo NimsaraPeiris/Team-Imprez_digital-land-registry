@@ -257,7 +257,8 @@ To set up and run this project, you will need the following installed on your ma
   * Python (3.8+)
   * Node.js (18+)
   * pnpm (or npm/yarn if you prefer, but `pnpm` is used in the lockfile)
-  * PostgreSQL database instance
+
+For local development on this branch, the backend uses SQLite by default — you do NOT need a Postgres instance.
 
 -----
 
