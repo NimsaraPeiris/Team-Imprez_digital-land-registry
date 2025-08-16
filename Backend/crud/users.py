@@ -35,6 +35,18 @@ async def get_user_by_id(db: AsyncSession, user_id: int) -> Optional[User]:
         r = await db.execute(q)
     return r.scalars().first()
 
+async def get_user_by_nic_and_phone(db: AsyncSession, nic: str, phone: str) -> Optional[User]:
+    """Lookup a user by NIC number and phone number in the database.
+    This provides a DB-backed implementation so tests and endpoints do not need to monkeypatch this behavior.
+    """
+    q = select(User).where(User.nic_number == nic, User.phone_number == phone)
+    try:
+        r = await db.execute(q)
+    except ProgrammingError:
+        await _ensure_tables(db)
+        r = await db.execute(q)
+    return r.scalars().first()
+
 async def create_user(db: AsyncSession, full_name: str, nic_number: str, email: str, password: str, phone_number: str | None = None, address: str | None = None, user_type: str = "citizen") -> User:
     # Normalize to Enum member so SAEnum(values_callable=...) can bind properly
     try:

@@ -4,6 +4,7 @@ from typing import List
 from models.lro_backend_models import Application, Services, UploadedDocuments, ApplicationLog
 from models.lro_backend_models import AppLandTransfer, AppCopyOfLandRegisters, AppSearchLandRegisters, AppSearchDuplicateDeeds, AppCopyOfDocument
 from datetime import datetime
+import uuid
 
 async def list_user_applications(db: AsyncSession, user_id: int) -> List[Application]:
     stmt = select(Application).where(Application.user_id == user_id).order_by(Application.application_date.desc())
@@ -18,12 +19,15 @@ async def create_application(db: AsyncSession, user_id: int, service_id: int, re
     if not svc:
         raise ValueError("Service not found")
 
+    # generate a safer unique reference_number when not provided
+    generated_ref = reference_number or f"REF-{uuid.uuid4().hex[:12]}"
+
     app = Application(
         user_id=user_id,
         service_id=service_id,
         application_date=datetime.utcnow(),
         status_id=1,
-        reference_number=reference_number or f"REF-{int(datetime.utcnow().timestamp())}",
+        reference_number=generated_ref,
         last_updated_at=datetime.utcnow(),
     )
     db.add(app)
@@ -152,7 +156,7 @@ async def create_search_duplicate_deeds_details(db: AsyncSession, application_id
         ds_division=payload.get('ds_division'),
         reason_for_search=payload.get('reason_for_search'),
         court_case_no=payload.get('court_case_no'),
-        applicant_signature_document_id=payload.get('applicant_signature_document_id') or payload.get('applicant', {}).get('signature_document_id')
+        applicant_signature_document_id=payload.get('applicant', {}).get('signature_document_id') or payload.get('applicant', {}).get('signature_document_id')
     )
     db.add(sd)
     await db.commit()

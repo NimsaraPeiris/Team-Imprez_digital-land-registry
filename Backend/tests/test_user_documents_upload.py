@@ -3,8 +3,10 @@ from types import SimpleNamespace
 import importlib
 
 import pytest
+import uuid
 
 from api.v1.endpoints.user_documents import upload_document
+from database.session import get_sessionmaker
 
 
 class DummyUploadFile:
@@ -17,45 +19,48 @@ class DummyUploadFile:
         return self._content
 
 
-def test_upload_document_monkeypatched(monkeypatch):
+def _create_user_and_app():
+    async def _inner():
+        Session = get_sessionmaker()
+        async with Session() as session:
+            from models.services import Services
+            svc = await session.get(Services, 1)
+            if svc is None:
+                svc = Services(service_name='Test Service', service_code='TEST', base_fee=0)
+                session.add(svc)
+                await session.commit()
+                await session.refresh(svc)
+
+            from crud.users import create_user
+            from crud.applications import create_application
+            suffix = uuid.uuid4().hex[:8]
+            nic = f"123456{suffix}V"
+            email = f"testuser+{suffix}@example.com"
+            user = await create_user(session, 'Test User', nic, email, 'password', '0712345678', 'Test Address')
+            app_obj = await create_application(session, user.user_id, svc.service_id, None)
+            return user, app_obj
+    return asyncio.run(_inner())
+
+
+def test_upload_document_db(monkeypatch, tmp_path):
     # Prepare dummy file and user
     dummy_file = DummyUploadFile("file.pdf", b"hello world", "application/pdf")
-    fake_user = SimpleNamespace(user_id=123)
+    user, app_obj = _create_user_and_app()
 
-    # Patch get_application in the crud module (it is imported inside the endpoint at call-time)
-    async def fake_get_application(db, application_id, user_id):
-        if application_id == 1 and user_id == 123:
-            return SimpleNamespace(application_id=1, user_id=123)
-        return None
+    # Use DB-backed add_document implementation; ensure storage writes to tmp_path
+    monkeypatch.chdir(tmp_path)
 
-    monkeypatch.setattr("crud.applications.get_application", fake_get_application)
+    # Use a real AsyncSession and call the async endpoint with it
+    Session = get_sessionmaker()
 
-    # Import endpoint module and patch functions that were imported into it so the endpoint uses our fakes
-    mod = importlib.import_module('api.v1.endpoints.user_documents')
+    async def _call():
+        async with Session() as session:
+            result = await upload_document(app_obj.application_id, "Sales Agreement", dummy_file, db=session, current_user=user)
+            return result
 
-    called = {}
+    result = asyncio.run(_call())
 
-    def fake_upload(object_name, data, content_type):
-        # data may be bytes
-        called['object_name'] = object_name
-        called['data_len'] = len(data) if data is not None else None
-        called['content_type'] = content_type
-        return object_name
-
-    monkeypatch.setattr(mod, 'upload_file_to_minio', fake_upload)
-    # Keep presign behavior consistent with local shim
-    monkeypatch.setattr(mod, 'generate_presigned_url', lambda k: f"/internal/static/{k}")
-
-    # Patch add_document imported into the endpoint module (it was imported at module level)
-    async def fake_add_document(db, application_id, document_type, file_name, file_path):
-        return SimpleNamespace(document_id=1, application_id=application_id, user_id=123, name=file_name, document_type=document_type, minio_object_key=file_path)
-
-    monkeypatch.setattr(mod, 'add_document', fake_add_document)
-
-    # Run the async endpoint function
-    result = asyncio.run(upload_document(1, "Sales Agreement", dummy_file, db=None, current_user=fake_user))
-
-    assert hasattr(result, 'minio_object_key')
-    assert result.minio_object_key == called['object_name']
-    assert result.name == "file.pdf"
-    assert getattr(result, 'download_url', None) == f"/internal/static/{called['object_name']}"
+    assert hasattr(result, 'minio_object_key') or hasattr(result, 'file_path')
+    # UploadedDocuments uses 'file_name' column; assert that instead of legacy 'name'
+    assert result.file_name == "file.pdf"
+    assert getattr(result, 'download_url', None) is not None

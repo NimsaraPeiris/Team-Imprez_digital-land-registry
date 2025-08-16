@@ -25,14 +25,15 @@ async def create_access_token(subject: str, expires_delta: Optional[timedelta] =
     payload = {"sub": str(subject), "exp": expire}
     return jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
 
-# Helper: find user by nic + phone. We implement here to avoid adding a new CRUD function for now.
+# Helper: find user by nic + phone. We implement here to delegate to crud.users.get_user_by_nic_and_phone
 async def get_user_by_nic_and_phone(db: AsyncSession, nic: str, phone: str):
-    # Default implementation: fallback to get_user_by_email when nic stored in email (not typical).
-    # Tests should monkeypatch this function when needed.
-    # Try scanning users by nic using get_user_by_email as a convenience (monkeypatch-friendly).
-    # Real implementation should be added to crud.users for production.
-    # As a stop-gap, raise NotImplementedError so tests must patch it or crud provides nic lookup.
-    raise NotImplementedError("NIC+phone lookup not implemented; patch get_user_by_nic_and_phone in tests or implement in crud.users")
+    # Delegate to CRUD implementation which performs a DB lookup. This avoids tests having to monkeypatch the module.
+    try:
+        from crud.users import get_user_by_nic_and_phone as _crud_lookup
+        return await _crud_lookup(db, nic, phone)
+    except Exception:
+        # If the CRUD helper is missing or fails, fall back to raising NotImplementedError to preserve previous behavior.
+        raise NotImplementedError("NIC+phone lookup not implemented; ensure crud.users.get_user_by_nic_and_phone is available")
 
 @router.post("/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
 async def register(payload: UserRegisterRequest, db: AsyncSession = Depends(get_db)):
@@ -48,19 +49,20 @@ async def register(payload: UserRegisterRequest, db: AsyncSession = Depends(get_
 
 @router.post("/login", response_model=TokenResponse)
 async def login(payload: UserLoginRequest, db: AsyncSession = Depends(get_db)):
-    # Support legacy email/password login
+    # Support both legacy email/password and new id+phone+otp flows
     if payload.email and payload.password:
         user = await get_user_by_email(db, payload.email)
         if not user or not hasattr(user, 'password_hash'):
             raise HTTPException(status_code=401, detail="Invalid credentials")
-        if not _User.verify_password(payload.password, user.password_hash):
+        # Use the instance method on the ORM model which wraps the security helper
+        if not user.verify_password(payload.password):
             raise HTTPException(status_code=401, detail="Invalid credentials")
         token = await create_access_token(str(user.user_id))
         return {"access_token": token, "token_type": "bearer"}
 
     # Support OTP flow: id + phone + otp
     if payload.id and payload.phone and payload.otp:
-        # Look up user by nic and phone. Tests should patch get_user_by_nic_and_phone to provide a fake user.
+        # Look up user by nic and phone. Tests can now rely on a DB-backed lookup implemented in crud.users
         user = None
         try:
             user = await get_user_by_nic_and_phone(db, payload.id, payload.phone)

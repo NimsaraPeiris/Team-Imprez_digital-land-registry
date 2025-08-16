@@ -1,8 +1,8 @@
-from schemas.user_schemas import (
+from schemas.service_schemas import (
     LandTransferRequest,
-    CopyOfLandRegistersRequest,
-    SearchLandRegistersRequest,
-    SearchDuplicateDeedsRequest,
+    CopyOfLandRequest,
+    SearchLandRequest,
+    DuplicateDeedsRequest,
     CopyDocumentRequest,
 )
 
@@ -15,53 +15,91 @@ def test_land_transfer_request_accepts_frontend_shape():
         "documents": [1, 2, 3],
         "notes": "Test transfer"
     }
-    req = LandTransferRequest.parse_obj(payload)
+    req = LandTransferRequest.model_validate(payload)
     assert req.service_id == 1
-    assert req.seller.full_name or req.seller.full_name is not None or hasattr(req.seller, 'full_name') or True
+    assert hasattr(req.seller, 'fullName') and req.seller.fullName == "Seller One"
 
 
 def test_copy_of_land_registers_request_accepts_frontend_shape():
     payload = {
         "service_id": 2,
         "applicant": {"fullName": "Applicant", "address": "Addr", "nicNumber": "123V", "date": "2025-01-01", "signature_document_id": 10},
-        "land_details": {"district": "Colombo", "village": "Colombo 1", "namesOfTheLand": "Lot A", "extent": "1 acre", "reasonForRequest": "Title search"},
-        "extract_details": [{"division": "Div", "volume": "1", "folio": "10"}]
+        "land_district": "Colombo",
+        "extracts": [{"division": "Div", "volume": "1", "folio": "10"}]
     }
-    req = CopyOfLandRegistersRequest.parse_obj(payload)
+    req = CopyOfLandRequest.model_validate(payload)
     assert req.service_id == 2
-    assert req.land_details["district"] == "Colombo"
+    assert req.land_district == "Colombo"
 
 
 def test_search_land_registers_request_accepts_frontend_shape():
     payload = {
         "service_id": 3,
         "applicant": {"fullName": "Applicant", "address": "Addr", "nicNo": "123V", "date": "2025-01-01", "signature_document_id": 11},
-        "property_details": {"village": "V", "nameOfTheLand": "Lot B", "extent": "2 acres", "korale": "K", "pattu": "P", "GNdivision": "GND", "DSdivision": "DSD"},
-        "registered_to_search": [{"division": "Div", "volNo": "2", "folioNo": "20"}]
+        "nameOfTheLand": "Lot B",
+        "registered_entries": [{"division": "Div", "volNo": "2", "folioNo": "20"}]
     }
-    req = SearchLandRegistersRequest.parse_obj(payload)
+    req = SearchLandRequest.model_validate(payload)
     assert req.service_id == 3
-    assert req.property_details["nameOfTheLand"] == "Lot B"
+    assert req.nameOfTheLand == "Lot B"
 
 
 def test_search_duplicate_deeds_request_accepts_frontend_shape():
     payload = {
         "service_id": 4,
         "applicant": {"fullName": "Applicant", "address": "Addr", "nicNumber": "123V", "id": "123V", "dateOfApplication": "2025-01-01", "signature_document_id": 12},
-        "notary_public_name": "Notary", "district_of_station": "Colombo", "number_of_deeds": 2,
-        "date_of_deed": "2020-01-01", "guarantor_name": "G", "guarantee_transferee_name": "T", "village": "V", "property_name": "Prop", "extent": "1 acre"
+        "notaryPublicName": "Notary", "districtOfStation": "Colombo", "numberOfDeeds": 2,
+        "dateOfDeed": "2020-01-01", "nameOfGarantee_transferor": "G", "nameOfGarantee_transferee": "T", "village": "V", "propertyName": "Prop", "extent": "1 acre"
     }
-    req = SearchDuplicateDeedsRequest.parse_obj(payload)
+    req = DuplicateDeedsRequest.model_validate(payload)
     assert req.service_id == 4
-    assert req.notary_public_name == "Notary"
+    assert req.notaryPublicName == "Notary"
 
 
 def test_copy_document_request_accepts_frontend_shape():
     payload = {
         "service_id": 5,
         "applicant": {"fullName": "Applicant", "address": "Addr", "nicNumber": "123V", "date": "2025-01-01", "signature_document_id": 13},
-        "deed_number": "D-123", "date_of_deed_attestation": "2020-01-01", "notary_public_name": "Notary", "notary_address": "Addr", "reason_for_request": "Copy"
+        "deedNumber": "D-123", "dateOfDeedAttestation": "2020-01-01", "notaryPublicName": "Notary", "notaryAddress": "Addr", "reasonForRequest": "Copy"
     }
-    req = CopyDocumentRequest.parse_obj(payload)
+    req = CopyDocumentRequest.model_validate(payload)
     assert req.service_id == 5
-    assert req.deed_number == "D-123"
+    assert req.deedNumber == "D-123"
+
+
+def test_land_transfer_schema_minimal():
+    payload = {
+        "seller": {"fullName": "Alice"},
+        "buyer": {"fullName": "Bob"}
+    }
+    obj = LandTransferRequest.model_validate(payload)
+    assert obj.seller.fullName == "Alice"
+    assert obj.buyer.fullName == "Bob"
+
+
+def test_copy_of_land_schema_with_extracts():
+    payload = {
+        "applicant": {"fullName": "Alice", "nicNumber": "123"},
+        "land_district": "District 1",
+        "extracts": [{"division": "A", "volume": "1", "folio": "2"}]
+    }
+    obj = CopyOfLandRequest.model_validate(payload)
+    assert len(obj.extracts) == 1
+
+
+def test_search_land_schema():
+    payload = {"applicant": {"fullName": "Alice"}, "registered_entries": [{"division": "X", "volNo": "1", "folioNo": "1"}]}
+    obj = SearchLandRequest.model_validate(payload)
+    assert obj.registered_entries[0].division == "X"
+
+
+def test_duplicate_deeds_schema():
+    payload = {"applicant": {"fullName": "Alice"}, "numberOfDeeds": 2}
+    obj = DuplicateDeedsRequest.model_validate(payload)
+    assert obj.numberOfDeeds == 2
+
+
+def test_copy_document_schema():
+    payload = {"applicant": {"fullName": "Alice"}, "deedNumber": "D-123"}
+    obj = CopyDocumentRequest.model_validate(payload)
+    assert obj.deedNumber == "D-123"

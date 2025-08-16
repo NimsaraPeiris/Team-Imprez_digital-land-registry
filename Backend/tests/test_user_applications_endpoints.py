@@ -1,58 +1,57 @@
 from fastapi.testclient import TestClient
 from main import app
-import importlib
 import datetime
+import asyncio
+import uuid
+
+from database.session import get_sessionmaker
 
 
-def test_create_and_get_application(monkeypatch):
+def _create_user_and_service():
+    async def _inner():
+        Session = get_sessionmaker()
+        async with Session() as session:
+            # create a service if missing
+            from models.services import Services
+            svc = Services(service_name='Test Service', service_code=f'TEST-{uuid.uuid4().hex[:6]}', base_fee=0)
+            session.add(svc)
+            await session.commit()
+            await session.refresh(svc)
+
+            # create a unique user
+            from crud.users import create_user
+            suffix = uuid.uuid4().hex[:8]
+            nic = f"123456{suffix}V"
+            email = f"appuser+{suffix}@example.com"
+            user = await create_user(session, 'Test User', nic, email, 'password', '0712345678', 'Test Address')
+            return user, svc
+    return asyncio.run(_inner())
+
+
+def test_create_and_get_application():
     client = TestClient(app)
-    # fake current user
-    fake_user = type('U', (), {'user_id': 10})()
+
+    # create DB-backed service and user
+    user, svc = _create_user_and_service()
+
+    # override dependency to return our DB user
     from api.v1.endpoints.user_auth import get_current_user
-    app.dependency_overrides[get_current_user] = lambda: fake_user
+    app.dependency_overrides[get_current_user] = lambda: user
 
-    # patch create_application to return a simple namespace
-    async def fake_create_application(db, user_id, service_id, reference_number=None):
-        return type('A', (), {
-            'application_id': 1,
-            'user_id': user_id,
-            'service_id': service_id,
-            'application_date': datetime.datetime.utcnow(),
-            'status_id': 1,
-            'assigned_officer_id': None,
-            'reference_number': reference_number,
-            'last_updated_at': datetime.datetime.utcnow(),
-        })()
-
-    # Patch the symbol imported into the endpoint module so the endpoint uses our fake
-    mod = importlib.import_module('api.v1.endpoints.user_applications')
-    monkeypatch.setattr(mod, 'create_application', fake_create_application)
-
-    payload = {'service_id': 5, 'reference_number': 'REF123'}
+    # Create application via endpoint
+    payload = {'service_id': svc.service_id, 'reference_number': 'REF123'}
     resp = client.post('/api/user/applications/', json=payload)
     assert resp.status_code == 201
     body = resp.json()
-    assert body['application_id'] == 1
-    assert body['user_id'] == 10
+    assert body['user_id'] == user.user_id
+    assert body['service_id'] == svc.service_id
+    app_id = body['application_id']
 
-    # patch get_application to return the same object
-    async def fake_get_application(db, application_id, user_id=None):
-        return type('A', (), {
-            'application_id': application_id,
-            'user_id': 10,
-            'service_id': 5,
-            'application_date': datetime.datetime.utcnow(),
-            'status_id': 1,
-            'assigned_officer_id': None,
-            'reference_number': 'REF123',
-            'last_updated_at': datetime.datetime.utcnow(),
-        })()
-
-    monkeypatch.setattr(mod, 'get_application', fake_get_application)
-
-    resp2 = client.get('/api/user/applications/1')
+    # Retrieve it via GET endpoint
+    resp2 = client.get(f'/api/user/applications/{app_id}')
     assert resp2.status_code == 200
     app_body = resp2.json()
-    assert app_body['application_id'] == 1
+    assert app_body['application_id'] == app_id
 
+    # cleanup override
     app.dependency_overrides.pop(get_current_user, None)

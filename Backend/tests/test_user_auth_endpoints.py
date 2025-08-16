@@ -1,67 +1,69 @@
+import pytest
+import uuid
+from anyio import to_thread
+
 from fastapi.testclient import TestClient
-from types import SimpleNamespace
 import importlib
-import datetime
-
-from main import app
 
 
-def test_register_endpoint_monkeypatched(monkeypatch):
-    client = TestClient(app)
-    mod = importlib.import_module('api.v1.endpoints.user_auth')
+async def _create_user_in_db(db, nic: str, email: str):
+    from crud.users import create_user
+    user = await create_user(db, 'Test User', nic, email, 'password', '0712345678', 'Test Address')
+    # ensure persisted
+    try:
+        await db.commit()
+    except Exception:
+        await db.rollback()
+    return user
 
-    # Patch get_user_by_email to return None (no existing user)
-    async def fake_get_user_by_email(db, email):
-        return None
-    monkeypatch.setattr(mod, 'get_user_by_email', fake_get_user_by_email)
 
-    # Patch create_user to return a SimpleNamespace matching UserResponse
-    async def fake_create_user(db, full_name, nic_number, email, password, phone_number, address):
-        return SimpleNamespace(
-            user_id=42,
-            full_name=full_name,
-            nic_number=nic_number,
-            email=email,
-            phone_number=phone_number,
-            address=address,
-            created_at=datetime.datetime.utcnow(),
-            is_active=True,
-        )
-    monkeypatch.setattr(mod, 'create_user', fake_create_user)
-
+@pytest.mark.asyncio
+async def test_register_endpoint_db():
+    # generate unique nic/email to avoid UNIQUE constraint collisions
+    suffix = uuid.uuid4().hex[:8]
     payload = {
         "fullName": "Test User",
-        "id": "123456789V",
-        "email": "testuser@example.com",
+        "id": f"123456{suffix}V",
+        "email": f"testuser+{suffix}@example.com",
         "phone": "0712345678",
         "registrationOffice": "Test Address",
         "password": "password123"
     }
 
-    resp = client.post('/api/user/auth/register', json=payload)
+    def sync_request():
+        # import and reload main here so it picks up test env set by conftest.ensure_test_schema
+        import main
+        importlib.reload(main)
+        with TestClient(main.app) as client:
+            return client.post('/api/user/auth/register', json=payload)
+
+    resp = await to_thread.run_sync(sync_request)
+
     assert resp.status_code == 201
     body = resp.json()
-    assert body['user_id'] == 42
     assert body['email'] == payload['email']
+    assert 'user_id' in body
 
 
-def test_login_endpoint_otp_flow(monkeypatch):
-    client = TestClient(app)
-    mod = importlib.import_module('api.v1.endpoints.user_auth')
+@pytest.mark.asyncio
+async def test_login_endpoint_otp_flow_db(db):
+    # create a user in DB with known nic and phone
+    suffix = uuid.uuid4().hex[:8]
+    nic = f"123456{suffix}V"
+    email = f"loginuser+{suffix}@example.com"
+    await _create_user_in_db(db, nic, email)
 
-    # Patch get_user_by_nic_and_phone to return a user-like object
-    async def fake_get_user_by_nic_and_phone(db, nic, phone):
-        return SimpleNamespace(user_id=7, is_active=True)
-    monkeypatch.setattr(mod, 'get_user_by_nic_and_phone', fake_get_user_by_nic_and_phone)
+    payload = {"id": nic, "phone": "0712345678", "otp": "123456"}
 
-    # Patch create_access_token to return a predictable token
-    async def fake_create_access_token(subject, expires_delta=None):
-        return 'fake-token'
-    monkeypatch.setattr(mod, 'create_access_token', fake_create_access_token)
+    def sync_request():
+        import main
+        importlib.reload(main)
+        with TestClient(main.app) as client:
+            return client.post('/api/user/auth/login', json=payload)
 
-    payload = {"id": "123456789V", "phone": "0712345678", "otp": "123456"}
-    resp = client.post('/api/user/auth/login', json=payload)
+    resp = await to_thread.run_sync(sync_request)
+
     assert resp.status_code == 200
     body = resp.json()
-    assert body.get('access_token') == 'fake-token'
+    assert 'access_token' in body
     assert body.get('token_type') == 'bearer'

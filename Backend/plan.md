@@ -194,8 +194,43 @@ Security and notes
 - Files (signatures and photographs) are handled via the document upload mechanism and stored in `uploaded_documents/` during development; production must use object storage and encryption.
 - Avoid migrating existing data automatically; prefer additive changes (new nullable columns) so database migration is safe.
 
-Next immediate actions (I'll start now)
-1. Add Pydantic request models for the five services to `Backend/schemas/user_schemas.py` (or a new dedicated `service_schemas.py` under `schemas/`).
-2. Add unit tests validating the new request models accept frontend payload shapes.
-3. After tests pass locally, extend `models/applications.py` to add the missing columns and child tables required.
-4. Implement CRUD functions and wire `user_applications` endpoints to accept the new payloads (keeping compatibility with existing endpoints).
+## Revised immediate plan — prioritize DB-first refactor and test cleanup
+
+Goal (short): Replace in-code test fakes and monkeypatches with real DB-backed implementations, wire all endpoints and CRUD functions to the SQLAlchemy models, and make tests use isolated SQLite test databases or transactional fixtures. Keep frontend unchanged.
+
+High-level changes
+
+1. Replace any fake/monkeypatched implementations used in endpoints/tests with real CRUD functions that operate on the database.
+2. Add robust test fixtures that create a fresh SQLite database per test session or per-test transaction (using `create_all()`/`drop_all()` or savepoints) so tests run deterministically and do not require external services.
+3. Extend models/applications.py to store the additional fields required by frontend service forms (add nullable columns where necessary and child tables for repeatable data like folios).
+4. Implement full CRUD operations for applications and documents so endpoints call DB-backed code paths.
+5. Update tests to use real DB-backed fixtures instead of fakes; remove tests that exercise monkeypatched modules and replace them with integration-style unit tests that assert the endpoint + DB behavior.
+
+Testing strategy
+
+- Use an in-memory or on-disk SQLite database for tests (`sqlite+aiosqlite:///./test_db.sqlite3` or `sqlite:///:memory:` for sync code). Because SQLAlchemy async engines do not support in-memory across connections reliably, prefer a temporary on-disk file per test session when using async engines.
+- Provide a `tests/fixtures.py` (or update `conftest.py`) to create/drop schema around the test session and provide an `async_session` fixture that yields a transaction-scoped session and rolls back after each test when possible.
+- For endpoints, use FastAPI's `TestClient` (sync) or `AsyncClient` (httpx) with the app configured to use the test DB engine.
+
+Backward compatibility
+
+- Keep current endpoint signatures but ensure that they call DB-backed CRUD functions. Maintain compatibility shims if necessary for other callers.
+- Make additive schema changes only (nullable columns) to avoid breaking existing DBs.
+
+Milestones (short iterations)
+
+A. Plan update (this change) — done.
+B. Add Pydantic request models for the five services under `schemas/` (so endpoint input validation is explicit).
+C. Add DB-backed test fixtures (update `tests/conftest.py`) and a small helper to create a temporary sqlite file for tests.
+D. Implement or extend models to add missing columns for service payloads (add nullable columns and child tables where necessary).
+E. Implement CRUD methods in `crud/applications.py` to create application detail rows and link uploaded documents.
+F. Update `api/v1/endpoints/user_applications.py` to call the new CRUD functions and accept the new Pydantic request models.
+G. Replace monkeypatched tests (e.g., tests that set monkeypatch.getattr on endpoint modules) with DB-backed tests that exercise the full code path.
+H. Run test suite and fix failures iteratively.
+
+Immediate next actions (I'll start now):
+1. Add Pydantic request models for the five services to `Backend/schemas/service_schemas.py` (and export them from `schemas/__init__.py` if needed).
+2. Add unit tests to validate request models accept the frontend payload shapes (keeps early feedback loop fast).
+3. Add a transactional DB fixture and small helper to create/drop a temporary sqlite database for tests.
+
+I'll implement step 1 now: add `Backend/schemas/service_schemas.py` with request models for the five frontend services.

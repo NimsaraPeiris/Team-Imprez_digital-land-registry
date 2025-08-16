@@ -11,7 +11,7 @@ try:
 except Exception:
     username = None
     password = None
-    engine_url = os.getenv("DATABASE_URL_ASYNC", "")
+    engine_url = os.getenv("DATABASE_URL", "")
 
 # Skip if credentials look like placeholders or no DB configured
 if engine_url == "" or (username == 'user' and password in (None, 'password')) or 'user:password' in engine_url:

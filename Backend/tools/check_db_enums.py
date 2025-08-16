@@ -6,14 +6,14 @@ from sqlalchemy.ext.asyncio import create_async_engine
 from dotenv import load_dotenv
 
 load_dotenv()
-DATABASE_URL = os.getenv("DATABASE_URL_ASYNC")
+DATABASE_URL = os.getenv("DATABASE_URL")
 if not DATABASE_URL:
-    print(json.dumps({"error": "DATABASE_URL_ASYNC not set"}))
+    print(json.dumps({"error": "DATABASE_URL not set"}))
     raise SystemExit(1)
 
 # Don't attempt if placeholder
 if "user:password" in DATABASE_URL or "example" in DATABASE_URL:
-    print(json.dumps({"error": "DATABASE_URL_ASYNC looks like a placeholder"}))
+    print(json.dumps({"error": "DATABASE_URL looks like a placeholder"}))
     raise SystemExit(1)
 
 async def get_enums():
