@@ -54,5 +54,6 @@ def generate_presigned_url(object_name: str, expires: int = 60 * 5) -> str:
     uploads_root = os.path.join(os.getcwd(), 'uploaded_documents')
     candidate = os.path.join(uploads_root, object_name)
     if os.path.exists(candidate):
+        # Return the internal static path (no /api prefix) to remain compatible with tests and some frontend paths.
         return f"/internal/static/{object_name}"
     return ""

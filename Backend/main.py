@@ -34,6 +34,8 @@ app.include_router(user_documents, prefix="/api")
 app.include_router(admin_applications, prefix="/api")
 app.include_router(admin_documents, prefix="/api")
 app.include_router(chat, prefix="/api")
+# Also expose chat at root /chat for compatibility with frontend defaults
+app.include_router(chat)
 
 # mount internal static serving router
 from api.v1.endpoints.internal_static import router as internal_static_router

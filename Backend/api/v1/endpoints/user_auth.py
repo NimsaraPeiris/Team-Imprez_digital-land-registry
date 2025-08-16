@@ -104,3 +104,8 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(b
     if not user or not user.is_active:
         raise HTTPException(status_code=403, detail="Inactive user")
     return user
+
+@router.get("/me", response_model=UserResponse)
+async def me(current_user = Depends(get_current_user)):
+    # Return the current authenticated user profile
+    return current_user
