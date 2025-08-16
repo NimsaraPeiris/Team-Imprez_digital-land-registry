@@ -12,10 +12,10 @@ import { useDropzone } from "react-dropzone"
 interface FormData {
   seller: {
     fullName: string
-    address: string
     email: string
     phone: string
     nic: string
+    address: string
     date: string
   }
   property: {
@@ -35,10 +35,10 @@ interface FormData {
 interface FormErrors {
   seller: {
     fullName: string
-    address: string
     email: string
     phone: string
     nic: string
+    address: string
     date: string
   }
   property: {
@@ -67,10 +67,10 @@ export default function LandTransferApplicationPage() {
   const [formData, setFormData] = useState<FormData>({
     seller: {
       fullName: "",
-      address: "",
       email: "",
       phone: "",
       nic: "",
+      address: "",
       date: "",
     },
     property: {
@@ -90,10 +90,10 @@ export default function LandTransferApplicationPage() {
   const [errors, setErrors] = useState<FormErrors>({
     seller: {
       fullName: "",
-      address: "",
       email: "",
       phone: "",
       nic: "",
+      address: "",
       date: "",
     },
     property: {
@@ -117,7 +117,7 @@ export default function LandTransferApplicationPage() {
     vendorPhoto: File | null
     guarantor1NIC: File | null
     guarantor2NIC: File | null
-    signature: File | null // Added signature to fileUploads state
+    signature: File | null
   }>({
     originalDeed: null,
     purchaserNIC: null,
@@ -125,7 +125,7 @@ export default function LandTransferApplicationPage() {
     vendorPhoto: null,
     guarantor1NIC: null,
     guarantor2NIC: null,
-    signature: null, // Added signature to fileUploads state
+    signature: null,
   })
 
   const onDropOriginalDeed = useCallback((acceptedFiles: File[]) => {
@@ -284,43 +284,11 @@ export default function LandTransferApplicationPage() {
 
     const prefix = processedPhone.substring(1, 3)
     const validPrefixes = [
-      "70",
-      "71",
-      "72",
-      "74",
-      "75",
-      "76",
-      "77",
-      "78",
-      "11",
-      "21",
-      "23",
-      "24",
-      "25",
-      "26",
-      "27",
-      "31",
-      "32",
-      "33",
-      "34",
-      "35",
-      "36",
-      "37",
-      "38",
-      "41",
-      "45",
-      "47",
-      "51",
-      "52",
-      "54",
-      "55",
-      "57",
-      "63",
-      "65",
-      "66",
-      "67",
-      "81",
-      "91",
+      "70", "71", "72", "74", "75", "76", "77", "78",
+      "11", "21", "23", "24", "25", "26", "27",
+      "31", "32", "33", "34", "35", "36", "37", "38",
+      "41", "45", "47", "51", "52", "54", "55", "57",
+      "63", "65", "66", "67", "81", "91",
     ]
 
     if (!validPrefixes.includes(prefix)) {
@@ -424,10 +392,10 @@ export default function LandTransferApplicationPage() {
       const sectionData = formData.seller
       const newErrors = {
         fullName: validateFullName(sectionData.fullName),
-        address: sectionData.address ? "" : "Address is required",
-        email: validateEmail(sectionData.email),
-        phone: validatePhoneNumber(sectionData.phone),
+        email: "", // Make email optional for this form
+        phone: "", // Make phone optional for this form  
         nic: validateNIC(sectionData.nic),
+        address: sectionData.address.trim() ? "" : "Address is required",
         date: sectionData.date ? "" : "Date is required",
       }
 
@@ -437,84 +405,93 @@ export default function LandTransferApplicationPage() {
       }))
 
       return !Object.values(newErrors).some((error) => error !== "")
-    } else {
-      // For property section, we don't have specific validation yet
-      // We could add validation for specific fields if needed
-      return true
+    } else if (section === "property") {
+      const sectionData = formData.property
+      const newErrors = {
+        village: sectionData.village.trim() ? "" : "Village is required",
+        nameOfLand: sectionData.nameOfLand.trim() ? "" : "Name of land is required",
+        extent: sectionData.extent.trim() ? "" : "Extent is required",
+        korale: sectionData.korale.trim() ? "" : "Korale is required",
+        pattu: sectionData.pattu.trim() ? "" : "Pattu is required",
+        gnDivision: sectionData.gnDivision.trim() ? "" : "GN Division is required",
+        dsDivision: sectionData.dsDivision.trim() ? "" : "DS Division is required",
+        division: "", // Will be validated through register entries
+        volumeNo: "", // Will be validated through register entries
+        folioNo: "", // Will be validated through register entries
+      }
+
+      setErrors((prev) => ({
+        ...prev,
+        property: newErrors,
+      }))
+
+      return !Object.values(newErrors).some((error) => error !== "")
     }
+    return true
+  }
+
+  const validateRegisterEntries = (): boolean => {
+    // Check if at least one register entry is completely filled
+    const hasValidEntry = registerEntries.some(entry => 
+      entry.division.trim() && entry.volumeNo.trim() && entry.folioNo.trim()
+    )
+    
+    if (!hasValidEntry) {
+      alert("Please fill at least one complete register entry (Division, Vol.No, and Folio No)")
+      return false
+    }
+    
+    return true
   }
 
   const handleContinue = () => {
-    // Validate seller information
-    const sellerData = formData.seller;
-    const sellerErrors = {
-      fullName: validateFullName(sellerData.fullName),
-      email: validateEmail(sellerData.email),
-      phone: validatePhoneNumber(sellerData.phone),
-      nic: validateNIC(sellerData.nic),
-      address: "",  // Removed address requirement
-      date: "",     // Removed date requirement
-    };
+    console.log("Continue button clicked, current step:", currentStep)
+    
+    if (currentStep === 1) {
+      // Validate seller and property details before proceeding
+      const isSellerValid = validateSection("seller")
+      const isPropertyValid = validateSection("property")
+      const isRegisterValid = validateRegisterEntries()
+      
+      console.log("Validation results:", { isSellerValid, isPropertyValid, isRegisterValid })
+      
+      if (isSellerValid && isPropertyValid && isRegisterValid) {
+        console.log("All validations passed, moving to step 2")
+        setCurrentStep(2)
+      } else {
+        console.log("Validation failed")
+      }
+    } else if (currentStep === 2) {
+      // Check if all required documents are uploaded before proceeding
+      const requiredDocuments = [
+        "originalDeed",
+        "purchaserNIC", 
+        "purchaserPhoto",
+        "vendorPhoto",
+        "guarantor1NIC",
+        "guarantor2NIC",
+        "signature",
+      ] as const
+      const allDocumentsUploaded = requiredDocuments.every((doc) => fileUploads[doc] !== null)
 
-    // Validate property information (basic required field validation)
-    const propertyData = formData.property;
-    const propertyErrors = {
-      village: !propertyData.village.trim() ? "Village is required" : "",
-      nameOfLand: !propertyData.nameOfLand.trim() ? "Name of land is required" : "",
-      extent: !propertyData.extent.trim() ? "Extent is required" : "",
-      korale: !propertyData.korale.trim() ? "Korale is required" : "",
-      pattu: !propertyData.pattu.trim() ? "Pattu is required" : "",
-      gnDivision: !propertyData.gnDivision.trim() ? "GN Division is required" : "",
-      dsDivision: !propertyData.dsDivision.trim() ? "DS Division is required" : "",
-      division: "",
-      volumeNo: "",
-      folioNo: "",
-    };
-
-    // Validate register entries
-    const registerErrors = registerEntries.some(entry =>
-      !entry.division.trim() || !entry.volumeNo.trim() || !entry.folioNo.trim()
-    );
-
-    // Update errors state
-    setErrors(prev => ({
-      ...prev,
-      seller: sellerErrors,
-      property: propertyErrors,
-    }));
-
-    // Check if there are any errors
-    const hasSellerErrors = Object.values(sellerErrors).some(error => error !== "");
-    const hasPropertyErrors = Object.values(propertyErrors).some(error => error !== "");
-
-    if (hasSellerErrors) {
-      alert("Please fix the errors in Applicant Details section");
-      return;
+      if (allDocumentsUploaded) {
+        setCurrentStep(3)
+      } else {
+        alert("Please upload all required documents before continuing.")
+      }
+    } else if (currentStep === 3) {
+      // Navigate to online payment section
+      router.push("/search-land/payment")
     }
-
-    if (hasPropertyErrors) {
-      alert("Please fill in all required Property Details fields");
-      return;
-    }
-
-    if (registerErrors) {
-      alert("Please fill in all register entry fields (Division, Vol.No, and Folio No)");
-      return;
-    }
-
-    // All validations passed, navigate directly to payment page
-    router.push("/search-land/payment");
-  };
+  }
 
   const handleBack = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1)
     } else {
-      router.push("/search-land/application")
+      router.push("/search-land")
     }
   }
-
-  const steps = [1, 2, 3, 4, 5]
 
   const handleFileUpload = (fileType: string, event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -525,7 +502,7 @@ export default function LandTransferApplicationPage() {
 
   const removeSignature = () => {
     setSignature(null)
-    setFileUploads((prevState) => ({ ...prevState, signature: null })) // Also clear from fileUploads state
+    setFileUploads((prevState) => ({ ...prevState, signature: null }))
   }
 
   const addRegisterEntry = () => {
@@ -579,60 +556,6 @@ export default function LandTransferApplicationPage() {
     }
   }, [currentStep, isVerifying, hasVerified])
 
-<<<<<<< HEAD
-=======
-  // Function to render file upload component
-  const renderFileUpload = (
-    title: string,
-    fileType: keyof typeof fileUploads,
-    acceptedTypes: string,
-    dropzoneProps: any,
-    inputProps: any,
-    isDragActive: boolean
-  ) => (
-    <div className="flex flex-col gap-[7px]">
-      <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">{title}</label>
-      <div
-        {...dropzoneProps}
-        className={`w-full h-[119px] bg-[#E9E9E9] rounded-[6px] relative overflow-hidden border-none focus:outline-none focus:ring-2 focus:ring-[#00508E] flex items-center justify-center cursor-pointer ${
-          isDragActive ? "bg-blue-50 ring-2 ring-[#00508E]" : ""
-        }`}
-      >
-        <input {...inputProps} />
-        {fileUploads[fileType] ? (
-          <div className="relative w-full h-full">
-            <div className="w-full h-full flex items-center justify-center p-2">
-              <div className="text-center">
-                <div className="text-[#636363] text-[14px] font-medium mb-1">
-                  ✓ {fileUploads[fileType]?.name}
-                </div>
-                <div className="text-[#888] text-[12px]">File uploaded successfully</div>
-              </div>
-            </div>
-            <button
-              onClick={(e) => {
-                e.stopPropagation()
-                setFileUploads(prev => ({ ...prev, [fileType]: null }))
-              }}
-              className="absolute top-2 right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600 transition-colors"
-            >
-              ×
-            </button>
-          </div>
-        ) : (
-          <div className="text-center px-0 my-9">
-            <div className="text-[#636363] text-[14px] font-medium mb-1 py-0">
-              {isDragActive ? `Drop ${title.toLowerCase()} here` : `Click to add ${title.toLowerCase()} or drag here`}
-            </div>
-            <div className="text-[#888] text-[12px] my-0">{acceptedTypes}</div>
-          </div>
-        )}
-      </div>
-    </div>
-  )
-
-
->>>>>>> 2240116d910eb676f43684fe74df6b89a64c9b72
   return (
     <div className="min-h-screen bg-white">
       {/* Sticky header and navigation */}
@@ -649,290 +572,133 @@ export default function LandTransferApplicationPage() {
         </div>
 
         {/* Form Container */}
-        <div className="w-full max-w-[1300px] mx-auto border-[0.3px] border-[#00508E] rounded-[5px] bg-white p-8 flex flex-col gap-8">
-          {/* Applicant Information Header */}
-          <div>
-            <h2 className="text-black text-lg sm:text-xl lg:text-[20px] font-extrabold leading-tight lg:leading-[24px] font-inter">
-              {currentStep === 1 ? "Applicant Information" : currentStep === 2 ? "Document Upload" : "Document Verification"}
-            </h2>
-            <p className="text-black text-sm sm:text-base lg:text-[15px] font-normal leading-relaxed lg:leading-[18px] font-inter mt-2">
-              {currentStep === 1 
-                ? "Please fill in all required information" 
-                : currentStep === 2 
-                ? "Please upload all required documents for verification"
-                : "Please wait while we verify your documents"
-              }
-            </p>
-          </div>
-
-          {/* Progress Indicator */}
-          <div className="w-[248px] flex items-center justify-between">
-            <div className={`w-6 h-6 sm:w-7 sm:h-7 lg:w-[31px] lg:h-[31px] ${currentStep >= 1 ? 'bg-[#36BF29] border-[#36BF29]' : 'bg-[#F4F4F4] border-[#737373]'} rounded-full border flex items-center justify-center`}>
-              <span className={`${currentStep >= 1 ? 'text-white' : 'text-[#807E7E]'} text-xs sm:text-sm lg:text-[15px] font-normal leading-[18px] font-inter`}>
-                1
-              </span>
-            </div>
-            <div className="w-8 sm:w-10 lg:w-[51px] h-0 border-t border-[#737373]"></div>
-            <div className={`w-6 h-6 sm:w-7 sm:h-7 lg:w-[31px] lg:h-[31px] ${currentStep >= 2 ? 'bg-[#36BF29] border-[#36BF29]' : 'bg-[#F4F4F4] border-[#737373]'} rounded-full border flex items-center justify-center`}>
-              <span className={`${currentStep >= 2 ? 'text-white' : 'text-[#807E7E]'} text-xs sm:text-sm lg:text-[15px] font-normal leading-[18px] font-inter`}>
-                2
-              </span>
-            </div>
-            <div className="w-8 sm:w-10 lg:w-[51px] h-0 border-t border-[#807E7E]"></div>
-            <div className={`w-6 h-6 sm:w-7 sm:h-7 lg:w-[31px] lg:h-[31px] ${currentStep >= 3 ? 'bg-[#36BF29] border-[#36BF29]' : 'bg-[#F4F4F4] border-[#807E7E]'} rounded-full border flex items-center justify-center`}>
-              <span className={`${currentStep >= 3 ? 'text-white' : 'text-[#807E7E]'} text-xs sm:text-sm lg:text-[15px] font-normal leading-[18px] font-inter`}>
-                3
-              </span>
-            </div>
-          </div>
-
-          {/* Step 1: Form Content */}
+        <div className="w-full max-w-[1300px] mx-auto border border-[#00508E] rounded-[5px] relative bg-white overflow-hidden">
+          
+          {/* Step 1: Form Fields */}
           {currentStep === 1 && (
             <>
-              {/* Applicant Details Section */}
-              <div className="flex flex-col gap-[13px]">
-                <h3 className="text-black text-lg sm:text-xl lg:text-[20px] font-extrabold leading-tight lg:leading-[24px] font-inter">
-                  Applicant Details
-                </h3>
+              {/* Applicant Information Header */}
+              <div className="px-8 pt-12 pb-6">
+                <div className="mb-2">
+                  <h2 className="text-black text-[20px] font-extrabold leading-[24px]">Applicant Information</h2>
+                </div>
+                <div className="mb-8">
+                  <p className="text-black text-[15px] font-normal leading-[18px]">
+                    Please fill out all required information for your application
+                  </p>
+                </div>
 
-<<<<<<< HEAD
-            {/* Form rows */}
-            <div className="space-y-4">
-              {/* Full Name and Address */}
-              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-8 lg:gap-[56px]">
-                <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px]">
-                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter mb-[7px] block">
-                    Full Name
-                  </label>
-                  <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
+                {/* Progress Steps */}
+                <div className="flex items-center justify-start gap-[51px] mb-8">
+                  <div className="flex items-center gap-2">
+                    <div className={`w-[31px] h-[31px] rounded-full flex items-center justify-center border ${
+                      currentStep >= 1 ? 'bg-[#36BF29] border-[#36BF29]' : 'bg-[#F4F4F4] border-[#737373]'
+                    }`}>
+                      <span className={`text-[15px] font-normal ${
+                        currentStep >= 1 ? 'text-white' : 'text-[#807E7E]'
+                      }`}>1</span>
+                    </div>
+                  </div>
+                  <div className={`w-[51px] h-[1px] ${currentStep >= 2 ? 'bg-[#36BF29]' : 'bg-[#737373]'}`}></div>
+                  <div className="flex items-center gap-2">
+                    <div className={`w-[31px] h-[31px] rounded-full flex items-center justify-center border ${
+                      currentStep >= 2 ? 'bg-[#36BF29] border-[#36BF29]' : 'bg-[#F4F4F4] border-[#737373]'
+                    }`}>
+                      <span className={`text-[15px] font-normal ${
+                        currentStep >= 2 ? 'text-white' : 'text-[#807E7E]'
+                      }`}>2</span>
+                    </div>
+                  </div>
+                  <div className={`w-[51px] h-[1px] ${currentStep >= 3 ? 'bg-[#36BF29]' : 'bg-[#807E7E]'}`}></div>
+                  <div className="flex items-center gap-2">
+                    <div className={`w-[31px] h-[31px] rounded-full flex items-center justify-center border ${
+                      currentStep >= 3 ? 'bg-[#36BF29] border-[#36BF29]' : 'bg-[#F4F4F4] border-[#807E7E]'
+                    }`}>
+                      <span className={`text-[15px] font-normal ${
+                        currentStep >= 3 ? 'text-white' : 'text-[#807E7E]'
+                      }`}>3</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Applicant Details Section */}
+              <div className="px-8 mb-8">
+                <h3 className="text-black text-[20px] font-extrabold leading-[24px] mb-4">Applicant Details</h3>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-14 mb-6">
+                  {/* Full Name */}
+                  <div className="flex flex-col gap-2">
+                    <label className="text-black text-[13px] font-semibold leading-[22px]">Full Name</label>
                     <input
                       type="text"
                       placeholder="Enter applicant's full name"
-                      className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
                       value={formData.seller.fullName}
                       onChange={(e) => handleInputChange("seller", "fullName", e.target.value)}
+                      className="w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E]"
                     />
+                    {errors.seller.fullName && (
+                      <span className="text-red-500 text-xs">{errors.seller.fullName}</span>
+                    )}
                   </div>
-                  <p className="text-red-500 text-xs mt-1 h-4">{errors.seller.fullName}</p>
-                </div>
-                <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px]">
-                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter mb-[7px] block">Address</label>
-                  <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
+
+                  {/* Address */}
+                  <div className="flex flex-col gap-2">
+                    <label className="text-black text-[13px] font-semibold leading-[22px]">Address</label>
                     <input
                       type="text"
                       placeholder="Enter Applicants Address"
-                      className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
                       value={formData.seller.address}
                       onChange={(e) => handleInputChange("seller", "address", e.target.value)}
+                      className="w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E]"
                     />
+                    {errors.seller.address && (
+                      <span className="text-red-500 text-xs">{errors.seller.address}</span>
+                    )}
                   </div>
-                  <p className="text-red-500 text-xs mt-1 h-4">{errors.seller.address}</p>
                 </div>
-              </div>
 
-              {/* Email and Phone */}
-              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-8 lg:gap-[56px]">
-                <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px]">
-                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter mb-[7px] block">
-                    Email
-                  </label>
-                  <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                    <input
-                      type="email"
-                      placeholder="Enter applicant's email"
-                      className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                      value={formData.seller.email}
-                      onChange={(e) => handleInputChange("seller", "email", e.target.value)}
-                    />
-                  </div>
-                  <p className="text-red-500 text-xs mt-1 h-4">{errors.seller.email}</p>
-                </div>
-                <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px]">
-                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter mb-[7px] block">Phone</label>
-                  <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                    <input
-                      type="tel"
-                      placeholder="Enter applicant's phone number"
-                      className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                      value={formData.seller.phone}
-                      onChange={(e) => handleInputChange("seller", "phone", e.target.value)}
-                    />
-                  </div>
-                  <p className="text-red-500 text-xs mt-1 h-4">{errors.seller.phone}</p>
-                </div>
-              </div>
-
-              {/* NIC and Date */}
-              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-8 lg:gap-[56px]">
-                <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px]">
-                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter mb-[7px] block">
-                    National Identity Card Number
-                  </label>
-                  <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-14 mb-6">
+                  {/* National Identity Card Number */}
+                  <div className="flex flex-col gap-2">
+                    <label className="text-black text-[13px] font-semibold leading-[22px]">
+                      National Identity Card Number
+                    </label>
                     <input
                       type="text"
                       placeholder="Enter applicant's National Identity Card Number"
-                      className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
                       value={formData.seller.nic}
                       onChange={(e) => handleInputChange("seller", "nic", e.target.value)}
+                      className="w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E]"
                     />
+                    {errors.seller.nic && (
+                      <span className="text-red-500 text-xs">{errors.seller.nic}</span>
+                    )}
                   </div>
-                  <p className="text-red-500 text-xs mt-1 h-4">{errors.seller.nic}</p>
-                </div>
-                <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px]">
-                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter mb-[7px] block">Date</label>
-                  <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
+
+                  {/* Date */}
+                  <div className="flex flex-col gap-2">
+                    <label className="text-black text-[13px] font-semibold leading-[22px]">Date</label>
                     <input
                       type="date"
-                      placeholder="Enter Date"
-                      className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
                       value={formData.seller.date}
                       onChange={(e) => handleInputChange("seller", "date", e.target.value)}
+                      className="w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E]"
                     />
-                  </div>
-                  <p className="text-red-500 text-xs mt-1 h-4">{errors.seller.date}</p>
-                </div>
-              </div>
-
-              {/* Signature Field */}
-              <div className="flex flex-col gap-[7px]">
-                <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">Signature</label>
-                <div
-                  {...getRootPropsSignature()}
-                  className={`w-full h-[119px] bg-[#E9E9E9] rounded-[6px] relative overflow-hidden border-none focus:outline-none focus:ring-2 focus:ring-[#00508E] flex items-center justify-center cursor-pointer ${isDragActiveSignature ? "bg-blue-50 ring-2 ring-[#00508E]" : ""
-                    }`}
-                >
-                  <input {...getInputPropsSignature()} />
-                  {signature ? (
-                    <div className="relative w-full h-full">
-                      <img
-                        src={signature || "/placeholder.svg"}
-                        alt="Signature"
-                        className="w-full h-full object-contain p-2"
-                      />
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          removeSignature()
-                        }}
-                        className="absolute top-2 right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600 transition-colors px-3 sm:px-4"
-                      >
-                        ×
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="text-center px-0 my-9">
-                      <div className="text-[#636363] text-[14px] font-medium mb-1 py-0">
-                        {isDragActiveSignature ? "Drop signature image here" : "Click to add signature or drag here"}
-                      </div>
-                      <div className="text-[#888] text-[12px] my-0">Upload image file (JPG, PNG, GIF)</div>
-                    </div>
-                  )}
-                </div>
-=======
-                {/* First Row - Full Name and Address */}
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8 lg:gap-[56px] pb-4">
-                  <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
-                    <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
-                      Full Name
-                    </label>
-                    <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                      <input
-                        type="text"
-                        placeholder="Enter applicant's full name"
-                        className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                        value={formData.seller.fullName}
-                        onChange={(e) => handleInputChange("seller", "fullName", e.target.value)}
-                      />
-                    </div>
-                    {errors.seller.fullName && <p className="text-red-500 text-xs mt-1">{errors.seller.fullName}</p>}
-                  </div>
-                  <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
-                    <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">Address</label>
-                    <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                      <input
-                        type="text"
-                        placeholder="Enter Applicants Address"
-                        className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                        value={formData.seller.address}
-                        onChange={(e) => handleInputChange("seller", "address", e.target.value)}
-                      />
-                    </div>
-                    {errors.seller.address && <p className="text-red-500 text-xs mt-1">{errors.seller.address}</p>}
-                  </div>
-                </div>
-
-                {/* Second Row - Email and Phone */}
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8 lg:gap-[56px] pb-4">
-                  <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
-                    <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
-                      Email
-                    </label>
-                    <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                      <input
-                        type="email"
-                        placeholder="Enter applicant's email"
-                        className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                        value={formData.seller.email}
-                        onChange={(e) => handleInputChange("seller", "email", e.target.value)}
-                      />
-                    </div>
-                    {errors.seller.email && <p className="text-red-500 text-xs mt-1">{errors.seller.email}</p>}
-                  </div>
-                  <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
-                    <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">Phone</label>
-                    <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                      <input
-                        type="tel"
-                        placeholder="Enter applicant's phone number"
-                        className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                        value={formData.seller.phone}
-                        onChange={(e) => handleInputChange("seller", "phone", e.target.value)}
-                      />
-                    </div>
-                    {errors.seller.phone && <p className="text-red-500 text-xs mt-1">{errors.seller.phone}</p>}
-                  </div>
-                </div>
-
-                {/* Third Row - NIC and Date */}
-                <div className="flex items-center justify-between">
-                  <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
-                    <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
-                      National Identity Card Number
-                    </label>
-                    <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                      <input
-                        type="text"
-                        placeholder="Enter applicant's National Identity Card Number"
-                        className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                        value={formData.seller.nic}
-                        onChange={(e) => handleInputChange("seller", "nic", e.target.value)}
-                      />
-                    </div>
-                    {errors.seller.nic && <p className="text-red-500 text-xs mt-1">{errors.seller.nic}</p>}
-                  </div>
-                  <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
-                    <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">Date</label>
-                    <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                      <input
-                        type="date"
-                        placeholder="Enter Date"
-                        className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                        value={formData.seller.date}
-                        onChange={(e) => handleInputChange("seller", "date", e.target.value)}
-                      />
-                    </div>
-                    {errors.seller.date && <p className="text-red-500 text-xs mt-1">{errors.seller.date}</p>}
+                    {errors.seller.date && (
+                      <span className="text-red-500 text-xs">{errors.seller.date}</span>
+                    )}
                   </div>
                 </div>
 
                 {/* Signature Field */}
-                <div className="flex flex-col gap-[7px]">
-                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">Signature</label>
+                <div className="flex flex-col gap-2">
+                  <label className="text-black text-[13px] font-semibold leading-[22px]">Signature</label>
                   <div
                     {...getRootPropsSignature()}
-                    className={`w-full h-[119px] bg-[#E9E9E9] rounded-[6px] relative overflow-hidden border-none focus:outline-none focus:ring-2 focus:ring-[#00508E] flex items-center justify-center cursor-pointer ${isDragActiveSignature ? "bg-blue-50 ring-2 ring-[#00508E]" : ""
-                      }`}
+                    className={`w-full h-[119px] bg-[#E9E9E9] rounded-[6px] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E] flex items-center justify-center cursor-pointer relative overflow-hidden ${
+                      isDragActiveSignature ? "ring-2 ring-[#00508E]" : ""
+                    }`}
                   >
                     <input {...getInputPropsSignature()} />
                     {signature ? (
@@ -947,225 +713,209 @@ export default function LandTransferApplicationPage() {
                             e.stopPropagation()
                             removeSignature()
                           }}
-                          className="absolute top-2 right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600 transition-colors px-3 sm:px-4"
+                          className="absolute top-2 right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600"
                         >
                           ×
                         </button>
                       </div>
                     ) : (
-                      <div className="text-center px-0 my-9">
-                        <div className="text-[#636363] text-[14px] font-medium mb-1 py-0">
-                          {isDragActiveSignature ? "Drop signature image here" : "Click to add signature or drag here"}
-                        </div>
-                        <div className="text-[#888] text-[12px] my-0">Upload image file (JPG, PNG, GIF)</div>
+                      <div className="text-center">
+                        <span className="text-[#636363] text-[12px]">
+                          {isDragActiveSignature
+                            ? "Drop signature image here"
+                            : "Click to add signature image or drag here"}
+                        </span>
+                        <p className="text-[#636363] text-[10px] mt-1">Supports JPG, PNG, GIF</p>
                       </div>
                     )}
                   </div>
                 </div>
               </div>
 
-              {/* Blue Divider Line */}
-              <div className="w-full h-0 border-t border-[#00508E]"></div>
+              {/* Divider */}
+              <div className="w-full h-[1px] bg-[#00508E] mx-8" style={{ width: "calc(100% - 64px)" }} />
 
               {/* Property Details Section */}
-              <div className="flex flex-col gap-[13px]">
-                <h3 className="text-black text-lg sm:text-xl lg:text-[20px] font-extrabold leading-tight lg:leading-[24px] font-inter">
-                  Property Details
-                </h3>
+              <div className="px-8 py-8">
+                <h3 className="text-black text-[20px] font-extrabold leading-[24px] mb-4">Property Details</h3>
 
                 {/* First Row - Village and Name of Land */}
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8 lg:gap-[56px] pb-4">
-                  <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
-                    <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-14 mb-6">
+                  <div className="flex flex-col gap-2">
+                    <label className="text-black text-[13px] font-semibold leading-[22px]">
                       Village <span className="font-light">(where the land is located)</span>
                     </label>
-                    <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                      <input
-                        type="text"
-                        placeholder="Enter village name"
-                        className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                        value={formData.property.village}
-                        onChange={(e) => handleInputChange("property", "village", e.target.value)}
-                      />
-                    </div>
-                    {errors.property.village && <p className="text-red-500 text-xs mt-1">{errors.property.village}</p>}
+                    <input
+                      type="text"
+                      placeholder="Enter village name"
+                      value={formData.property.village}
+                      onChange={(e) => handleInputChange("property", "village", e.target.value)}
+                      className="w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E]"
+                    />
+                    {errors.property.village && (
+                      <span className="text-red-500 text-xs">{errors.property.village}</span>
+                    )}
                   </div>
-                  <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
-                    <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
-                      Name of the Land
-                    </label>
-                    <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                      <input
-                        type="text"
-                        placeholder="Enter Land name"
-                        className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                        value={formData.property.nameOfLand}
-                        onChange={(e) => handleInputChange("property", "nameOfLand", e.target.value)}
-                      />
-                    </div>
-                    {errors.property.nameOfLand && <p className="text-red-500 text-xs mt-1">{errors.property.nameOfLand}</p>}
+                  <div className="flex flex-col gap-2">
+                    <label className="text-black text-[13px] font-semibold leading-[22px]">Name of the Land</label>
+                    <input
+                      type="text"
+                      placeholder="Enter Land name"
+                      value={formData.property.nameOfLand}
+                      onChange={(e) => handleInputChange("property", "nameOfLand", e.target.value)}
+                      className="w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E]"
+                    />
+                    {errors.property.nameOfLand && (
+                      <span className="text-red-500 text-xs">{errors.property.nameOfLand}</span>
+                    )}
                   </div>
                 </div>
 
                 {/* Second Row - Extent and Korale */}
-                <div className="flex items-center justify-between h-[68px]">
-                  <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
-                    <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
-                      Extent of the land
-                    </label>
-                    <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                      <input
-                        type="text"
-                        placeholder="Enter extent of the land"
-                        className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                        value={formData.property.extent}
-                        onChange={(e) => handleInputChange("property", "extent", e.target.value)}
-                      />
-                    </div>
-                    {errors.property.extent && <p className="text-red-500 text-xs mt-1">{errors.property.extent}</p>}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-14 mb-6">
+                  <div className="flex flex-col gap-2">
+                    <label className="text-black text-[13px] font-semibold leading-[22px]">Extent of the land</label>
+                    <input
+                      type="text"
+                      placeholder="Enter extent of the land"
+                      value={formData.property.extent}
+                      onChange={(e) => handleInputChange("property", "extent", e.target.value)}
+                      className="w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E]"
+                    />
+                    {errors.property.extent && (
+                      <span className="text-red-500 text-xs">{errors.property.extent}</span>
+                    )}
                   </div>
-                  <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
-                    <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">Korale</label>
-                    <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                      <input
-                        type="text"
-                        placeholder="Enter Korale name"
-                        className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                        value={formData.property.korale}
-                        onChange={(e) => handleInputChange("property", "korale", e.target.value)}
-                      />
-                    </div>
-                    {errors.property.korale && <p className="text-red-500 text-xs mt-1">{errors.property.korale}</p>}
+                  <div className="flex flex-col gap-2">
+                    <label className="text-black text-[13px] font-semibold leading-[22px]">Korale</label>
+                    <input
+                      type="text"
+                      placeholder="Enter Korale name"
+                      value={formData.property.korale}
+                      onChange={(e) => handleInputChange("property", "korale", e.target.value)}
+                      className="w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E]"
+                    />
+                    {errors.property.korale && (
+                      <span className="text-red-500 text-xs">{errors.property.korale}</span>
+                    )}
                   </div>
                 </div>
 
                 {/* Third Row - Pattu and GN Division */}
-                <div className="flex items-center justify-between">
-                  <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
-                    <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">Pattu</label>
-                    <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                      <input
-                        type="text"
-                        placeholder="Enter pattu name"
-                        className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                        value={formData.property.pattu}
-                        onChange={(e) => handleInputChange("property", "pattu", e.target.value)}
-                      />
-                    </div>
-                    {errors.property.pattu && <p className="text-red-500 text-xs mt-1">{errors.property.pattu}</p>}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-14 mb-6">
+                  <div className="flex flex-col gap-2">
+                    <label className="text-black text-[13px] font-semibold leading-[22px]">Pattu</label>
+                    <input
+                      type="text"
+                      placeholder="Enter pattu name"
+                      value={formData.property.pattu}
+                      onChange={(e) => handleInputChange("property", "pattu", e.target.value)}
+                      className="w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E]"
+                    />
+                    {errors.property.pattu && (
+                      <span className="text-red-500 text-xs">{errors.property.pattu}</span>
+                    )}
                   </div>
-                  <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
-                    <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
-                      GN Division
-                    </label>
-                    <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                      <input
-                        type="text"
-                        placeholder="Enter GN Division"
-                        className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                        value={formData.property.gnDivision}
-                        onChange={(e) => handleInputChange("property", "gnDivision", e.target.value)}
-                      />
-                    </div>
-                    {errors.property.gnDivision && <p className="text-red-500 text-xs mt-1">{errors.property.gnDivision}</p>}
+                  <div className="flex flex-col gap-2">
+                    <label className="text-black text-[13px] font-semibold leading-[22px]">GN Division</label>
+                    <input
+                      type="text"
+                      placeholder="Enter GN Division"
+                      value={formData.property.gnDivision}
+                      onChange={(e) => handleInputChange("property", "gnDivision", e.target.value)}
+                      className="w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E]"
+                    />
+                    {errors.property.gnDivision && (
+                      <span className="text-red-500 text-xs">{errors.property.gnDivision}</span>
+                    )}
                   </div>
                 </div>
 
                 {/* Fourth Row - DS Division */}
-                <div className="flex items-center justify-between">
-                  <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] flex flex-col gap-[7px]">
-                    <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
-                      DS Division
-                    </label>
-                    <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                      <input
-                        type="text"
-                        placeholder="Enter DS Division"
-                        className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                        value={formData.property.dsDivision}
-                        onChange={(e) => handleInputChange("property", "dsDivision", e.target.value)}
-                      />
-                    </div>
-                    {errors.property.dsDivision && <p className="text-red-500 text-xs mt-1">{errors.property.dsDivision}</p>}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-14 mb-6">
+                  <div className="flex flex-col gap-2">
+                    <label className="text-black text-[13px] font-semibold leading-[22px]">DS Division</label>
+                    <input
+                      type="text"
+                      placeholder="Enter DS Division"
+                      value={formData.property.dsDivision}
+                      onChange={(e) => handleInputChange("property", "dsDivision", e.target.value)}
+                      className="w-full h-[39px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E]"
+                    />
+                    {errors.property.dsDivision && (
+                      <span className="text-red-500 text-xs">{errors.property.dsDivision}</span>
+                    )}
                   </div>
-                  <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px] h-[22px]"></div>
+                  <div className="w-full"></div>
                 </div>
               </div>
 
+              {/* Divider */}
+              <div className="w-full h-[1px] bg-[#00508E] mx-8" style={{ width: "calc(100% - 64px)" }} />
+
               {/* Registers Required for Search Section */}
-              <div>
-                <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
-                  Registers required for search
+              <div className="px-8 py-8">
+                <label className="text-black text-[20px] font-extrabold leading-[24px] mb-6 block">
+                  Registers Required for Search
                 </label>
 
-                <div className="mt-4 sm:mt-6 space-y-4 sm:space-y-6 lg:mt-auto">
+                <div className="space-y-6">
                   {registerEntries.map((entry, index) => (
-                    <div
-                      key={entry.id}
-                      className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 lg:gap-[26px] items-start sm:items-end"
-                    >
+                    <div key={entry.id} className="flex flex-col md:flex-row gap-4 items-start md:items-end">
                       {/* Division Field */}
-                      <div className="w-full sm:w-[calc(33.333%-0.5rem)] md:w-[calc(30%-0.5rem)] lg:w-[274px] flex flex-col gap-[6px]">
-                        <label className="text-black text-xs sm:text-sm lg:text-[13px] font-normal font-inter">
+                      <div className="flex-1 min-w-0">
+                        <label className="text-black text-[13px] font-normal leading-[22px] block mb-2">
                           Division
                         </label>
-                        <div className="h-10 sm:h-9 lg:h-[35px] bg-[#E9E9E9] rounded-[6px] relative">
-                          <input
-                            type="text"
-                            placeholder="Enter division"
-                            value={entry.division}
-                            onChange={(e) => handleRegisterInputChange(entry.id, "division", e.target.value)}
-                            className="w-full h-full px-3 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-sm sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                          />
-                        </div>
+                        <input
+                          type="text"
+                          placeholder="Enter division"
+                          value={entry.division}
+                          onChange={(e) => handleRegisterInputChange(entry.id, "division", e.target.value)}
+                          className="w-full h-[35px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E]"
+                        />
                       </div>
 
                       {/* Vol.No Field */}
-                      <div className="w-full sm:w-[calc(33.333%-0.5rem)] md:w-[calc(30%-0.5rem)] lg:w-[274px] flex flex-col gap-[6px]">
-                        <label className="text-black text-xs sm:text-sm lg:text-[13px] font-normal font-inter">
+                      <div className="flex-1 min-w-0">
+                        <label className="text-black text-[13px] font-normal leading-[22px] block mb-2">
                           Vol.No
                         </label>
-                        <div className="h-10 sm:h-9 lg:h-[35px] bg-[#E9E9E9] rounded-[6px] relative">
-                          <input
-                            type="text"
-                            placeholder="Enter volume number"
-                            value={entry.volumeNo}
-                            onChange={(e) => handleRegisterInputChange(entry.id, "volumeNo", e.target.value)}
-                            className="w-full h-full px-3 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-sm sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                          />
-                        </div>
+                        <input
+                          type="text"
+                          placeholder="Enter volume number"
+                          value={entry.volumeNo}
+                          onChange={(e) => handleRegisterInputChange(entry.id, "volumeNo", e.target.value)}
+                          className="w-full h-[35px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E]"
+                        />
                       </div>
 
                       {/* Folio No Field */}
-                      <div className="w-full sm:w-[calc(33.333%-0.5rem)] md:w-[calc(30%-0.5rem)] lg:w-[274px] flex flex-col gap-[6px]">
-                        <label className="text-black text-xs sm:text-sm lg:text-[13px] font-normal font-inter">
+                      <div className="flex-1 min-w-0">
+                        <label className="text-black text-[13px] font-normal leading-[22px] block mb-2">
                           Folio No
                         </label>
-                        <div className="h-10 sm:h-9 lg:h-[35px] bg-[#E9E9E9] rounded-[6px] relative">
-                          <input
-                            type="text"
-                            placeholder="Enter folio number"
-                            value={entry.folioNo}
-                            onChange={(e) => handleRegisterInputChange(entry.id, "folioNo", e.target.value)}
-                            className="w-full h-full px-3 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-sm sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                          />
-                        </div>
+                        <input
+                          type="text"
+                          placeholder="Enter folio number"
+                          value={entry.folioNo}
+                          onChange={(e) => handleRegisterInputChange(entry.id, "folioNo", e.target.value)}
+                          className="w-full h-[35px] px-3 bg-[#E9E9E9] rounded-[6px] text-[12px] text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E]"
+                        />
                       </div>
 
                       {/* Action Buttons */}
-                      <div className="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center w-full sm:w-auto mt-2 sm:mt-0">
+                      <div className="flex gap-2 items-center">
                         {/* Add More Button - only show on last entry and if less than 8 entries */}
                         {index === registerEntries.length - 1 && registerEntries.length < 8 && (
                           <button
                             onClick={addRegisterEntry}
-                            className="w-full sm:w-auto sm:min-w-[100px] md:min-w-[118px] h-10 sm:h-9 lg:h-[34px] bg-[#002E51] rounded-[5px] border border-[#002E51] flex items-center justify-center cursor-pointer hover:bg-[#001a2e] transition-colors px-3 sm:px-4"
+                            className="h-[34px] px-4 bg-[#002E51] rounded-[5px] border border-[#002E51] flex items-center justify-center cursor-pointer hover:bg-[#001a2e] transition-colors"
                           >
-                            <span className="text-white text-sm sm:text-xs lg:text-[12px] font-normal font-inter">
-                              Add More
-                            </span>
-                            <div className="w-3 h-3 sm:w-[14px] sm:h-[14px] ml-2 flex items-center justify-center relative">
-                              <div className="w-[1px] h-3 sm:h-[14px] bg-white"></div>
-                              <div className="w-3 sm:w-[14px] h-[1px] bg-white absolute"></div>
+                            <span className="text-white text-[12px] font-normal">Add More</span>
+                            <div className="w-[14px] h-[14px] ml-2 flex items-center justify-center relative">
+                              <div className="w-[1px] h-[14px] bg-white"></div>
+                              <div className="w-[14px] h-[1px] bg-white absolute"></div>
                             </div>
                           </button>
                         )}
@@ -1174,7 +924,7 @@ export default function LandTransferApplicationPage() {
                         {registerEntries.length > 1 && (
                           <button
                             onClick={() => removeRegisterEntry(entry.id)}
-                            className="w-full sm:w-10 lg:w-[34px] h-10 sm:h-9 lg:h-[34px] bg-red-500 rounded-[5px] flex items-center justify-center cursor-pointer hover:bg-red-600 transition-colors"
+                            className="w-[34px] h-[34px] bg-red-500 rounded-[5px] flex items-center justify-center cursor-pointer hover:bg-red-600 transition-colors"
                             title="Remove this register entry"
                           >
                             <span className="text-white text-lg font-bold">×</span>
@@ -1185,7 +935,7 @@ export default function LandTransferApplicationPage() {
                   ))}
 
                   {/* Entry Counter */}
-                  <div className="text-xs sm:text-sm text-gray-500 mt-3 sm:mt-2 text-center sm:text-left">
+                  <div className="text-sm text-gray-500 mt-4 text-center">
                     {registerEntries.length} of 8 register entries
                   </div>
                 </div>
@@ -1195,324 +945,225 @@ export default function LandTransferApplicationPage() {
 
           {/* Step 2: Document Upload */}
           {currentStep === 2 && (
-            <div className="flex flex-col gap-8">
-              <h3 className="text-black text-lg sm:text-xl lg:text-[20px] font-extrabold leading-tight lg:leading-[24px] font-inter">
-                Required Documents
-              </h3>
-
-              {/* Document Upload Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {renderFileUpload(
-                  "Original Deed",
-                  "originalDeed",
-                  "Upload PDF file",
-                  getRootPropsOriginalDeed(),
-                  getInputPropsOriginalDeed(),
-                  isDragActiveOriginalDeed
-                )}
-
-                {renderFileUpload(
-                  "Purchaser NIC",
-                  "purchaserNIC", 
-                  "Upload PDF file",
-                  getRootPropsPurchaserNIC(),
-                  getInputPropsPurchaserNIC(),
-                  isDragActivePurchaserNIC
-                )}
-
-                {renderFileUpload(
-                  "Purchaser Photo",
-                  "purchaserPhoto",
-                  "Upload PDF file",
-                  getRootPropsPurchaserPhoto(),
-                  getInputPropsPurchaserPhoto(),
-                  isDragActivePurchaserPhoto
-                )}
-
-                {renderFileUpload(
-                  "Vendor Photo", 
-                  "vendorPhoto",
-                  "Upload PDF file",
-                  getRootPropsVendorPhoto(),
-                  getInputPropsVendorPhoto(),
-                  isDragActiveVendorPhoto
-                )}
-
-                {renderFileUpload(
-                  "Guarantor 1 NIC",
-                  "guarantor1NIC",
-                  "Upload PDF file", 
-                  getRootPropsGuarantor1NIC(),
-                  getInputPropsGuarantor1NIC(),
-                  isDragActiveGuarantor1NIC
-                )}
-
-                {renderFileUpload(
-                  "Guarantor 2 NIC",
-                  "guarantor2NIC",
-                  "Upload PDF file",
-                  getRootPropsGuarantor2NIC(),
-                  getInputPropsGuarantor2NIC(),
-                  isDragActiveGuarantor2NIC
-                )}
->>>>>>> 2240116d910eb676f43684fe74df6b89a64c9b72
-              </div>
-
-<<<<<<< HEAD
-
-          {/* Blue Divider Line */}
-          <div className="w-full h-0 border-t border-[#00508E]"></div>
-
-          {/* Property Details Section */}
-          <div className="flex flex-col gap-[13px]">
-            <h3 className="text-black text-lg sm:text-xl lg:text-[20px] font-extrabold leading-tight lg:leading-[24px] font-inter">
-              Property Details
-            </h3>
-
-            {/* Form Rows */}
-            <div className="space-y-4">
-              {/* Village and Name of Land */}
-              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-8 lg:gap-[56px]">
-                <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px]">
-                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter mb-[7px] block">
-                    Village <span className="font-light">(where the land is located)</span>
-                  </label>
-                  <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                    <input
-                      type="text"
-                      placeholder="Enter village name"
-                      className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                      value={formData.property.village}
-                      onChange={(e) => handleInputChange("property", "village", e.target.value)}
-                    />
+            <div className="px-8 py-8">
+              <h3 className="text-black text-[20px] font-extrabold leading-[24px] mb-4">Document Upload</h3>
+              <p className="text-black text-[15px] font-normal leading-[18px] mb-8">
+                Please upload all required documents for verification
+              </p>
+              
+              <div className="space-y-6">
+                {/* Original Deed */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-black text-[13px] font-semibold leading-[22px]">Original Deed (PDF)</label>
+                  <div
+                    {...getRootPropsOriginalDeed()}
+                    className={`w-full h-[119px] bg-[#E9E9E9] rounded-[6px] border-2 border-dashed border-gray-300 flex items-center justify-center cursor-pointer hover:bg-gray-100 ${
+                      isDragActiveOriginalDeed ? "border-[#00508E] bg-blue-50" : ""
+                    }`}
+                  >
+                    <input {...getInputPropsOriginalDeed()} />
+                    {fileUploads.originalDeed ? (
+                      <div className="text-center">
+                        <p className="text-green-600 font-medium">{fileUploads.originalDeed.name}</p>
+                        <p className="text-sm text-gray-500">Click to replace</p>
+                      </div>
+                    ) : (
+                      <div className="text-center">
+                        <p className="text-[#636363] text-[12px]">
+                          {isDragActiveOriginalDeed ? "Drop PDF here" : "Click to upload PDF or drag here"}
+                        </p>
+                      </div>
+                    )}
                   </div>
-                  <p className="text-red-500 text-xs mt-1 h-4">{errors.property.village}</p>
                 </div>
-                <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px]">
-                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter mb-[7px] block">
-                    Name of the Land
-                  </label>
-                  <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                    <input
-                      type="text"
-                      placeholder="Enter Land name"
-                      className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                      value={formData.property.nameOfLand}
-                      onChange={(e) => handleInputChange("property", "nameOfLand", e.target.value)}
-                    />
-                  </div>
-                  <p className="text-red-500 text-xs mt-1 h-4">{errors.property.nameOfLand}</p>
-                </div>
-              </div>
 
-              {/* Extent and Korale */}
-              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-8 lg:gap-[56px]">
-                <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px]">
-                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter mb-[7px] block">
-                    Extent of the land
-                  </label>
-                  <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                    <input
-                      type="text"
-                      placeholder="Enter extent of the land"
-                      className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                      value={formData.property.extent}
-                      onChange={(e) => handleInputChange("property", "extent", e.target.value)}
-                    />
+                {/* Purchaser NIC */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-black text-[13px] font-semibold leading-[22px]">Purchaser NIC (PDF)</label>
+                  <div
+                    {...getRootPropsPurchaserNIC()}
+                    className={`w-full h-[119px] bg-[#E9E9E9] rounded-[6px] border-2 border-dashed border-gray-300 flex items-center justify-center cursor-pointer hover:bg-gray-100 ${
+                      isDragActivePurchaserNIC ? "border-[#00508E] bg-blue-50" : ""
+                    }`}
+                  >
+                    <input {...getInputPropsPurchaserNIC()} />
+                    {fileUploads.purchaserNIC ? (
+                      <div className="text-center">
+                        <p className="text-green-600 font-medium">{fileUploads.purchaserNIC.name}</p>
+                        <p className="text-sm text-gray-500">Click to replace</p>
+                      </div>
+                    ) : (
+                      <div className="text-center">
+                        <p className="text-[#636363] text-[12px]">
+                          {isDragActivePurchaserNIC ? "Drop PDF here" : "Click to upload PDF or drag here"}
+                        </p>
+                      </div>
+                    )}
                   </div>
-                  <p className="text-red-500 text-xs mt-1 h-4">{errors.property.extent}</p>
                 </div>
-                <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px]">
-                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter mb-[7px] block">Korale</label>
-                  <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                    <input
-                      type="text"
-                      placeholder="Enter Korale name"
-                      className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                      value={formData.property.korale}
-                      onChange={(e) => handleInputChange("property", "korale", e.target.value)}
-                    />
+
+                {/* Continue with other document uploads */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-black text-[13px] font-semibold leading-[22px]">Purchaser Photo (PDF)</label>
+                  <div
+                    {...getRootPropsPurchaserPhoto()}
+                    className={`w-full h-[119px] bg-[#E9E9E9] rounded-[6px] border-2 border-dashed border-gray-300 flex items-center justify-center cursor-pointer hover:bg-gray-100 ${
+                      isDragActivePurchaserPhoto ? "border-[#00508E] bg-blue-50" : ""
+                    }`}
+                  >
+                    <input {...getInputPropsPurchaserPhoto()} />
+                    {fileUploads.purchaserPhoto ? (
+                      <div className="text-center">
+                        <p className="text-green-600 font-medium">{fileUploads.purchaserPhoto.name}</p>
+                        <p className="text-sm text-gray-500">Click to replace</p>
+                      </div>
+                    ) : (
+                      <div className="text-center">
+                        <p className="text-[#636363] text-[12px]">
+                          {isDragActivePurchaserPhoto ? "Drop PDF here" : "Click to upload PDF or drag here"}
+                        </p>
+                      </div>
+                    )}
                   </div>
-                  <p className="text-red-500 text-xs mt-1 h-4">{errors.property.korale}</p>
                 </div>
-              </div>
 
-              {/* Pattu and GN Division */}
-              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-8 lg:gap-[56px]">
-                <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px]">
-                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter mb-[7px] block">Pattu</label>
-                  <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                    <input
-                      type="text"
-                      placeholder="Enter pattu name"
-                      className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                      value={formData.property.pattu}
-                      onChange={(e) => handleInputChange("property", "pattu", e.target.value)}
-                    />
+                {/* Vendor Photo */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-black text-[13px] font-semibold leading-[22px]">Vendor Photo (PDF)</label>
+                  <div
+                    {...getRootPropsVendorPhoto()}
+                    className={`w-full h-[119px] bg-[#E9E9E9] rounded-[6px] border-2 border-dashed border-gray-300 flex items-center justify-center cursor-pointer hover:bg-gray-100 ${
+                      isDragActiveVendorPhoto ? "border-[#00508E] bg-blue-50" : ""
+                    }`}
+                  >
+                    <input {...getInputPropsVendorPhoto()} />
+                    {fileUploads.vendorPhoto ? (
+                      <div className="text-center">
+                        <p className="text-green-600 font-medium">{fileUploads.vendorPhoto.name}</p>
+                        <p className="text-sm text-gray-500">Click to replace</p>
+                      </div>
+                    ) : (
+                      <div className="text-center">
+                        <p className="text-[#636363] text-[12px]">
+                          {isDragActiveVendorPhoto ? "Drop PDF here" : "Click to upload PDF or drag here"}
+                        </p>
+                      </div>
+                    )}
                   </div>
-                  <p className="text-red-500 text-xs mt-1 h-4">{errors.property.pattu}</p>
                 </div>
-                <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px]">
-                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter mb-[7px] block">
-                    GN Division
-                  </label>
-                  <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                    <input
-                      type="text"
-                      placeholder="Enter GN Division"
-                      className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                      value={formData.property.gnDivision}
-                      onChange={(e) => handleInputChange("property", "gnDivision", e.target.value)}
-                    />
+
+                {/* Guarantor 1 NIC */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-black text-[13px] font-semibold leading-[22px]">Guarantor 1 NIC (PDF)</label>
+                  <div
+                    {...getRootPropsGuarantor1NIC()}
+                    className={`w-full h-[119px] bg-[#E9E9E9] rounded-[6px] border-2 border-dashed border-gray-300 flex items-center justify-center cursor-pointer hover:bg-gray-100 ${
+                      isDragActiveGuarantor1NIC ? "border-[#00508E] bg-blue-50" : ""
+                    }`}
+                  >
+                    <input {...getInputPropsGuarantor1NIC()} />
+                    {fileUploads.guarantor1NIC ? (
+                      <div className="text-center">
+                        <p className="text-green-600 font-medium">{fileUploads.guarantor1NIC.name}</p>
+                        <p className="text-sm text-gray-500">Click to replace</p>
+                      </div>
+                    ) : (
+                      <div className="text-center">
+                        <p className="text-[#636363] text-[12px]">
+                          {isDragActiveGuarantor1NIC ? "Drop PDF here" : "Click to upload PDF or drag here"}
+                        </p>
+                      </div>
+                    )}
                   </div>
-                  <p className="text-red-500 text-xs mt-1 h-4">{errors.property.gnDivision}</p>
                 </div>
-              </div>
 
-              {/* DS Division */}
-              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-8 lg:gap-[56px]">
-                <div className="w-full sm:w-[calc(50%-1rem)] lg:w-[581px]">
-                  <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter mb-[7px] block">
-                    DS Division
-                  </label>
-                  <div className="h-8 sm:h-9 lg:h-[39px] bg-[#E9E9E9] rounded-[6px] relative">
-                    <input
-                      type="text"
-                      placeholder="Enter DS Division"
-                      className="w-full h-full px-2 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-xs sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                      value={formData.property.dsDivision}
-                      onChange={(e) => handleInputChange("property", "dsDivision", e.target.value)}
-                    />
+                {/* Guarantor 2 NIC */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-black text-[13px] font-semibold leading-[22px]">Guarantor 2 NIC (PDF)</label>
+                  <div
+                    {...getRootPropsGuarantor2NIC()}
+                    className={`w-full h-[119px] bg-[#E9E9E9] rounded-[6px] border-2 border-dashed border-gray-300 flex items-center justify-center cursor-pointer hover:bg-gray-100 ${
+                      isDragActiveGuarantor2NIC ? "border-[#00508E] bg-blue-50" : ""
+                    }`}
+                  >
+                    <input {...getInputPropsGuarantor2NIC()} />
+                    {fileUploads.guarantor2NIC ? (
+                      <div className="text-center">
+                        <p className="text-green-600 font-medium">{fileUploads.guarantor2NIC.name}</p>
+                        <p className="text-sm text-gray-500">Click to replace</p>
+                      </div>
+                    ) : (
+                      <div className="text-center">
+                        <p className="text-[#636363] text-[12px]">
+                          {isDragActiveGuarantor2NIC ? "Drop PDF here" : "Click to upload PDF or drag here"}
+                        </p>
+                      </div>
+                    )}
                   </div>
-                  <p className="text-red-500 text-xs mt-1 h-4">{errors.property.dsDivision}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-          {/* Registers Required for Search Section */}
-          <div>
-            <label className="text-black text-xs sm:text-sm lg:text-[13px] font-semibold font-inter">
-              Registers required for search
-            </label>
-
-            <div className="mt-4 sm:mt-6 space-y-4 sm:space-y-6 lg:mt-auto">
-              {registerEntries.map((entry, index) => (
-                <div
-                  key={entry.id}
-                  className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 lg:gap-[26px] items-start sm:items-end"
-                >
-                  {/* Division Field */}
-                  <div className="w-full sm:w-[calc(33.333%-0.5rem)] md:w-[calc(30%-0.5rem)] lg:w-[274px] flex flex-col gap-[6px]">
-                    <label className="text-black text-xs sm:text-sm lg:text-[13px] font-normal font-inter">
-                      Division
-                    </label>
-                    <div className="h-10 sm:h-9 lg:h-[35px] bg-[#E9E9E9] rounded-[6px] relative">
-                      <input
-                        type="text"
-                        placeholder="Enter division"
-                        value={entry.division}
-                        onChange={(e) => handleRegisterInputChange(entry.id, "division", e.target.value)}
-                        className="w-full h-full px-3 sm:px-3 lg:px-[10px] bg-transparent text-[#636363] text-sm sm:text-sm lg:text-[12px] font-inter border-none outline-none"
-                      />
-=======
-              {/* Upload Progress */}
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <div className="text-sm font-medium mb-2">Upload Progress:</div>
-                <div className="space-y-1">
-                  {Object.entries(fileUploads).map(([key, file]) => (
-                    <div key={key} className="flex items-center justify-between text-xs">
-                      <span className="capitalize">{key.replace(/([A-Z])/g, ' $1')}</span>
-                      <span className={file ? "text-green-600" : "text-gray-400"}>
-                        {file ? "✓ Uploaded" : "Pending"}
-                      </span>
->>>>>>> 2240116d910eb676f43684fe74df6b89a64c9b72
-                    </div>
-                  ))}
                 </div>
               </div>
             </div>
           )}
 
-          {/* Step 3: Verification */}
+          {/* Step 3: AI Verification */}
           {currentStep === 3 && (
-            <div className="flex flex-col gap-8">
-              <h3 className="text-black text-lg sm:text-xl lg:text-[20px] font-extrabold leading-tight lg:leading-[24px] font-inter">
-                Document Verification
-              </h3>
-
-              <div className="space-y-6">
-                {["originalDeed", "purchaserNIC", "purchaserPhoto", "vendorPhoto"].map((doc, index) => (
-                  <div key={doc} className="flex items-center gap-4 p-4 border rounded-lg">
-                    <div className="w-8 h-8 flex items-center justify-center">
-                      {verificationStatus[doc] === "checking" ? (
-                        <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
-                      ) : verificationStatus[doc] === "verified" ? (
-                        <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                          <span className="text-white text-xs">✓</span>
-                        </div>
-                      ) : (
-                        <div className="w-6 h-6 bg-gray-300 rounded-full"></div>
+            <div className="px-8 py-8">
+              <h3 className="text-black text-[20px] font-extrabold leading-[24px] mb-4">AI Document Verification</h3>
+              <p className="text-black text-[15px] font-normal leading-[18px] mb-8">
+                Our AI system is verifying your uploaded documents...
+              </p>
+              
+              <div className="space-y-4">
+                {["originalDeed", "purchaserNIC", "purchaserPhoto", "vendorPhoto"].map((doc) => (
+                  <div key={doc} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                    <span className="font-medium capitalize">{doc.replace(/([A-Z])/g, ' $1').trim()}</span>
+                    <div className="flex items-center gap-2">
+                      {verificationStatus[doc] === "checking" && (
+                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-[#00508E]"></div>
                       )}
-                    </div>
-                    <div className="flex-1">
-                      <div className="font-medium capitalize">{doc.replace(/([A-Z])/g, ' $1')}</div>
-                      <div className="text-sm text-gray-500">
-                        {verificationStatus[doc] === "checking" ? "Verifying document..." : 
-                         verificationStatus[doc] === "verified" ? "Document verified successfully" : 
-                         "Waiting for verification"}
-                      </div>
+                      {verificationStatus[doc] === "verified" && (
+                        <div className="text-green-500 font-bold">✓ Verified</div>
+                      )}
+                      {!verificationStatus[doc] && (
+                        <div className="text-gray-400">Waiting...</div>
+                      )}
                     </div>
                   </div>
                 ))}
               </div>
-
+              
               {hasVerified && (
-                <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                  <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                      <span className="text-white text-xs">✓</span>
-                    </div>
-                    <span className="text-green-800 font-medium">All documents verified successfully!</span>
-                  </div>
-                  <p className="text-green-700 text-sm mt-2">
-                    You can now proceed to the payment section to complete your application.
-                  </p>
+                <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+                  <p className="text-green-800 font-medium">✓ All documents verified successfully!</p>
+                  <p className="text-green-600 text-sm">You can now proceed to payment.</p>
                 </div>
               )}
             </div>
           )}
 
           {/* Navigation Buttons */}
-          <div className="w-full flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-0">
+          <div className="px-8 pb-8 flex justify-between items-center">
             <button
-              className="w-full sm:w-auto sm:min-w-[73px] h-11 sm:h-[44px] bg-white border border-[#002E51] rounded-[8px] flex items-center justify-center hover:bg-gray-50 transition-colors px-4"
               onClick={handleBack}
+              className="w-[73px] h-[44px] bg-white border border-[#002E51] rounded-[8px] flex items-center justify-center hover:bg-gray-50 transition-colors"
             >
-              <span className="text-[#002E51] text-base font-semibold font-inter">Back</span>
+              <span className="text-black text-[16px] font-medium">Back</span>
             </button>
-<<<<<<< HEAD
 
-            {/* Navigation error */}
-=======
->>>>>>> 2240116d910eb676f43684fe74df6b89a64c9b72
             <button
-              className={`w-full sm:w-auto sm:min-w-[120px] h-11 sm:h-[44px] bg-[#002E51] rounded-[8px] flex items-center justify-center hover:bg-[#001a2e] transition-colors px-4 ${
-              (currentStep === 3 && !hasVerified) ? "opacity-50 cursor-not-allowed" : ""
-              }`}
               onClick={handleContinue}
               disabled={currentStep === 3 && !hasVerified}
+              className="px-[18px] py-[7px] bg-[#002E51] rounded-[8px] flex items-center gap-3 hover:bg-[#003d73] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
-              <span className="text-white text-base font-semibold font-inter">
-              {currentStep === 3 ? "Proceed to Payment" : "Continue"}
+              <span className="text-white text-[16px] font-medium">
+                {currentStep === 3 ? "Proceed to Payment" : "Continue"}
               </span>
+              <img src="/continue.png" alt="Continue" className="w-[30px] h-[30px]" />
             </button>
           </div>
         </div>
       </main>
 
-      {/* Footer */}
       <Footer />
     </div>
   )
