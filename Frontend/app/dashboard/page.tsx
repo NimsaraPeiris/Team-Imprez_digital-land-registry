@@ -128,10 +128,6 @@ export default function ServiceDashboard() {
             </div>
           ))}
         </div>
-
-        <div className="fixed bottom-8 right-8 w-14 h-14 bg-[#4490CC] rounded-full shadow-lg flex items-center justify-center cursor-pointer hover:bg-[#3a7bb8] transition-colors">
-          <Plus size={32} className="text-white" />
-        </div>
       </main>
 
       <ContactSection />
