@@ -8,6 +8,7 @@ import DashboardNavigationBar from "@/components/dashboard-navigation-bar"
 import Footer from "@/components/footer"
 import { ArrowLeft, Upload, AlertCircle } from "lucide-react"
 import { useDropzone } from "react-dropzone"
+import { apiPostForm, normalizeDownloadUrl } from "@/lib/api"
 
 interface FormData {
   seller: {
@@ -81,14 +82,18 @@ export default function LandTransferApplicationPage() {
     vendorPhoto: File | null,
     guarantor1NIC: File | null,
     guarantor2NIC: File | null,
-  }>({
-    originalDeed: null,
-    purchaserNIC: null,
-    purchaserPhoto: null,
-    vendorPhoto: null,
-    guarantor1NIC: null,
-    guarantor2NIC: null,
-  })
+  }>(
+    {
+      originalDeed: null,
+      purchaserNIC: null,
+      purchaserPhoto: null,
+      vendorPhoto: null,
+      guarantor1NIC: null,
+      guarantor2NIC: null,
+    }
+  )
+
+  const [applicationId, setApplicationId] = useState<number | null>(null)
 
   const onDropOriginalDeed = useCallback((acceptedFiles: File[]) => {
     setFileUploads((prevState) => ({ ...prevState, originalDeed: acceptedFiles[0] }))
@@ -378,6 +383,40 @@ export default function LandTransferApplicationPage() {
     return !Object.values(newErrors).some((error) => error !== "")
   }
 
+  const uploadAllFiles = async (appId: number) => {
+    if (!appId) return
+    const mapping: Record<string, string> = {
+      originalDeed: "Current Title Deed",
+      purchaserNIC: "Photo ID (Buyer & Seller)",
+      purchaserPhoto: "Photo ID (Buyer & Seller)",
+      vendorPhoto: "Photo ID (Buyer & Seller)",
+      guarantor1NIC: "Photo ID (Buyer & Seller)",
+      guarantor2NIC: "Photo ID (Buyer & Seller)",
+    }
+
+    for (const key of Object.keys(fileUploads)) {
+      // @ts-ignore
+      const f: File | null = fileUploads[key]
+      if (!f) continue
+      try {
+        const form = new FormData()
+        form.append('application_id', String(appId))
+        form.append('document_type', mapping[key] || 'Current Title Deed')
+        form.append('file', f, f.name)
+        const res = await apiPostForm('/user/documents/upload', form)
+        if (!res.ok) {
+          console.error('upload failed for', key, await res.text())
+          continue
+        }
+        const json = await res.json()
+        const download = normalizeDownloadUrl(json.download_url || json.downloadUrl || json.download)
+        console.debug('uploaded', key, json)
+      } catch (e) {
+        console.error('upload exception', key, e)
+      }
+    }
+  }
+
   const handleContinue = () => {
     if (currentStep === 1) {
       // Validate seller and buyer details before proceeding
@@ -398,8 +437,13 @@ export default function LandTransferApplicationPage() {
       const allDocumentsUploaded = requiredDocuments.every((doc) => fileUploads[doc] !== null)
 
       if (allDocumentsUploaded) {
-        // Move to AI verification step (step 3)
-        setCurrentStep(3)
+        // If an application id exists, upload files first then move to verification
+        (async () => {
+          if (applicationId) {
+            await uploadAllFiles(applicationId)
+          }
+          setCurrentStep(3)
+        })()
       } else {
         alert("Please upload all required documents before continuing.")
       }

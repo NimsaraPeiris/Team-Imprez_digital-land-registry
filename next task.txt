@@ -1,0 +1,4 @@
+
+Fix the remaining TypeScript errors (lucide import mismatch, any leftover type complaints).
+Apply the same application+upload flow to the remaining application pages (copy-of-land, copy-of-document, etc.).
+Run frontend build and run backend tests.

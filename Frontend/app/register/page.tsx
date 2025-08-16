@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { apiPostJson } from "@/lib/api"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/contexts/auth-context"
 import GovernmentHeader from "@/components/government-header"
@@ -11,7 +12,7 @@ import { ChevronDown, AlertCircle } from "lucide-react"
 
 export default function RegisterPage() {
   const router = useRouter()
-  const { login } = useAuth()
+  const { login, authenticate } = useAuth()
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -177,7 +178,7 @@ export default function RegisterPage() {
   }
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }))
+    setFormData((prev: any) => ({ ...prev, [field]: value }))
 
     if (field === "id") {
       const error = validateNIC(value)
@@ -229,19 +230,37 @@ export default function RegisterPage() {
     }
 
     setIsLoading(true)
-    // Simulate OTP verification
-    setTimeout(() => {
-      setIsLoading(false)
-      login({
+    try {
+      const registerPayload = {
+        fullName: formData.fullName,
         id: formData.id,
-        phone: formData.phone,
-        name: formData.fullName,
         email: formData.email,
+        phone: formData.phone,
         requesterType: formData.requesterType,
         registrationOffice: formData.registrationOffice,
-      })
-      router.push("/dashboard")
-    }, 2000)
+      }
+
+      const res = await apiPostJson("/user/auth/register", registerPayload)
+
+      // apiPostJson returns a Fetch Response
+      if (!res.ok && res.status !== 400) {
+        const text = await res.text()
+        throw new Error(text || `Registration failed: ${res.status}`)
+      }
+
+      // Attempt to authenticate (email-only) to obtain token
+      const ok = await authenticate({ email: formData.email })
+      setIsLoading(false)
+      if (ok) {
+        router.push("/dashboard")
+      } else {
+        alert("Registration succeeded but automatic login failed. Please login manually.")
+      }
+    } catch (e: any) {
+      console.error(e)
+      setIsLoading(false)
+      alert(`Registration failed: ${e?.message || e}`)
+    }
   }
 
   const handleOtpChange = (value: string) => {

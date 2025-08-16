@@ -8,6 +8,7 @@ import GovernmentHeader from "@/components/government-header"
 import DashboardNavigationBar from "@/components/dashboard-navigation-bar"
 import Footer from "@/components/footer"
 import { useDropzone } from "react-dropzone"
+import { apiPostForm, normalizeDownloadUrl } from "@/lib/api"
 
 interface FormData {
   applicant: {
@@ -105,17 +106,53 @@ export default function LandTransferApplicationPage() {
     vendorPhoto: File | null
     guarantor1NIC: File | null
     guarantor2NIC: File | null
-  }>({
-    originalDeed: null,
-    purchaserNIC: null,
-    purchaserPhoto: null,
-    vendorPhoto: null,
-    guarantor1NIC: null,
-    guarantor2NIC: null,
-  })
+  }>(
+    {
+      originalDeed: null,
+      purchaserNIC: null,
+      purchaserPhoto: null,
+      vendorPhoto: null,
+      guarantor1NIC: null,
+      guarantor2NIC: null,
+    }
+  )
 
-  const [signatureImage, setSignatureImage] = useState<string | null>(null)
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  // Optional application id returned from server; when set, uploads will be associated with it
+  const [applicationId, setApplicationId] = useState<number | null>(null)
+
+  const uploadAllFiles = async (appId: number) => {
+    if (!appId) return
+    const mapping: Record<string, string> = {
+      originalDeed: "Current Title Deed",
+      purchaserNIC: "Photo ID (Buyer & Seller)",
+      purchaserPhoto: "Photo ID (Buyer & Seller)",
+      vendorPhoto: "Photo ID (Buyer & Seller)",
+      guarantor1NIC: "Photo ID (Buyer & Seller)",
+      guarantor2NIC: "Photo ID (Buyer & Seller)",
+    }
+
+    for (const key of Object.keys(fileUploads)) {
+      // @ts-ignore
+      const f: File | null = fileUploads[key]
+      if (!f) continue
+      try {
+        const form = new FormData()
+        form.append('application_id', String(appId))
+        form.append('document_type', mapping[key] || 'Current Title Deed')
+        form.append('file', f, f.name)
+        const res = await apiPostForm('/user/documents/upload', form)
+        if (!res.ok) {
+          console.error('upload failed for', key, await res.text())
+          continue
+        }
+        const json = await res.json()
+        const download = normalizeDownloadUrl(json.download_url || json.downloadUrl || json.download)
+        console.debug('uploaded', key, json)
+      } catch (e) {
+        console.error('upload exception', key, e)
+      }
+    }
+  }
 
   const onDropOriginalDeed = useCallback((acceptedFiles: File[]) => {
     setFileUploads((prevState) => ({ ...prevState, originalDeed: acceptedFiles[0] }))
@@ -406,9 +443,13 @@ export default function LandTransferApplicationPage() {
 
     try {
       // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000))
+      await new Promise((resolve) => setTimeout(resolve, 500))
 
-      // Navigate to confirmation page
+      // If an application id exists, upload files before navigating
+      if (applicationId) {
+        await uploadAllFiles(applicationId)
+      }
+
       router.push("/copy-of-land/payment")
     } catch (error) {
       alert("An error occurred while submitting the form. Please try again.")

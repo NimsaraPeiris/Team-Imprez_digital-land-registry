@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { apiPostJson } from "@/lib/api";
 import { IoIosChatbubbles } from "react-icons/io";
 import { MdSend } from "react-icons/md";
 
-const API_URL =
-  process.env.NEXT_PUBLIC_CHAT_API_URL || "http://localhost:8000/chat";
+const API_PATH = "/chat";
 
 type Msg = {
   role: "user" | "assistant" | "system";
@@ -24,7 +24,7 @@ export default function Chatbot() {
     if (!history.length) return "";
     // Convert our Msg[] to the "[USER] ... [/USER]\n[BOT] ... [/BOT]" format
     return history
-      .map((m) =>
+      .map((m: Msg) =>
         m.role === "user"
           ? `[USER] ${m.content} [/USER]`
           : m.role === "assistant"
@@ -39,7 +39,7 @@ export default function Chatbot() {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [history, loading]);
 
-  async function sendMessage(e: React.FormEvent) {
+  async function sendMessage(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const text = input.trim();
     if (!text || loading) return;
@@ -48,31 +48,21 @@ export default function Chatbot() {
     setInput("");
 
     // Add user message optimistically
-    setHistory((h) => [...h, { role: "user", content: text }]);
+    setHistory((h: Msg[]) => [...h, { role: "user", content: text }]);
 
     try {
-      const res = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          system:
-            " You are a helpful assistant. Keep replies concise and friendly.",
-          history: historyForBackend,
-          user: text,
-        }),
+      const res = await apiPostJson(API_PATH, {
+        system: " You are a helpful assistant. Keep replies concise and friendly.",
+        history: historyForBackend,
+        user: text,
       });
 
-      if (!res.ok) {
-        const body = await res.text();
-        throw new Error(`${res.status} ${res.statusText}: ${body}`);
-      }
-
       const data = (await res.json()) as { reply: string };
-      setHistory((h) => [...h, { role: "assistant", content: data.reply }]);
+      setHistory((h: Msg[]) => [...h, { role: "assistant", content: data.reply }]);
     } catch (err: any) {
       console.error(err);
       // Add a visible assistant error bubble
-      setHistory((h) => [
+      setHistory((h: Msg[]) => [
         ...h,
         {
           role: "assistant",
@@ -109,7 +99,7 @@ export default function Chatbot() {
               ✕
             </button>
             <div className="h-[320px] overflow-y-auto mt-4 pr-1 space-y-4">
-              {history.map((m, i) => (
+              {history.map((m: Msg, i: number) => (
                 <div
                   key={i}
                   className={`flex ${
