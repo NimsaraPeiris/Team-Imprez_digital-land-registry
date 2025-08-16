@@ -49,13 +49,11 @@ async def register(payload: UserRegisterRequest, db: AsyncSession = Depends(get_
 
 @router.post("/login", response_model=TokenResponse)
 async def login(payload: UserLoginRequest, db: AsyncSession = Depends(get_db)):
-    # Support both legacy email/password and new id+phone+otp flows
-    if payload.email and payload.password:
+    # Support both email-only login and id+phone+otp flows
+    # Email-only login: issue token if the email exists (no password required)
+    if payload.email:
         user = await get_user_by_email(db, payload.email)
-        if not user or not hasattr(user, 'password_hash'):
-            raise HTTPException(status_code=401, detail="Invalid credentials")
-        # Use the instance method on the ORM model which wraps the security helper
-        if not user.verify_password(payload.password):
+        if not user:
             raise HTTPException(status_code=401, detail="Invalid credentials")
         token = await create_access_token(str(user.user_id))
         return {"access_token": token, "token_type": "bearer"}

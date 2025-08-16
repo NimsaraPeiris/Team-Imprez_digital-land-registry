@@ -13,15 +13,15 @@ $BASE = 'http://127.0.0.1:8000'
 curl.exe -X POST "$BASE/api/user/auth/register" -H "Content-Type: application/json" -d '{"full_name":"Alice Example","nic_number":"NIC123456","email":"alice@example.com","password":"secret","phone_number":"0712345678","registration_office":"Central Office"}'
 ```
 
-## 2) Login (email/password) -> returns JSON with access_token
+## 2) Login (email-only) -> returns JSON with access_token
 ```bash
-curl.exe -X POST "$BASE/api/user/auth/login" -H "Content-Type: application/json" -d '{"email":"alice@example.com","password":"secret"}'
+curl.exe -X POST "$BASE/api/user/auth/login" -H "Content-Type: application/json" -d '{"email":"alice@example.com"}'
 ```
 
 Note: save the returned access_token for authenticated calls, e.g. in pwsh:
 
 ```
-$resp = curl.exe -s -X POST "$BASE/api/user/auth/login" -H "Content-Type: application/json" -d '{"email":"alice@example.com","password":"secret"}' | ConvertFrom-Json
+$resp = curl.exe -s -X POST "$BASE/api/user/auth/login" -H "Content-Type: application/json" -d '{"email":"alice@example.com"}' | ConvertFrom-Json
 ```
 ```
 $TOKEN = $resp.access_token

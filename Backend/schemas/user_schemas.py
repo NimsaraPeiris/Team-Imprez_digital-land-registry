@@ -32,9 +32,8 @@ class UserRegisterRequest(BaseModel):
 class UserLoginRequest(BaseModel):
     model_config = ConfigDict(validate_by_name=True)
 
-    # Support both legacy email/password and new id+phone+otp flows
+    # Support email-only login and id+phone+otp flows
     email: Optional[EmailStr] = None
-    password: Optional[str] = None
 
     # OTP flow fields (frontend uses 'id' and 'phone' and 'otp')
     id: Optional[str] = Field(None, alias="id", min_length=6)

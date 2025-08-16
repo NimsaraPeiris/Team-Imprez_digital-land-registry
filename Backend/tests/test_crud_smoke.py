@@ -47,6 +47,7 @@ def test_register_and_login_smoke():
             raise
         assert r.status_code in (201, 400)
 
-        login_payload = {"email": payload["email"], "password": payload["password"]}
+        # Login using email only (password not required)
+        login_payload = {"email": payload["email"]}
         r2 = client.post("/api/user/auth/login", json=login_payload)
         assert r2.status_code in (200, 401)
