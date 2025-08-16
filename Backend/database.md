@@ -31,4 +31,4 @@ CI should use the default sqlite DB (no extra setup). Ensure the CI job runs `py
 
 - SQLite is used for convenience in dev and CI. It is not a drop-in replacement for production databases in all cases; differences exist in concurrency, types and SQL dialect.
 - Enums are persisted as text columns when using SQLite.
-- If you have a production database or a different environment that requires a different DB backend, configure `DATABASE_URL_ASYNC` in your environment accordingly. This branch and its tests assume SQLite by default.
+- This branch and its tests assume SQLite by default.

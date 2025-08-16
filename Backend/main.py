@@ -42,7 +42,7 @@ app.include_router(internal_static_router, prefix="/api")
 # Optional startup event
 @app.on_event("startup")
 async def startup():
-    # For tests/dev: create tables and enums first using a temporary engine so we don't
+    # For tests/dev: create tables first using a temporary engine so we don't
     # pollute or create the application's main engine before DDL completes.
     from database.session import DATABASE_URL
     AUTO_CREATE = os.getenv('AUTO_CREATE_DB', '0') in ('1', 'true', 'yes')
@@ -77,7 +77,7 @@ async def startup():
             # Fail fast so test runner shows the real DDL error for non-permission issues
             raise last_exc
 
-    # Initialize DB engine/sessionmaker on the running event loop to avoid cross-loop asyncpg errors
+    # Initialize DB engine/sessionmaker on the running event loop to avoid cross-event-loop driver issues
     from database.session import init_engine, dispose_engine, get_engine
     import logging
     try:

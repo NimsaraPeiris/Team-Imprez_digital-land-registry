@@ -4,20 +4,19 @@ This README documents the Backend service only. It is separate from the reposito
 
 Quick start
 1. Copy `.env.example` to `.env` and fill values.
-2. Ensure PostgreSQL is running and the connection string in `.env` points to a reachable DB. If `AUTO_CREATE_DB` is enabled the app will try to create enums/tables (not recommended for production).
-3. Run the app:
+2. Run the app:
    - uvicorn main:app --reload
 
 Local file uploads
 - For development, uploaded documents are saved under `uploaded_documents/<object_name>`.
-- `tools/minio_storage.py` now writes files locally by default; support for MinIO can be reintroduced later.
+- `tools/minio_storage.py` writes files locally by default for development.
 - `uploaded_documents/` is gitignored.
 
 Tests
-- Run `pytest -q` in the Backend directory. Some tests require a configured PostgreSQL database and will be skipped if not configured.
+- Run `pytest -q` in the Backend directory. Tests run using the default SQLite configuration unless you explicitly configure a different database.
 
 Migrations
-- This project does not yet use Alembic. See `database.md` for SQL to create the required schema manually. Adding Alembic is recommended.
+- This project does not yet use Alembic. See `database.md` for manual schema instructions. Adding Alembic is recommended for production.
 
 Contact
 - Backend maintainer: see repository owner.
@@ -30,7 +29,7 @@ To set up and run this project, you will need the following installed on your ma
   * Node.js (18+)
   * pnpm (or npm/yarn if you prefer, but `pnpm` is used in the lockfile)
 
-For local development on this branch, the backend uses SQLite by default — you do NOT need a Postgres instance.
+For local development, the backend uses SQLite by default.
 
 #### 1. Backend Setup
 
@@ -42,4 +41,7 @@ For local development on this branch, the backend uses SQLite by default — you
     ```sh
     python -m pip install -r requirements.txt
     ```
-3.  Database configuration: the backend defaults to `sqlite+aiosqlite:///./db.sqlite3` for local development. To use Postgres in production, see `database.md` for instructions.
+3.  Database configuration: the backend defaults to `sqlite+aiosqlite:///./db.sqlite3` for local development.
+    ```sh
+    # No action required — SQLite is used by default for local development
+    ```

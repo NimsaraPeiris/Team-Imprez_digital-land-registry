@@ -258,7 +258,7 @@ To set up and run this project, you will need the following installed on your ma
   * Node.js (18+)
   * pnpm (or npm/yarn if you prefer, but `pnpm` is used in the lockfile)
 
-For local development on this branch, the backend uses SQLite by default — you do NOT need a Postgres instance.
+For local development the backend uses SQLite by default.
 
 -----
 
@@ -266,7 +266,7 @@ For local development on this branch, the backend uses SQLite by default — you
 
 Follow these steps to get the project running on your local machine.
 
-#### 1\. Backend Setup
+#### 1. Backend Setup
 
 1.  Navigate to the `backend` directory.
     ```sh
@@ -276,9 +276,9 @@ Follow these steps to get the project running on your local machine.
     ```sh
     python -m pip install -r requirements.txt
     ```
-3.  Database configuration: the backend defaults to `sqlite+aiosqlite:///./db.sqlite3` for local development. No Postgres instance is required on this branch.
+3.  Database configuration: the backend defaults to `sqlite+aiosqlite:///./db.sqlite3` for local development.
     ```sh
-    # No action required, sqlite is used by default
+    # No action required — SQLite is used by default for local development
     ```
 4.  The database schema is defined in `backend/db/lro_backend_models.py`. You'll need to create the tables. The models file includes a helper function `create_all_tables()` for development purposes, but for a production environment, it is highly recommended to use a migration tool like Alembic.
 

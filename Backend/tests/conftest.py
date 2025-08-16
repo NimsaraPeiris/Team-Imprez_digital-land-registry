@@ -3,7 +3,7 @@ import asyncio
 import pytest
 import sys
 
-# Use the selector event loop on Windows to avoid asyncpg/proactor transport issues in tests
+# On Windows prefer the selector event loop for broader compatibility with async drivers.
 if sys.platform == "win32":
     try:
         asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
@@ -37,7 +37,7 @@ def ensure_test_schema():
                     # Drop all tables first to ensure recreated tables reflect current models (adds missing columns)
                     await conn.run_sync(Base.metadata.drop_all)
 
-                    # For sqlite runs we do not create Postgres enum types — create tables only
+                    # For sqlite runs we do not create database-specific enum types — create tables only
                     await conn.run_sync(Base.metadata.create_all)
             finally:
                 await engine.dispose()

@@ -109,10 +109,9 @@ except Exception:
 from sqlalchemy import text
 
 async def create_all_tables(engine=None):
-    """Create enum types and tables. If `engine` (AsyncEngine) is provided it will be used;
+    """Create tables using SQLAlchemy metadata. If `engine` (AsyncEngine) is provided it will be used;
     otherwise the application's session provider will be initialized and its engine used.
-    This function now ensures the engine is disposed on failure to avoid leaving
-    connections in an aborted transaction state.
+    This function disposes the engine on failure to avoid leaving connections in an aborted transaction state.
     """
     # initialize/get engine on the currently running event loop if not provided
     if engine is None:
@@ -127,7 +126,6 @@ async def create_all_tables(engine=None):
             # Drop all tables first so we can recreate with the correct columns
             await conn.run_sync(Base.metadata.drop_all)
 
-            # For SQLite (dev) we do not create Postgres enum types — enums persist as text.
             # Create tables from SQLAlchemy metadata
             await conn.run_sync(Base.metadata.create_all)
 
@@ -155,7 +153,6 @@ async def create_all_tables(engine=None):
 
 async def create_all_tables_via_url(database_url: str):
     """Create tables using a temporary engine created from the provided database_url.
-    This variant creates tables without attempting Postgres-specific DDL.
     """
     if not database_url:
         return
@@ -163,7 +160,7 @@ async def create_all_tables_via_url(database_url: str):
     try:
         temp_engine = create_async_engine(database_url, future=True)
         async with temp_engine.begin() as conn:
-            # Create any missing tables without attempting to drop existing objects.
+            # Create any missing tables without attempting database-specific DDL.
             await conn.run_sync(Base.metadata.create_all)
     finally:
         if temp_engine is not None:

@@ -23,7 +23,7 @@ _async_session: Optional[async_sessionmaker] = None
 
 def init_engine(database_url: Optional[str] = None, echo: Optional[bool] = None) -> AsyncEngine:
     """Initialize the async engine and sessionmaker. Safe to call multiple times.
-    Should be called on the application's event loop (startup) so asyncpg uses the correct loop.
+    Should be called on the application's running event loop (startup) to avoid cross-event-loop driver issues.
     """
     global _engine, _async_session
     if database_url is None:
