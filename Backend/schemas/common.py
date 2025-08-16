@@ -5,7 +5,7 @@ from typing import Optional
 from datetime import datetime
 
 # -----------------------------
-# Enums (Postgres native)
+# Enums (application-level)
 # -----------------------------
 class UserTypeEnum(str, Enum):
     CITIZEN = "citizen"

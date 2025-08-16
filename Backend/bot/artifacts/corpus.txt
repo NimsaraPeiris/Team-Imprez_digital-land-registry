@@ -1,0 +1,1995 @@
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Where is my order?
+Please share your order ID and I’ll check the status.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Thank you
+Happy to help!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Thanks
+You're welcome! Let me know if you need anything else.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What's a good place to visit in Sri Lanka during August?
+Try Ella or Nuwara Eliya for cool weather and scenic views.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Thanks
+You're welcome! Let me know if you need anything else.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Do you have paracetamol in stock?
+Yes, 500 mg tablets are available. Do you want a pack or a box?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+How many days do I need for Kandy and Ella?
+Plan 2–3 days: 1 day in Kandy and 1–2 in Ella.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What's a good place to visit in Sri Lanka during August?
+Try Ella or Nuwara Eliya for cool weather and scenic views.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Where is my order?
+Please share your order ID and I’ll check the status.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Hi
+Hello! How can I help you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Are you open on weekends?
+Sorry, we are closed on weekends.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+App keeps crashing
+Please try clearing cache and restarting the app. Did that help?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Can I change my delivery address?
+Yes, if the order isn’t shipped yet. Share the order ID and new address.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Can I change my delivery address?
+Yes, if the order isn’t shipped yet. Share the order ID and new address.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+What's a good place to visit in Sri Lanka during August?
+Try Ella or Nuwara Eliya for cool weather and scenic views.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Hi
+Hello! How can I help you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Can I get a sugar-free cough syrup?
+Yes, we carry sugar-free options. I can suggest a few brands.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What's a good place to visit in Sri Lanka during August?
+Try Ella or Nuwara Eliya for cool weather and scenic views.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+App keeps crashing
+Please try clearing cache and restarting the app. Did that help?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Payment failed
+Check your card details and try again. If it persists, we can use bank transfer.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Payment failed
+Check your card details and try again. If it persists, we can use bank transfer.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+Thanks
+You're welcome! Let me know if you need anything else.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+What's a good place to visit in Sri Lanka during August?
+Try Ella or Nuwara Eliya for cool weather and scenic views.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What days are you open?
+We are open Monday through Friday, 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+Hi
+Hello! How can I help you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Where is my order?
+Please share your order ID and I’ll check the status.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Do you have paracetamol in stock?
+Yes, 500 mg tablets are available. Do you want a pack or a box?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+App keeps crashing
+Please try clearing cache and restarting the app. Did that help?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Can I change my delivery address?
+Yes, if the order isn’t shipped yet. Share the order ID and new address.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Do you have paracetamol in stock?
+Yes, 500 mg tablets are available. Do you want a pack or a box?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+App keeps crashing
+Please try clearing cache and restarting the app. Did that help?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Thank you
+Happy to help!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Where is the reset password option?
+It’s just below the password entry box on the login page.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+What are your working hours?
+We are open Monday to Friday from 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Payment failed
+Check your card details and try again. If it persists, we can use bank transfer.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+How many days do I need for Kandy and Ella?
+Plan 2–3 days: 1 day in Kandy and 1–2 in Ella.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How many days do I need for Kandy and Ella?
+Plan 2–3 days: 1 day in Kandy and 1–2 in Ella.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+Thanks
+You're welcome! Let me know if you need anything else.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I forgot my password
+No problem! Click 'Forgot password' on the login page to reset it.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+Hello
+Hi! How can I assist you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+Hello
+Hi! How can I assist you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hello
+Hi! How can I assist you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+Hi
+Hello! How can I help you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Hey
+Hey! What can I do for you?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+What days are you open?
+We are open Monday through Friday, 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hey
+Hey! What can I do for you?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What are your working hours?
+We are open Monday to Friday from 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+What are your working hours?
+We are open Monday to Friday from 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hello
+Hi! How can I assist you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What days are you open?
+We are open Monday through Friday, 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+Where is the reset password option?
+It’s just below the password entry box on the login page.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Thank you
+Happy to help!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What are your working hours?
+We are open Monday to Friday from 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Are you open on weekends?
+Sorry, we are closed on weekends.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What's a good place to visit in Sri Lanka during August?
+Try Ella or Nuwara Eliya for cool weather and scenic views.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+Hi
+Hello! How can I help you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+App keeps crashing
+Please try clearing cache and restarting the app. Did that help?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Do you work on public holidays?
+We are closed on public holidays.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What are your working hours?
+We are open Monday to Friday from 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+App keeps crashing
+Please try clearing cache and restarting the app. Did that help?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+App keeps crashing
+Please try clearing cache and restarting the app. Did that help?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+What days are you open?
+We are open Monday through Friday, 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+Payment failed
+Check your card details and try again. If it persists, we can use bank transfer.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+Are you open on weekends?
+Sorry, we are closed on weekends.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+What days are you open?
+We are open Monday through Friday, 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hello
+Hi! How can I assist you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Thanks
+You're welcome! Let me know if you need anything else.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+Hey
+Hey! What can I do for you?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Where is the reset password option?
+It’s just below the password entry box on the login page.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+Hello
+Hi! How can I assist you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Do you have paracetamol in stock?
+Yes, 500 mg tablets are available. Do you want a pack or a box?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hello
+Hi! How can I assist you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+What's a good place to visit in Sri Lanka during August?
+Try Ella or Nuwara Eliya for cool weather and scenic views.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+Hey
+Hey! What can I do for you?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+What are your working hours?
+We are open Monday to Friday from 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Thank you
+Happy to help!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Thank you
+Happy to help!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+Payment failed
+Check your card details and try again. If it persists, we can use bank transfer.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Do you work on public holidays?
+We are closed on public holidays.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+Hey
+Hey! What can I do for you?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Where is my order?
+Please share your order ID and I’ll check the status.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+Hey
+Hey! What can I do for you?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Can I change my delivery address?
+Yes, if the order isn’t shipped yet. Share the order ID and new address.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hey
+Hey! What can I do for you?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Where is my order?
+Please share your order ID and I’ll check the status.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Can I change my delivery address?
+Yes, if the order isn’t shipped yet. Share the order ID and new address.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Thank you
+Happy to help!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+What's a good place to visit in Sri Lanka during August?
+Try Ella or Nuwara Eliya for cool weather and scenic views.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Can I get a sugar-free cough syrup?
+Yes, we carry sugar-free options. I can suggest a few brands.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hello
+Hi! How can I assist you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Where is my order?
+Please share your order ID and I’ll check the status.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What are your working hours?
+We are open Monday to Friday from 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Payment failed
+Check your card details and try again. If it persists, we can use bank transfer.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hey
+Hey! What can I do for you?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Can I change my delivery address?
+Yes, if the order isn’t shipped yet. Share the order ID and new address.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I forgot my password
+No problem! Click 'Forgot password' on the login page to reset it.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+Thank you
+Happy to help!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Are you open on weekends?
+Sorry, we are closed on weekends.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+Payment failed
+Check your card details and try again. If it persists, we can use bank transfer.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Can I change my delivery address?
+Yes, if the order isn’t shipped yet. Share the order ID and new address.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Payment failed
+Check your card details and try again. If it persists, we can use bank transfer.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+What days are you open?
+We are open Monday through Friday, 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+Hey
+Hey! What can I do for you?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Where is the reset password option?
+It’s just below the password entry box on the login page.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Can I change my delivery address?
+Yes, if the order isn’t shipped yet. Share the order ID and new address.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+What are your working hours?
+We are open Monday to Friday from 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+Do you have paracetamol in stock?
+Yes, 500 mg tablets are available. Do you want a pack or a box?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Can I get a sugar-free cough syrup?
+Yes, we carry sugar-free options. I can suggest a few brands.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+What are your working hours?
+We are open Monday to Friday from 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+Are you open on weekends?
+Sorry, we are closed on weekends.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Thanks
+You're welcome! Let me know if you need anything else.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I forgot my password
+No problem! Click 'Forgot password' on the login page to reset it.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Thank you
+Happy to help!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I forgot my password
+No problem! Click 'Forgot password' on the login page to reset it.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+Do you work on public holidays?
+We are closed on public holidays.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I forgot my password
+No problem! Click 'Forgot password' on the login page to reset it.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Hey
+Hey! What can I do for you?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Do you work on public holidays?
+We are closed on public holidays.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+App keeps crashing
+Please try clearing cache and restarting the app. Did that help?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hi
+Hello! How can I help you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+How many days do I need for Kandy and Ella?
+Plan 2–3 days: 1 day in Kandy and 1–2 in Ella.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Are you open on weekends?
+Sorry, we are closed on weekends.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Where is the reset password option?
+It’s just below the password entry box on the login page.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+I forgot my password
+No problem! Click 'Forgot password' on the login page to reset it.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+What are your working hours?
+We are open Monday to Friday from 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What days are you open?
+We are open Monday through Friday, 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+What are your working hours?
+We are open Monday to Friday from 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What's a good place to visit in Sri Lanka during August?
+Try Ella or Nuwara Eliya for cool weather and scenic views.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+What's a good place to visit in Sri Lanka during August?
+Try Ella or Nuwara Eliya for cool weather and scenic views.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I forgot my password
+No problem! Click 'Forgot password' on the login page to reset it.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hi
+Hello! How can I help you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Are you open on weekends?
+Sorry, we are closed on weekends.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+Where is the reset password option?
+It’s just below the password entry box on the login page.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Can I change my delivery address?
+Yes, if the order isn’t shipped yet. Share the order ID and new address.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+What days are you open?
+We are open Monday through Friday, 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Where is my order?
+Please share your order ID and I’ll check the status.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+Do you have paracetamol in stock?
+Yes, 500 mg tablets are available. Do you want a pack or a box?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What are your working hours?
+We are open Monday to Friday from 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What are your working hours?
+We are open Monday to Friday from 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hello
+Hi! How can I assist you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+App keeps crashing
+Please try clearing cache and restarting the app. Did that help?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How many days do I need for Kandy and Ella?
+Plan 2–3 days: 1 day in Kandy and 1–2 in Ella.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hello
+Hi! How can I assist you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How many days do I need for Kandy and Ella?
+Plan 2–3 days: 1 day in Kandy and 1–2 in Ella.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Thanks
+You're welcome! Let me know if you need anything else.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Thank you
+Happy to help!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Where is my order?
+Please share your order ID and I’ll check the status.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Where is my order?
+Please share your order ID and I’ll check the status.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+I forgot my password
+No problem! Click 'Forgot password' on the login page to reset it.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+Where is my order?
+Please share your order ID and I’ll check the status.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I forgot my password
+No problem! Click 'Forgot password' on the login page to reset it.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+Thank you
+Happy to help!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Thanks
+You're welcome! Let me know if you need anything else.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+Do you have paracetamol in stock?
+Yes, 500 mg tablets are available. Do you want a pack or a box?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+App keeps crashing
+Please try clearing cache and restarting the app. Did that help?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+App keeps crashing
+Please try clearing cache and restarting the app. Did that help?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hey
+Hey! What can I do for you?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hi
+Hello! How can I help you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+Hey
+Hey! What can I do for you?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Do you have paracetamol in stock?
+Yes, 500 mg tablets are available. Do you want a pack or a box?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Where is my order?
+Please share your order ID and I’ll check the status.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Thank you
+Happy to help!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hi
+Hello! How can I help you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+What days are you open?
+We are open Monday through Friday, 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Can I change my delivery address?
+Yes, if the order isn’t shipped yet. Share the order ID and new address.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Thanks
+You're welcome! Let me know if you need anything else.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+App keeps crashing
+Please try clearing cache and restarting the app. Did that help?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I forgot my password
+No problem! Click 'Forgot password' on the login page to reset it.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Thank you
+Happy to help!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Payment failed
+Check your card details and try again. If it persists, we can use bank transfer.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Thank you
+Happy to help!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+App keeps crashing
+Please try clearing cache and restarting the app. Did that help?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+Hello
+Hi! How can I assist you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+Do you work on public holidays?
+We are closed on public holidays.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+Payment failed
+Check your card details and try again. If it persists, we can use bank transfer.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Where is the reset password option?
+It’s just below the password entry box on the login page.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Thanks
+You're welcome! Let me know if you need anything else.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Can I get a sugar-free cough syrup?
+Yes, we carry sugar-free options. I can suggest a few brands.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Where is my order?
+Please share your order ID and I’ll check the status.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Can I change my delivery address?
+Yes, if the order isn’t shipped yet. Share the order ID and new address.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+Do you have paracetamol in stock?
+Yes, 500 mg tablets are available. Do you want a pack or a box?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+Do you work on public holidays?
+We are closed on public holidays.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Payment failed
+Check your card details and try again. If it persists, we can use bank transfer.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What are your working hours?
+We are open Monday to Friday from 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I forgot my password
+No problem! Click 'Forgot password' on the login page to reset it.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Hello
+Hi! How can I assist you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I forgot my password
+No problem! Click 'Forgot password' on the login page to reset it.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hello
+Hi! How can I assist you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+App keeps crashing
+Please try clearing cache and restarting the app. Did that help?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+Can I change my delivery address?
+Yes, if the order isn’t shipped yet. Share the order ID and new address.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+Where is the reset password option?
+It’s just below the password entry box on the login page.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What's a good place to visit in Sri Lanka during August?
+Try Ella or Nuwara Eliya for cool weather and scenic views.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+How many days do I need for Kandy and Ella?
+Plan 2–3 days: 1 day in Kandy and 1–2 in Ella.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+What are your working hours?
+We are open Monday to Friday from 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+Thanks
+You're welcome! Let me know if you need anything else.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+What's a good place to visit in Sri Lanka during August?
+Try Ella or Nuwara Eliya for cool weather and scenic views.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hi
+Hello! How can I help you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Can I get a sugar-free cough syrup?
+Yes, we carry sugar-free options. I can suggest a few brands.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+I forgot my password
+No problem! Click 'Forgot password' on the login page to reset it.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Can I get a sugar-free cough syrup?
+Yes, we carry sugar-free options. I can suggest a few brands.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Hi
+Hello! How can I help you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Where is my order?
+Please share your order ID and I’ll check the status.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Thanks
+You're welcome! Let me know if you need anything else.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+What days are you open?
+We are open Monday through Friday, 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Thank you
+Happy to help!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Thanks
+You're welcome! Let me know if you need anything else.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Do you have paracetamol in stock?
+Yes, 500 mg tablets are available. Do you want a pack or a box?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How many days do I need for Kandy and Ella?
+Plan 2–3 days: 1 day in Kandy and 1–2 in Ella.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+Do you have paracetamol in stock?
+Yes, 500 mg tablets are available. Do you want a pack or a box?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hello
+Hi! How can I assist you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+Hi
+Hello! How can I help you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+Hello
+Hi! How can I assist you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How many days do I need for Kandy and Ella?
+Plan 2–3 days: 1 day in Kandy and 1–2 in Ella.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Where is my order?
+Please share your order ID and I’ll check the status.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hello
+Hi! How can I assist you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Thank you
+Happy to help!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How many days do I need for Kandy and Ella?
+Plan 2–3 days: 1 day in Kandy and 1–2 in Ella.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Can I get a sugar-free cough syrup?
+Yes, we carry sugar-free options. I can suggest a few brands.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Where is the reset password option?
+It’s just below the password entry box on the login page.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Payment failed
+Check your card details and try again. If it persists, we can use bank transfer.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hello
+Hi! How can I assist you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How many days do I need for Kandy and Ella?
+Plan 2–3 days: 1 day in Kandy and 1–2 in Ella.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Are you open on weekends?
+Sorry, we are closed on weekends.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+Payment failed
+Check your card details and try again. If it persists, we can use bank transfer.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Where is the reset password option?
+It’s just below the password entry box on the login page.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Do you have paracetamol in stock?
+Yes, 500 mg tablets are available. Do you want a pack or a box?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+Do you have paracetamol in stock?
+Yes, 500 mg tablets are available. Do you want a pack or a box?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Can I get a sugar-free cough syrup?
+Yes, we carry sugar-free options. I can suggest a few brands.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Thank you
+Happy to help!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Thanks
+You're welcome! Let me know if you need anything else.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How many days do I need for Kandy and Ella?
+Plan 2–3 days: 1 day in Kandy and 1–2 in Ella.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Can I get a sugar-free cough syrup?
+Yes, we carry sugar-free options. I can suggest a few brands.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What are your working hours?
+We are open Monday to Friday from 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hi
+Hello! How can I help you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Can I get a sugar-free cough syrup?
+Yes, we carry sugar-free options. I can suggest a few brands.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What days are you open?
+We are open Monday through Friday, 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Do you work on public holidays?
+We are closed on public holidays.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Do you work on public holidays?
+We are closed on public holidays.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+Where is the reset password option?
+It’s just below the password entry box on the login page.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Do you work on public holidays?
+We are closed on public holidays.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Hi
+Hello! How can I help you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+I forgot my password
+No problem! Click 'Forgot password' on the login page to reset it.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Do you work on public holidays?
+We are closed on public holidays.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Can I get a sugar-free cough syrup?
+Yes, we carry sugar-free options. I can suggest a few brands.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+Where is the reset password option?
+It’s just below the password entry box on the login page.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I forgot my password
+No problem! Click 'Forgot password' on the login page to reset it.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Are you open on weekends?
+Sorry, we are closed on weekends.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Can I get a sugar-free cough syrup?
+Yes, we carry sugar-free options. I can suggest a few brands.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+Can I change my delivery address?
+Yes, if the order isn’t shipped yet. Share the order ID and new address.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Do you have paracetamol in stock?
+Yes, 500 mg tablets are available. Do you want a pack or a box?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Do you work on public holidays?
+We are closed on public holidays.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I forgot my password
+No problem! Click 'Forgot password' on the login page to reset it.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+Are you open on weekends?
+Sorry, we are closed on weekends.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+I forgot my password
+No problem! Click 'Forgot password' on the login page to reset it.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hi
+Hello! How can I help you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+Do you have paracetamol in stock?
+Yes, 500 mg tablets are available. Do you want a pack or a box?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I forgot my password
+No problem! Click 'Forgot password' on the login page to reset it.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hello
+Hi! How can I assist you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hello
+Hi! How can I assist you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What's a good place to visit in Sri Lanka during August?
+Try Ella or Nuwara Eliya for cool weather and scenic views.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+Where is my order?
+Please share your order ID and I’ll check the status.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+App keeps crashing
+Please try clearing cache and restarting the app. Did that help?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Do you work on public holidays?
+We are closed on public holidays.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+App keeps crashing
+Please try clearing cache and restarting the app. Did that help?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hello
+Hi! How can I assist you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+App keeps crashing
+Please try clearing cache and restarting the app. Did that help?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Where is my order?
+Please share your order ID and I’ll check the status.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What's a good place to visit in Sri Lanka during August?
+Try Ella or Nuwara Eliya for cool weather and scenic views.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Can I get a sugar-free cough syrup?
+Yes, we carry sugar-free options. I can suggest a few brands.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+Where is my order?
+Please share your order ID and I’ll check the status.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What's a good place to visit in Sri Lanka during August?
+Try Ella or Nuwara Eliya for cool weather and scenic views.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Thanks
+You're welcome! Let me know if you need anything else.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Thank you
+Happy to help!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+I forgot my password
+No problem! Click 'Forgot password' on the login page to reset it.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hi
+Hello! How can I help you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+How many days do I need for Kandy and Ella?
+Plan 2–3 days: 1 day in Kandy and 1–2 in Ella.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+Hi
+Hello! How can I help you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hey
+Hey! What can I do for you?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+Can I change my delivery address?
+Yes, if the order isn’t shipped yet. Share the order ID and new address.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+How many days do I need for Kandy and Ella?
+Plan 2–3 days: 1 day in Kandy and 1–2 in Ella.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+Hey
+Hey! What can I do for you?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Thanks
+You're welcome! Let me know if you need anything else.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+What days are you open?
+We are open Monday through Friday, 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Can I change my delivery address?
+Yes, if the order isn’t shipped yet. Share the order ID and new address.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Thanks
+You're welcome! Let me know if you need anything else.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What days are you open?
+We are open Monday through Friday, 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+What days are you open?
+We are open Monday through Friday, 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+App keeps crashing
+Please try clearing cache and restarting the app. Did that help?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+Do you work on public holidays?
+We are closed on public holidays.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I forgot my password
+No problem! Click 'Forgot password' on the login page to reset it.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Can I change my delivery address?
+Yes, if the order isn’t shipped yet. Share the order ID and new address.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Are you open on weekends?
+Sorry, we are closed on weekends.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+What are your working hours?
+We are open Monday to Friday from 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Where is the reset password option?
+It’s just below the password entry box on the login page.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+Are you open on weekends?
+Sorry, we are closed on weekends.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+Hey
+Hey! What can I do for you?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Hey
+Hey! What can I do for you?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+Can I get a sugar-free cough syrup?
+Yes, we carry sugar-free options. I can suggest a few brands.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+How many days do I need for Kandy and Ella?
+Plan 2–3 days: 1 day in Kandy and 1–2 in Ella.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Are you open on weekends?
+Sorry, we are closed on weekends.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+Hey
+Hey! What can I do for you?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Thanks
+You're welcome! Let me know if you need anything else.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Can I get a sugar-free cough syrup?
+Yes, we carry sugar-free options. I can suggest a few brands.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Payment failed
+Check your card details and try again. If it persists, we can use bank transfer.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Hi
+Hello! How can I help you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+How many days do I need for Kandy and Ella?
+Plan 2–3 days: 1 day in Kandy and 1–2 in Ella.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Hi
+Hello! How can I help you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Thank you
+Happy to help!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Payment failed
+Check your card details and try again. If it persists, we can use bank transfer.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+Payment failed
+Check your card details and try again. If it persists, we can use bank transfer.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Payment failed
+Check your card details and try again. If it persists, we can use bank transfer.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Can I get a sugar-free cough syrup?
+Yes, we carry sugar-free options. I can suggest a few brands.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Thank you
+Happy to help!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+What's a good place to visit in Sri Lanka during August?
+Try Ella or Nuwara Eliya for cool weather and scenic views.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Can I get a sugar-free cough syrup?
+Yes, we carry sugar-free options. I can suggest a few brands.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hi
+Hello! How can I help you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+Do you have paracetamol in stock?
+Yes, 500 mg tablets are available. Do you want a pack or a box?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hey
+Hey! What can I do for you?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Can I get a sugar-free cough syrup?
+Yes, we carry sugar-free options. I can suggest a few brands.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Can I change my delivery address?
+Yes, if the order isn’t shipped yet. Share the order ID and new address.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Do you work on public holidays?
+We are closed on public holidays.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Hello
+Hi! How can I assist you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+Hey
+Hey! What can I do for you?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What days are you open?
+We are open Monday through Friday, 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+I forgot my password
+No problem! Click 'Forgot password' on the login page to reset it.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What's a good place to visit in Sri Lanka during August?
+Try Ella or Nuwara Eliya for cool weather and scenic views.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What days are you open?
+We are open Monday through Friday, 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+Thanks
+You're welcome! Let me know if you need anything else.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+Where is my order?
+Please share your order ID and I’ll check the status.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Hello
+Hi! How can I assist you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+Hello
+Hi! How can I assist you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Thanks
+You're welcome! Let me know if you need anything else.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Payment failed
+Check your card details and try again. If it persists, we can use bank transfer.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How many days do I need for Kandy and Ella?
+Plan 2–3 days: 1 day in Kandy and 1–2 in Ella.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+Thanks
+You're welcome! Let me know if you need anything else.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Where is my order?
+Please share your order ID and I’ll check the status.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hey
+Hey! What can I do for you?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Can I get a sugar-free cough syrup?
+Yes, we carry sugar-free options. I can suggest a few brands.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+How many days do I need for Kandy and Ella?
+Plan 2–3 days: 1 day in Kandy and 1–2 in Ella.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Payment failed
+Check your card details and try again. If it persists, we can use bank transfer.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How many days do I need for Kandy and Ella?
+Plan 2–3 days: 1 day in Kandy and 1–2 in Ella.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+Thank you
+Happy to help!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hey
+Hey! What can I do for you?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+Are you open on weekends?
+Sorry, we are closed on weekends.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I forgot my password
+No problem! Click 'Forgot password' on the login page to reset it.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+App keeps crashing
+Please try clearing cache and restarting the app. Did that help?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Do you work on public holidays?
+We are closed on public holidays.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Where is the reset password option?
+It’s just below the password entry box on the login page.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Payment failed
+Check your card details and try again. If it persists, we can use bank transfer.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+What are your working hours?
+We are open Monday to Friday from 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Thanks
+You're welcome! Let me know if you need anything else.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Can I get a sugar-free cough syrup?
+Yes, we carry sugar-free options. I can suggest a few brands.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Do you work on public holidays?
+We are closed on public holidays.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+Hi
+Hello! How can I help you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Where is the reset password option?
+It’s just below the password entry box on the login page.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+Hello
+Hi! How can I assist you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Hi [/USER] [BOT] Hello! How can I help you today? [/BOT]
+Thank you
+Happy to help!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hey
+Hey! What can I do for you?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What days are you open?
+We are open Monday through Friday, 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How many days do I need for Kandy and Ella?
+Plan 2–3 days: 1 day in Kandy and 1–2 in Ella.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What days are you open?
+We are open Monday through Friday, 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Do you have paracetamol in stock?
+Yes, 500 mg tablets are available. Do you want a pack or a box?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hello
+Hi! How can I assist you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+What's a good place to visit in Sri Lanka during August?
+Try Ella or Nuwara Eliya for cool weather and scenic views.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+The site is slow
+Thanks for flagging. Are you on mobile data or Wi-Fi? We’ll investigate.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Can I change my delivery address?
+Yes, if the order isn’t shipped yet. Share the order ID and new address.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What's a good place to visit in Sri Lanka during August?
+Try Ella or Nuwara Eliya for cool weather and scenic views.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+I can't log in
+Could you tell me what error you see when trying to log in?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hey
+Hey! What can I do for you?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Do you have paracetamol in stock?
+Yes, 500 mg tablets are available. Do you want a pack or a box?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Are you open on weekends?
+Sorry, we are closed on weekends.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What are your working hours?
+We are open Monday to Friday from 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Hey
+Hey! What can I do for you?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Do you have paracetamol in stock?
+Yes, 500 mg tablets are available. Do you want a pack or a box?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How long is delivery to Kandy?
+Standard delivery to Kandy takes 2–3 business days.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+App keeps crashing
+Please try clearing cache and restarting the app. Did that help?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+App keeps crashing
+Please try clearing cache and restarting the app. Did that help?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Thanks
+You're welcome! Let me know if you need anything else.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What are your working hours?
+We are open Monday to Friday from 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+How many days do I need for Kandy and Ella?
+Plan 2–3 days: 1 day in Kandy and 1–2 in Ella.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What's a good place to visit in Sri Lanka during August?
+Try Ella or Nuwara Eliya for cool weather and scenic views.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+Where is my order?
+Please share your order ID and I’ll check the status.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Payment failed
+Check your card details and try again. If it persists, we can use bank transfer.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Best beaches in Sri Lanka? [/USER] [BOT] Unawatuna, Mirissa, and Nilaveli are great options. [/BOT]
+App keeps crashing
+Please try clearing cache and restarting the app. Did that help?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Are you open on weekends?
+Sorry, we are closed on weekends.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+['']
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Can I get a sugar-free cough syrup?
+Yes, we carry sugar-free options. I can suggest a few brands.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Do you have paracetamol in stock?
+Yes, 500 mg tablets are available. Do you want a pack or a box?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How many days do I need for Kandy and Ella?
+Plan 2–3 days: 1 day in Kandy and 1–2 in Ella.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Do you work on public holidays?
+We are closed on public holidays.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Thanks [/USER] [BOT] You're welcome! Let me know if you need anything else. [/BOT]
+Hey
+Hey! What can I do for you?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Payment failed
+Check your card details and try again. If it persists, we can use bank transfer.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Hello
+Hi! How can I assist you today?
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Can I get a sugar-free cough syrup?
+Yes, we carry sugar-free options. I can suggest a few brands.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+Much appreciated
+Always happy to assist!
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+Where is my order?
+Please share your order ID and I’ll check the status.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] I can't log in [/USER] [BOT] Could you tell me what error you see when trying to log in? [/BOT]
+I forgot my password
+No problem! Click 'Forgot password' on the login page to reset it.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What days are you open?
+We are open Monday through Friday, 9 AM to 6 PM.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+How many days do I need for Kandy and Ella?
+Plan 2–3 days: 1 day in Kandy and 1–2 in Ella.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+What’s the price of vitamin C?
+A 100-tablet bottle is LKR 1200 at the moment.
+You are a friendly multi-purpose assistant. Be concise and helpful.
+[USER] Are you open on weekends? [/USER] [BOT] Sorry, we are closed on weekends. [/BOT]
+Best beaches in Sri Lanka?
+Unawatuna, Mirissa, and Nilaveli are great options.

@@ -8,8 +8,9 @@ from .user_payments import router as user_payments
 from .user_documents import router as user_documents
 from .admin_applications import router as admin_applications
 from .admin_documents import router as admin_documents
+from .chat import router as chat
 
 # Expose router names expected by main.py
 __all__ = [
-    'user_auth', 'user_applications', 'user_payments', 'user_documents', 'admin_applications', 'admin_documents'
+    'user_auth', 'user_applications', 'user_payments', 'user_documents', 'admin_applications', 'admin_documents', 'chat'
 ]

@@ -5,7 +5,7 @@ import { IoIosChatbubbles } from "react-icons/io";
 import { MdSend } from "react-icons/md";
 
 const API_URL =
-  process.env.NEXT_PUBLIC_CHAT_API_URL || "http://localhost:8000/chat";
+  process.env.NEXT_PUBLIC_CHAT_API_URL || "http://localhost:8000/api/chat/";
 
 type Msg = {
   role: "user" | "assistant" | "system";
