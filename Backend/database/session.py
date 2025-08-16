@@ -7,10 +7,10 @@ load_dotenv()
 # Read environment variable; use placeholder only if explicitly provided. If it's the placeholder
 # used in development examples, clear it so test helpers can detect "no DB configured" and skip DB tests.
 _env_database_url = os.getenv('DATABASE_URL_ASYNC', None)
-if _env_database_url in (None, '', 'postgresql+asyncpg://user:password@localhost:5432/dlr') or 'user:password' in str(_env_database_url):
-    # unset so tests that rely on os.getenv see empty value and skip DB-dependent tests
-    os.environ.pop('DATABASE_URL_ASYNC', None)
-    DATABASE_URL = ''
+
+# Default to sqlite for local dev/CI if no DATABASE_URL_ASYNC provided
+if not _env_database_url:
+    DATABASE_URL = 'sqlite+aiosqlite:///./db.sqlite3'
 else:
     DATABASE_URL = _env_database_url
 

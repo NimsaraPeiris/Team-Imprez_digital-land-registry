@@ -8,32 +8,37 @@ Run these commands as a **PostgreSQL superuser** or as a **database role** that 
 > **Note:** This file is intended for local development or CI where you control the database server.
 > In production, use a proper migration system (**Alembic**) and run migrations from CI or a migration management process.
 
-## 1) Create Database and User
+## Default (SQLite) — recommended for local development and CI
 
-Execute as an OS user that can run `psql` with superuser privileges.
+The backend uses an on-disk SQLite DB file located at `./db.sqlite3`.
 
-```sql
--- Example: create a database and a role that will own the schema and objects
-CREATE ROLE postgres WITH LOGIN PASSWORD 'postgres';
-CREATE DATABASE testdb OWNER postgres;
+To reset the local DB in the Backend folder, run (careful — this deletes the DB file):
+
+```pwsh
+# From Backend/
+Remove-Item -Path .\db.sqlite3 -Force -ErrorAction SilentlyContinue
 ```
 
-Or, grant an existing user sufficient privileges on an existing database:
+To create tables and seed initial data, run the application or call the helper:
 
-```sql
--- As superuser / owner of the DB:
-GRANT ALL PRIVILEGES ON DATABASE testdb TO postgres;
+```python
+from models.lro_backend_models import create_all_tables
+import asyncio
+asyncio.run(create_all_tables())
 ```
 
-## 2) Create Schema (Optional) and Set Ownership
+Uploaded documents are stored under `uploaded_documents/` (gitignored). Filenames and per-user paths are saved in the `uploaded_documents.file_path` column in the DB. The API serves files from `/internal/static/{path}` for development, with a simple X-User-Id header check for basic permission enforcement.
 
-Connect to the target database as superuser and run:
+## Optional: enable Postgres (not recommended for local dev)
 
-```sql
-\c testdb;
-CREATE SCHEMA IF NOT EXISTS public AUTHORIZATION postgres;
-ALTER SCHEMA public OWNER TO postgres;
+If you need to run against Postgres (production), install the optional Postgres requirements and set `DATABASE_URL_ASYNC` to a Postgres URL:
+
+```pwsh
+python -m pip install -r requirements-postgres.txt
+# then set DATABASE_URL_ASYNC in .env to a postgresql+asyncpg:// URL
 ```
+
+When using Postgres you should use a migration tool (Alembic) to manage schema changes.
 
 ## 3) Create Enum Types Used by the Application
 

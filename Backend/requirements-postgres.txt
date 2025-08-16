@@ -1,0 +1,5 @@
+# Optional requirements for Postgres/production support
+# Install these only when you need to run against Postgres or run Alembic migrations
+asyncpg
+alembic
+psycopg2-binary

@@ -1,8 +1,8 @@
 fastapi
 uvicorn[standard]
 sqlalchemy[asyncio]
-asyncpg
-alembic
+# sqlite driver is used for local development
+aiosqlite
 pydantic
 pydantic-settings
 passlib[bcrypt]

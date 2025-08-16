@@ -21,3 +21,25 @@ Migrations
 
 Contact
 - Backend maintainer: see repository owner.
+
+### Prerequisites
+
+To set up and run this project, you will need the following installed on your machine:
+
+  * Python (3.8+)
+  * Node.js (18+)
+  * pnpm (or npm/yarn if you prefer, but `pnpm` is used in the lockfile)
+
+For local development on this branch, the backend uses SQLite by default — you do NOT need a Postgres instance.
+
+#### 1. Backend Setup
+
+1.  Navigate to the `backend` directory.
+    ```sh
+    cd backend
+    ```
+2.  Install the required Python packages.
+    ```sh
+    python -m pip install -r requirements.txt
+    ```
+3.  Database configuration: the backend defaults to `sqlite+aiosqlite:///./db.sqlite3` for local development. To use Postgres in production, see `database.md` for instructions.
