@@ -1,17 +1,18 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { useAuth } from "@/contexts/auth-context"
-import GovernmentHeader from "@/components/government-header"
-import NavigationBar from "@/components/navigation-bar"
-import ContactSection from "@/components/contact-section"
-import Footer from "@/components/footer"
-import { ChevronDown, AlertCircle } from "lucide-react"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/auth-context";
+import GovernmentHeader from "@/components/government-header";
+import NavigationBar from "@/components/navigation-bar";
+import ContactSection from "@/components/contact-section";
+import Footer from "@/components/footer";
+import { ChevronDown, AlertCircle } from "lucide-react";
+import axios from "axios";
 
 export default function RegisterPage() {
-  const router = useRouter()
-  const { login } = useAuth()
+  const router = useRouter();
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -19,34 +20,34 @@ export default function RegisterPage() {
     id: "",
     requesterType: "",
     registrationOffice: "",
-  })
+  });
 
-  const [idError, setIdError] = useState("")
-  const [phoneError, setPhoneError] = useState("")
-  const [emailError, setEmailError] = useState("")
+  const [idError, setIdError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+  const [emailError, setEmailError] = useState("");
 
-  const [showOtpSection, setShowOtpSection] = useState(false)
-  const [otp, setOtp] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
-  const [otpError, setOtpError] = useState("")
+  const [showOtpSection, setShowOtpSection] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [otpError, setOtpError] = useState("");
 
   const validatePhoneNumber = (phone: string): string => {
-    if (!phone) return ""
+    if (!phone) return "";
 
-    const cleanPhone = phone.replace(/[\s\-$$$$]/g, "")
+    const cleanPhone = phone.replace(/[\s\-$$$$]/g, "");
 
-    let processedPhone = cleanPhone
+    let processedPhone = cleanPhone;
     if (cleanPhone.startsWith("+94")) {
-      processedPhone = "0" + cleanPhone.substring(3)
+      processedPhone = "0" + cleanPhone.substring(3);
     } else if (cleanPhone.startsWith("94") && cleanPhone.length === 11) {
-      processedPhone = "0" + cleanPhone.substring(2)
+      processedPhone = "0" + cleanPhone.substring(2);
     }
 
     if (!processedPhone.startsWith("0") || processedPhone.length !== 10) {
-      return "Phone number must be 10 digits starting with 0 or include +94 country code"
+      return "Phone number must be 10 digits starting with 0 or include +94 country code";
     }
 
-    const prefix = processedPhone.substring(1, 3)
+    const prefix = processedPhone.substring(1, 3);
 
     const validPrefixes = [
       "70",
@@ -86,152 +87,178 @@ export default function RegisterPage() {
       "67",
       "81",
       "91",
-    ]
+    ];
 
     if (!validPrefixes.includes(prefix)) {
-      return "Invalid Sri Lankan phone number prefix"
+      return "Invalid Sri Lankan phone number prefix";
     }
 
-    return ""
-  }
+    return "";
+  };
 
   const validateNIC = (nic: string): string => {
-    if (!nic) return ""
+    if (!nic) return "";
 
-    const cleanNIC = nic.trim().toUpperCase()
+    const cleanNIC = nic.trim().toUpperCase();
 
     if (/^\d{12}$/.test(cleanNIC)) {
-      return validateNewNIC(cleanNIC)
+      return validateNewNIC(cleanNIC);
     }
 
     if (/^\d{9}[VX]$/.test(cleanNIC)) {
-      return validateOldNIC(cleanNIC)
+      return validateOldNIC(cleanNIC);
     }
 
-    return "Invalid NIC format. Use either 12 digits (new format) or 9 digits followed by V/X (old format)"
-  }
+    return "Invalid NIC format. Use either 12 digits (new format) or 9 digits followed by V/X (old format)";
+  };
 
   const validateNewNIC = (nic: string): string => {
-    const year = Number.parseInt(nic.substring(0, 4))
-    const dayOfYear = Number.parseInt(nic.substring(4, 7))
+    const year = Number.parseInt(nic.substring(0, 4));
+    const dayOfYear = Number.parseInt(nic.substring(4, 7));
 
     if (year < 1900 || year > new Date().getFullYear()) {
-      return "Invalid birth year"
+      return "Invalid birth year";
     }
 
-    const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
-    const maxDays = isLeapYear ? 366 : 365
+    const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+    const maxDays = isLeapYear ? 366 : 365;
 
     if (dayOfYear >= 1 && dayOfYear <= maxDays) {
-      return ""
+      return "";
     } else if (dayOfYear >= 501 && dayOfYear <= 500 + maxDays) {
-      return ""
+      return "";
     } else {
-      return "Invalid day of year for the given birth year"
+      return "Invalid day of year for the given birth year";
     }
-  }
+  };
 
   const validateOldNIC = (nic: string): string => {
-    const yearDigits = Number.parseInt(nic.substring(0, 2))
-    const dayOfYear = Number.parseInt(nic.substring(2, 5))
-    const voterStatus = nic.charAt(9)
+    const yearDigits = Number.parseInt(nic.substring(0, 2));
+    const dayOfYear = Number.parseInt(nic.substring(2, 5));
+    const voterStatus = nic.charAt(9);
 
-    const currentYear = new Date().getFullYear()
-    const currentCentury = Math.floor(currentYear / 100) * 100
-    const fullYear = yearDigits <= currentYear % 100 ? currentCentury + yearDigits : currentCentury - 100 + yearDigits
+    const currentYear = new Date().getFullYear();
+    const currentCentury = Math.floor(currentYear / 100) * 100;
+    const fullYear =
+      yearDigits <= currentYear % 100
+        ? currentCentury + yearDigits
+        : currentCentury - 100 + yearDigits;
 
-    const isLeapYear = (fullYear % 4 === 0 && fullYear % 100 !== 0) || fullYear % 400 === 0
-    const maxDays = isLeapYear ? 366 : 365
+    const isLeapYear =
+      (fullYear % 4 === 0 && fullYear % 100 !== 0) || fullYear % 400 === 0;
+    const maxDays = isLeapYear ? 366 : 365;
 
     if (voterStatus !== "V" && voterStatus !== "X") {
-      return "Invalid voter status. Must end with V or X"
+      return "Invalid voter status. Must end with V or X";
     }
 
     if (dayOfYear >= 1 && dayOfYear <= maxDays) {
-      return ""
+      return "";
     } else if (dayOfYear >= 501 && dayOfYear <= 500 + maxDays) {
-      return ""
+      return "";
     } else {
-      return "Invalid day of year for the given birth year"
+      return "Invalid day of year for the given birth year";
     }
-  }
+  };
 
   const validateEmail = (email: string): string => {
-    if (!email) return ""
+    if (!email) return "";
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(email)) {
-      return "Please enter a valid email address"
+      return "Please enter a valid email address";
     }
 
     if (email.includes("..") || email.startsWith(".") || email.endsWith(".")) {
-      return "Email address contains invalid characters"
+      return "Email address contains invalid characters";
     }
 
     if (email.length > 254) {
-      return "Email address is too long"
+      return "Email address is too long";
     }
 
-    return ""
-  }
+    return "";
+  };
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }))
+    setFormData((prev) => ({ ...prev, [field]: value }));
 
     if (field === "id") {
-      const error = validateNIC(value)
-      setIdError(error)
+      const error = validateNIC(value);
+      setIdError(error);
     }
 
     if (field === "phone") {
-      const error = validatePhoneNumber(value)
-      setPhoneError(error)
+      const error = validatePhoneNumber(value);
+      setPhoneError(error);
     }
 
     if (field === "email") {
-      const error = validateEmail(value)
-      setEmailError(error)
+      const error = validateEmail(value);
+      setEmailError(error);
     }
-  }
+  };
 
   const handleBack = () => {
-    router.back()
-  }
+    router.back();
+  };
 
   const handleContinue = async () => {
-    const hasErrors = idError || phoneError || emailError
+    const hasErrors = idError || phoneError || emailError;
     const hasEmptyFields =
       !formData.fullName ||
       !formData.email ||
       !formData.phone ||
       !formData.id ||
       !formData.requesterType ||
-      !formData.registrationOffice
+      !formData.registrationOffice;
 
     if (hasErrors || hasEmptyFields) {
-      alert("Please fill all fields correctly before continuing")
-      return
+      alert("Please fill all fields correctly before continuing");
+      return;
     }
 
-    setIsLoading(true)
+    try {
+      const response = await axios.post(
+        `http://localhost:8000/api/user/auth/register`,
+        formData
+      );
+      console.log("Registration successful:", response.data);
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        // ✅ Now TypeScript knows "error" is an AxiosError
+        if (error.response) {
+          console.error("❌ API error:", error.response.data);
+        } else if (error.request) {
+          console.error("❌ No response from server:", error.request);
+        } else {
+          console.error("❌ Request setup error:", error.message);
+        }
+      } else {
+        // Non-Axios error
+        console.error("❌ Unexpected error:", error);
+      }
+    }
+
+    setIsLoading(true);
     // Simulate sending OTP
     setTimeout(() => {
-      setIsLoading(false)
-      setShowOtpSection(true)
-    }, 2000)
-  }
+      setIsLoading(false);
+      setShowOtpSection(true);
+    }, 2000);
+  };
 
   const handleVerifyOtp = async () => {
     if (!otp || otp.length !== 6) {
-      setOtpError("Please enter a valid 6-digit OTP")
-      return
+      setOtpError("Please enter a valid 6-digit OTP");
+      return;
     }
 
-    setIsLoading(true)
+    setIsLoading(true);
     // Simulate OTP verification
     setTimeout(() => {
-      setIsLoading(false)
+      setIsLoading(false);
       login({
         id: formData.id,
         phone: formData.phone,
@@ -239,16 +266,16 @@ export default function RegisterPage() {
         email: formData.email,
         requesterType: formData.requesterType,
         registrationOffice: formData.registrationOffice,
-      })
-      router.push("/dashboard")
-    }, 2000)
-  }
+      });
+      router.push("/dashboard");
+    }, 2000);
+  };
 
   const handleOtpChange = (value: string) => {
-    const numericValue = value.replace(/\D/g, "").slice(0, 6)
-    setOtp(numericValue)
-    if (otpError) setOtpError("")
-  }
+    const numericValue = value.replace(/\D/g, "").slice(0, 6);
+    setOtp(numericValue);
+    if (otpError) setOtpError("");
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -264,7 +291,8 @@ export default function RegisterPage() {
               <>
                 <div className="mb-8">
                   <h1 className="text-xl font-extrabold text-black leading-6">
-                    Enter Your details: <span className="font-normal">For Registration</span>
+                    Enter Your details:{" "}
+                    <span className="font-normal">For Registration</span>
                   </h1>
                 </div>
 
@@ -272,24 +300,34 @@ export default function RegisterPage() {
                   {/* ... existing form fields ... */}
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-14">
                     <div className="space-y-2">
-                      <label className="block text-black text-sm font-semibold">Full Name</label>
+                      <label className="block text-black text-sm font-semibold">
+                        Full Name
+                      </label>
                       <input
                         type="text"
                         value={formData.fullName}
-                        onChange={(e) => handleInputChange("fullName", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("fullName", e.target.value)
+                        }
                         className="w-full h-10 px-3 bg-[#E9E9E9] rounded-md text-sm text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 focus:ring-[#00508E]"
                         placeholder="Enter seller's full name"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="block text-black text-sm font-semibold">E-mail</label>
+                      <label className="block text-black text-sm font-semibold">
+                        E-mail
+                      </label>
                       <div className="relative">
                         <input
                           type="email"
                           value={formData.email}
-                          onChange={(e) => handleInputChange("email", e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("email", e.target.value)
+                          }
                           className={`w-full h-10 px-3 bg-[#E9E9E9] rounded-md text-sm text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
-                            emailError ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
+                            emailError
+                              ? "focus:ring-red-500 bg-red-50"
+                              : "focus:ring-[#00508E]"
                           }`}
                           placeholder="example@email.com"
                         />
@@ -308,14 +346,20 @@ export default function RegisterPage() {
 
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-14">
                     <div className="space-y-2">
-                      <label className="block text-black text-sm font-semibold">Phone</label>
+                      <label className="block text-black text-sm font-semibold">
+                        Phone
+                      </label>
                       <div className="relative">
                         <input
                           type="tel"
                           value={formData.phone}
-                          onChange={(e) => handleInputChange("phone", e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("phone", e.target.value)
+                          }
                           className={`w-full h-10 px-3 bg-[#E9E9E9] rounded-md text-sm text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
-                            phoneError ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
+                            phoneError
+                              ? "focus:ring-red-500 bg-red-50"
+                              : "focus:ring-[#00508E]"
                           }`}
                           placeholder="+94 70 123 4567 or 0701234567"
                         />
@@ -331,14 +375,20 @@ export default function RegisterPage() {
                       )}
                     </div>
                     <div className="space-y-2">
-                      <label className="block text-black text-sm font-semibold">Id</label>
+                      <label className="block text-black text-sm font-semibold">
+                        Id
+                      </label>
                       <div className="relative">
                         <input
                           type="text"
                           value={formData.id}
-                          onChange={(e) => handleInputChange("id", e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("id", e.target.value)
+                          }
                           className={`w-full h-10 px-3 bg-[#E9E9E9] rounded-md text-sm text-[#636363] placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
-                            idError ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
+                            idError
+                              ? "focus:ring-red-500 bg-red-50"
+                              : "focus:ring-[#00508E]"
                           }`}
                           placeholder="123456789V or 200012345678"
                         />
@@ -357,11 +407,15 @@ export default function RegisterPage() {
 
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-14">
                     <div className="space-y-2">
-                      <label className="block text-black text-sm font-semibold">Requester Type</label>
+                      <label className="block text-black text-sm font-semibold">
+                        Requester Type
+                      </label>
                       <div className="relative">
                         <select
                           value={formData.requesterType}
-                          onChange={(e) => handleInputChange("requesterType", e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("requesterType", e.target.value)
+                          }
                           className="w-full h-10 px-5 bg-white rounded-lg border border-[#B2ACAC] text-sm text-[#413F3F] appearance-none focus:outline-none focus:ring-2 focus:ring-[#00508E]"
                         >
                           <option value="">Requester Type</option>
@@ -373,18 +427,33 @@ export default function RegisterPage() {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <label className="block text-black text-sm font-semibold">Nearest Registration Office</label>
+                      <label className="block text-black text-sm font-semibold">
+                        Nearest Registration Office
+                      </label>
                       <div className="relative">
                         <select
                           value={formData.registrationOffice}
-                          onChange={(e) => handleInputChange("registrationOffice", e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange(
+                              "registrationOffice",
+                              e.target.value
+                            )
+                          }
                           className="w-full h-10 px-5 bg-white rounded-lg border border-[#B2ACAC] text-sm text-[#413F3F] appearance-none focus:outline-none focus:ring-2 focus:ring-[#00508E]"
                         >
                           <option value="">Nearest Registration Office</option>
-                          <option value="colombo">Colombo Registration Office</option>
-                          <option value="kandy">Kandy Registration Office</option>
-                          <option value="galle">Galle Registration Office</option>
-                          <option value="jaffna">Jaffna Registration Office</option>
+                          <option value="colombo">
+                            Colombo Registration Office
+                          </option>
+                          <option value="kandy">
+                            Kandy Registration Office
+                          </option>
+                          <option value="galle">
+                            Galle Registration Office
+                          </option>
+                          <option value="jaffna">
+                            Jaffna Registration Office
+                          </option>
                         </select>
                         <ChevronDown className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[#413F3F] pointer-events-none" />
                       </div>
@@ -407,7 +476,11 @@ export default function RegisterPage() {
                     >
                       {isLoading ? "Sending OTP..." : "Continue"}
                       <div className="w-6 h-6 rounded-full flex items-center justify-center">
-                        <img src="/continue.png" alt="Continue arrow" className="w-3 h-3" />
+                        <img
+                          src="/continue.png"
+                          alt="Continue arrow"
+                          className="w-3 h-3"
+                        />
                       </div>
                     </button>
                   </div>
@@ -416,7 +489,9 @@ export default function RegisterPage() {
             ) : (
               <>
                 <div className="mb-8">
-                  <h1 className="text-xl font-extrabold text-black leading-6 text-center">Verify Your Phone Number</h1>
+                  <h1 className="text-xl font-extrabold text-black leading-6 text-center">
+                    Verify Your Phone Number
+                  </h1>
                   <p className="text-gray-600 mt-2 text-center">
                     We've sent a 6-digit verification code to {formData.phone}
                   </p>
@@ -425,14 +500,18 @@ export default function RegisterPage() {
                 <div className="max-w-md mx-auto">
                   <div className="space-y-4">
                     <div className="space-y-2">
-                      <label className="block text-black text-sm font-semibold">Enter OTP Code</label>
+                      <label className="block text-black text-sm font-semibold">
+                        Enter OTP Code
+                      </label>
                       <div className="relative">
                         <input
                           type="text"
                           value={otp}
                           onChange={(e) => handleOtpChange(e.target.value)}
                           className={`w-full h-12 px-4 bg-[#E9E9E9] rounded-md text-lg text-center tracking-widest placeholder-[#636363] border-none focus:outline-none focus:ring-2 ${
-                            otpError ? "focus:ring-red-500 bg-red-50" : "focus:ring-[#00508E]"
+                            otpError
+                              ? "focus:ring-red-500 bg-red-50"
+                              : "focus:ring-[#00508E]"
                           }`}
                           placeholder="000000"
                           maxLength={6}
@@ -468,7 +547,11 @@ export default function RegisterPage() {
                     </div>
 
                     <div className="text-center pt-4">
-                      <button type="button" className="text-[#00508E] text-sm hover:underline" onClick={handleContinue}>
+                      <button
+                        type="button"
+                        className="text-[#00508E] text-sm hover:underline"
+                        onClick={handleContinue}
+                      >
                         Resend OTP
                       </button>
                     </div>
@@ -483,5 +566,5 @@ export default function RegisterPage() {
       <ContactSection />
       <Footer />
     </div>
-  )
+  );
 }
