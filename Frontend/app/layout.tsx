@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import { AuthProvider } from "@/contexts/auth-context";
 import { TranslationProvider } from "@/contexts/translation-context";
 import "./globals.css";
-import Chatbot from "@/components/chatbot/Chatbot";
+import ChatbotWrapper from "@/components/chatbot/ChatbotWrapper";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,16 +29,7 @@ export default function RootLayout({
           <AuthProvider>
             <div className="">
               {children}
-              <div
-                style={{
-                  position: "fixed",
-                  bottom: "20px",
-                  right: "20px",
-                  zIndex: 100,
-                }}
-              >
-                <Chatbot/>
-              </div>
+              <ChatbotWrapper />
             </div>
           </AuthProvider>
         </TranslationProvider>

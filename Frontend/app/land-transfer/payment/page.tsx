@@ -119,20 +119,33 @@ export default function LandTransferPaymentPage() {
               </p>
             </div>
 
-            {/* Progress Indicator - Now inside the form container after the header text */}
+            {/* Progress Indicator - Now with 5 steps */}
             <div className="mb-8">
-              <div className="w-[281px] flex items-center justify-between">
-                <div className="w-[31px] h-[31px] bg-[#36BF29] border border-[#36BF29] rounded-full flex items-center justify-center">
-                  <span className="text-white text-[15px] font-normal leading-[18px] font-inter">1</span>
-                </div>
-                <div className="w-[51px] h-0 border-t border-[#36BF29]"></div>
-                <div className="w-[31px] h-[31px] bg-[#36BF29] border border-[#36BF29] rounded-full flex items-center justify-center">
-                  <span className="text-white text-[15px] font-normal leading-[18px] font-inter">2</span>
-                </div>
-                <div className="w-[51px] h-0 border-t border-[#36BF29]"></div>
-                <div className="w-[31px] h-[31px] bg-[#F4F4F4] border border-[#737373] rounded-full flex items-center justify-center">
-                  <span className="text-[#807E7E] text-[15px] font-normal leading-[18px] font-inter">3</span>
-                </div>
+              <div className="w-[481px] flex items-center justify-between">
+              {/* Step 1 - Completed */}
+              <div className="w-[31px] h-[31px] bg-[#36BF29] border border-[#36BF29] rounded-full flex items-center justify-center">
+                <span className="text-white text-[15px] font-normal leading-[18px] font-inter">1</span>
+              </div>
+              <div className="w-[51px] h-0 border-t border-[#36BF29]"></div>
+              {/* Step 2 - Completed */}
+              <div className="w-[31px] h-[31px] bg-[#36BF29] border border-[#36BF29] rounded-full flex items-center justify-center">
+                <span className="text-white text-[15px] font-normal leading-[18px] font-inter">2</span>
+              </div>
+              <div className="w-[51px] h-0 border-t border-[#36BF29]"></div>
+              {/* Step 3 - Completed */}
+              <div className="w-[31px] h-[31px] bg-[#36BF29] border border-[#36BF29] rounded-full flex items-center justify-center">
+                <span className="text-white text-[15px] font-normal leading-[18px] font-inter">3</span>
+              </div>
+              <div className="w-[51px] h-0 border-t border-[#36BF29]"></div>
+              {/* Step 4 - Current */}
+              <div className="w-[31px] h-[31px] bg-[#F4F4F4] border border-[#737373] rounded-full flex items-center justify-center">
+                <span className="text-[#807E7E] text-[15px] font-normal leading-[18px] font-inter">4</span>
+              </div>
+              <div className="w-[51px] h-0 border-t border-[#737373]"></div>
+              {/* Step 5 - Upcoming */}
+              <div className="w-[31px] h-[31px] bg-[#F4F4F4] border border-[#737373] rounded-full flex items-center justify-center">
+                <span className="text-[#807E7E] text-[15px] font-normal leading-[18px] font-inter">5</span>
+              </div>
               </div>
             </div>
           </div>
