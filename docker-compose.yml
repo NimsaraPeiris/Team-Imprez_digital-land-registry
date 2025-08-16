@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  backend:
+    image: python:3.11-slim
+    container_name: dlr_backend
+    working_dir: /app
+    volumes:
+      - ./Backend:/app:delegated
+      - ./Backend/uploaded_documents:/app/uploaded_documents
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite+aiosqlite:///./db.sqlite3
+      - PYTHONUNBUFFERED=1
+    command: >
+      sh -c "pip install --no-cache-dir -r requirements.txt && uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/ || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  frontend:
+    image: node:18
+    container_name: dlr_frontend
+    working_dir: /app
+    volumes:
+      - ./Frontend:/app:delegated
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      backend:
+        condition: service_healthy
+    command: >
+      sh -c "corepack enable && corepack prepare pnpm@latest --activate && pnpm install --frozen-lockfile || pnpm install && pnpm dev --host 0.0.0.0"
+    restart: unless-stopped
+
+networks:
+  default:
+    driver: bridge
