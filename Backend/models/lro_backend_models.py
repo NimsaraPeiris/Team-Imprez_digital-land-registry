@@ -124,20 +124,11 @@ async def create_all_tables(engine=None):
 
     try:
         async with engine.begin() as conn:
-            # Drop all tables first so we can recreate with the correct enum-backed columns
+            # Drop all tables first so we can recreate with the correct columns
             await conn.run_sync(Base.metadata.drop_all)
 
-            # Drop enums if they already exist (safe for tests/dev only)
-            await conn.execute(sa_text("DROP TYPE IF EXISTS user_type_enum CASCADE;"))
-            await conn.execute(sa_text("DROP TYPE IF EXISTS verification_status_enum CASCADE;"))
-            await conn.execute(sa_text("DROP TYPE IF EXISTS payment_status_enum CASCADE;"))
-
-            # Create enums with exact names and values used by models
-            await conn.execute(text("CREATE TYPE user_type_enum AS ENUM ('citizen', 'officer', 'admin');"))
-            await conn.execute(text("CREATE TYPE verification_status_enum AS ENUM ('Pending', 'Verified', 'Rejected');"))
-            await conn.execute(text("CREATE TYPE payment_status_enum AS ENUM ('Pending', 'Completed', 'Failed', 'Refunded');"))
-
-            # Now create tables
+            # For SQLite (dev) we do not create Postgres enum types — enums persist as text.
+            # Create tables from SQLAlchemy metadata
             await conn.run_sync(Base.metadata.create_all)
 
         try:
@@ -155,9 +146,7 @@ async def create_all_tables(engine=None):
 
     except Exception:
         # On any error during schema creation, dispose the engine to ensure no
-        # connections remain in a failed/aborted transaction state. Swallow the
-        # error so startup can continue; callers/tests will surface errors when
-        # they actually try to use the DB if it's not configured correctly.
+        # connections remain in a failed/aborted transaction state.
         try:
             await engine.dispose()
         except Exception:
@@ -165,13 +154,8 @@ async def create_all_tables(engine=None):
         return
 
 async def create_all_tables_via_url(database_url: str):
-    """Create enums and tables using a temporary engine created from the provided database_url.
-    This runs schema DDL in a fresh engine and disposes it afterwards to avoid leaving
-    connections in an aborted transaction state in the application's main engine.
-
-    This variant is tolerant to existing enum types and avoids attempting to DROP types
-    (which can fail if the connected DB role is not the owner). It will create the
-    enum types only if they do not already exist, then create missing tables.
+    """Create tables using a temporary engine created from the provided database_url.
+    This variant creates tables without attempting Postgres-specific DDL.
     """
     if not database_url:
         return
@@ -179,32 +163,6 @@ async def create_all_tables_via_url(database_url: str):
     try:
         temp_engine = create_async_engine(database_url, future=True)
         async with temp_engine.begin() as conn:
-            # Ensure enum types exist (create only if missing) using a safe DO block.
-            await conn.execute(sa_text("""
-DO $$
-BEGIN
-    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'user_type_enum') THEN
-        CREATE TYPE user_type_enum AS ENUM ('citizen', 'officer', 'admin');
-    END IF;
-END$$;
-"""))
-            await conn.execute(sa_text("""
-DO $$
-BEGIN
-    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'verification_status_enum') THEN
-        CREATE TYPE verification_status_enum AS ENUM ('Pending', 'Verified', 'Rejected');
-    END IF;
-END$$;
-"""))
-            await conn.execute(sa_text("""
-DO $$
-BEGIN
-    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'payment_status_enum') THEN
-        CREATE TYPE payment_status_enum AS ENUM ('Pending', 'Completed', 'Failed', 'Refunded');
-    END IF;
-END$$;
-"""))
-
             # Create any missing tables without attempting to drop existing objects.
             await conn.run_sync(Base.metadata.create_all)
     finally:

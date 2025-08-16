@@ -28,7 +28,7 @@ A full-stack web application for a Digital Land Registry Hub, with a Next.js fro
 
   * **Framework**: FastAPI
   * **Language**: Python
-  * **Database**: PostgreSQL
+  * **Database**: SQLite (development default for this branch)
   * **ORM**: SQLAlchemy with `asyncio`
   * **Authentication**: JWT (JSON Web Tokens), `passlib` for password hashing
 
@@ -271,13 +271,13 @@ Follow these steps to get the project running on your local machine.
     ```sh
     cd backend
     ```
-2.  Install the required Python packages. If you face an issue with the `pip` command not being recognized, use `python -m pip` instead.
+2.  Install the required Python packages.
     ```sh
     python -m pip install -r requirements.txt
     ```
-3.  **Database Configuration**: The project is set up to use PostgreSQL. You must have a database running. Open `backend/db/lro_backend_models.py` and update the `DATABASE_URL_ASYNC` with your database credentials.
-    ```python
-    DATABASE_URL_ASYNC = "postgresql+asyncpg://user:password@localhost:5432/lro_db"
+3.  Database configuration: the backend defaults to `sqlite+aiosqlite:///./db.sqlite3` for local development. No Postgres instance is required on this branch.
+    ```sh
+    # No action required, sqlite is used by default
     ```
 4.  The database schema is defined in `backend/db/lro_backend_models.py`. You'll need to create the tables. The models file includes a helper function `create_all_tables()` for development purposes, but for a production environment, it is highly recommended to use a migration tool like Alembic.
 

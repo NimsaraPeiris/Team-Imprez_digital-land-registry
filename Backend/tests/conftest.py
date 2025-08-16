@@ -37,15 +37,7 @@ def ensure_test_schema():
                     # Drop all tables first to ensure recreated tables reflect current models (adds missing columns)
                     await conn.run_sync(Base.metadata.drop_all)
 
-                    await conn.execute(text("DROP TYPE IF EXISTS user_type_enum CASCADE;"))
-                    await conn.execute(text("DROP TYPE IF EXISTS verification_status_enum CASCADE;"))
-                    await conn.execute(text("DROP TYPE IF EXISTS payment_status_enum CASCADE;"))
-
-                    await conn.execute(text("CREATE TYPE user_type_enum AS ENUM ('citizen', 'officer', 'admin');"))
-                    await conn.execute(text("CREATE TYPE verification_status_enum AS ENUM ('Pending', 'Verified', 'Rejected');"))
-                    await conn.execute(text("CREATE TYPE payment_status_enum AS ENUM ('Pending', 'Completed', 'Failed', 'Refunded');"))
-
-                    # create tables using metadata via sync callable
+                    # For sqlite runs we do not create Postgres enum types — create tables only
                     await conn.run_sync(Base.metadata.create_all)
             finally:
                 await engine.dispose()
